@@ -917,7 +917,7 @@
             <text>5</text>
           </controlProperties>
         </control>
-        <control controlID="11" controlTypeID="com.balsamiq.mockups::Image" x="15" y="7" w="50" h="50" measuredW="77" measuredH="79" zOrder="11" locked="false" isInGroup="301">
+        <control controlID="11" controlTypeID="com.balsamiq.mockups::Image" x="15" y="7" w="50" h="50" measuredW="800" measuredH="600" zOrder="11" locked="false" isInGroup="301">
           <controlProperties>
             <src>./putensteak.jpg</src>
             <text/>
@@ -998,7 +998,7 @@
             <text>5</text>
           </controlProperties>
         </control>
-        <control controlID="11" controlTypeID="com.balsamiq.mockups::Image" x="15" y="7" w="50" h="50" measuredW="77" measuredH="79" zOrder="11" locked="false" isInGroup="302">
+        <control controlID="11" controlTypeID="com.balsamiq.mockups::Image" x="15" y="7" w="50" h="50" measuredW="960" measuredH="583" zOrder="11" locked="false" isInGroup="302">
           <controlProperties>
             <src>./53727-960x720-kartoffel-gemuese-auflauf.jpg</src>
             <text/>
@@ -1023,16 +1023,16 @@
             <borderStyle>roundedSolid</borderStyle>
           </controlProperties>
         </control>
-        <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="15" y="7" w="50" h="50" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="303">
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="15" y="7" w="50" h="50" measuredW="800" measuredH="600" zOrder="1" locked="false" isInGroup="303">
           <controlProperties>
             <src>./Lauch-Quiche_2.jpg</src>
             <text/>
           </controlProperties>
         </control>
-        <control controlID="2" controlTypeID="com.balsamiq.mockups::SubTitle" x="75" y="7" w="-1" h="-1" measuredW="72" measuredH="17" zOrder="2" locked="false" isInGroup="303">
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::SubTitle" x="75" y="7" w="-1" h="-1" measuredW="80" measuredH="17" zOrder="2" locked="false" isInGroup="303">
           <controlProperties>
             <size>14</size>
-            <text>Lauchqiche</text>
+            <text>Lauchquiche</text>
           </controlProperties>
         </control>
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Icon" x="241" y="3" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="3" locked="false" isInGroup="303">
@@ -1101,6 +1101,11 @@
       <controlProperties>
         <size>16</size>
         <text>V</text>
+      </controlProperties>
+    </control>
+    <control controlID="305" controlTypeID="com.balsamiq.mockups::Image" x="1266" y="372" w="10" h="13" measuredW="225" measuredH="288" zOrder="61" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./huhn.png</src>
       </controlProperties>
     </control>
   </controls>

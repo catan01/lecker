@@ -241,12 +241,12 @@
         <text>Angebot%20vom%2026.04.2013</text>
       </controlProperties>
     </control>
-    <control controlID="136" controlTypeID="com.balsamiq.mockups::ButtonBar" x="1132" y="181" w="319" h="28" measuredW="257" measuredH="27" zOrder="104" locked="false" isInGroup="-1">
+    <control controlID="136" controlTypeID="com.balsamiq.mockups::ButtonBar" x="1182" y="181" w="269" h="28" measuredW="179" measuredH="27" zOrder="104" locked="false" isInGroup="-1">
       <controlProperties>
-        <hrefs>Anmelden%26bm%3BAnmelden.bmml%26bm%3BAnmelden.bmml%26bm%3BAnmelden.bmml%2CRegistrierung%26bm%3BRegistrierung.bmml%26bm%3BRegistrierung.bmml%26bm%3BRegistrierung.bmml%2CFavoriten%26bm%3BFavoriten.bmml%26bm%3BFavoriten.bmml%26bm%3BFavoriten.bmml%2C</hrefs>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22767%2C129%2C870%2C157%22%20href%3D%22Anmelden.bmml%22%20alt%3D%22Anmelden%22%20id%3D%22136%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22870%2C129%2C989%2C157%22%20href%3D%22Registrierung.bmml%22%20alt%3D%22Registrierung%22%20id%3D%22136%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22989%2C129%2C1085%2C157%22%20href%3D%22Favoriten.bmml%22%20alt%3D%22Favoriten%22%20id%3D%22136%22/%3E%0A</map>
+        <hrefs>Anmelden%26bm%3BAnmelden.bmml%26bm%3BAnmelden.bmml%26bm%3BAnmelden.bmml%2CRegistrierung%26bm%3BRegistrierung.bmml%26bm%3BRegistrierung.bmml%26bm%3BRegistrierung.bmml</hrefs>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22817%2C129%2C941%2C157%22%20href%3D%22Anmelden.bmml%22%20alt%3D%22Anmelden%22%20id%3D%22136%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22941%2C129%2C1085%2C157%22%20href%3D%22Registrierung.bmml%22%20alt%3D%22Registrierung%22%20id%3D%22136%22/%3E%0A</map>
         <selectedIndex>-1</selectedIndex>
-        <text>Anmelden%2C%20Registrieren%2C%20Favoriten</text>
+        <text>Anmelden%2C%20Registrieren</text>
       </controlProperties>
     </control>
     <control controlID="137" controlTypeID="com.balsamiq.mockups::SearchBox" x="1297" y="229" w="-1" h="-1" measuredW="120" measuredH="25" zOrder="41" locked="false" isInGroup="-1">
@@ -973,7 +973,7 @@
         <text>0</text>
       </controlProperties>
     </control>
-    <control controlID="314" controlTypeID="com.balsamiq.mockups::SubTitle" x="557" y="371" w="-1" h="-1" measuredW="11" measuredH="19" zOrder="102" locked="false" isInGroup="-1">
+    <control controlID="314" controlTypeID="com.balsamiq.mockups::SubTitle" x="561" y="371" w="-1" h="-1" measuredW="11" measuredH="19" zOrder="102" locked="false" isInGroup="-1">
       <controlProperties>
         <size>16</size>
         <text>V</text>
@@ -1002,10 +1002,10 @@
             <text/>
           </controlProperties>
         </control>
-        <control controlID="2" controlTypeID="com.balsamiq.mockups::SubTitle" x="75" y="7" w="-1" h="-1" measuredW="72" measuredH="17" zOrder="2" locked="false" isInGroup="316">
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::SubTitle" x="75" y="7" w="-1" h="-1" measuredW="80" measuredH="17" zOrder="2" locked="false" isInGroup="316">
           <controlProperties>
             <size>14</size>
-            <text>Lauchqiche</text>
+            <text>Lauchquiche</text>
           </controlProperties>
         </control>
         <control controlID="3" controlTypeID="com.balsamiq.mockups::SubTitle" x="75" y="25" w="-1" h="-1" measuredW="70" measuredH="15" zOrder="3" locked="false" isInGroup="316">
@@ -1063,6 +1063,11 @@
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
+    </control>
+    <control controlID="317" controlTypeID="com.balsamiq.mockups::Image" x="1266" y="372" w="10" h="13" measuredW="225" measuredH="288" zOrder="105" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./huhn.png</src>
+      </controlProperties>
     </control>
   </controls>
 </mockup>
