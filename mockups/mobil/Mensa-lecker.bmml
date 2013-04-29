@@ -1,0 +1,75 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="621" measuredH="543" mockupW="282" mockupH="510">
+  <controls>
+    <control controlID="8" controlTypeID="__group__" x="339" y="33" w="282" h="510" measuredW="282" measuredH="510" zOrder="0" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::iPhone" x="0" y="0" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="0" locked="false" isInGroup="8">
+          <controlProperties>
+            <bgPattern>allWhite</bgPattern>
+            <orientation>portrait</orientation>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::TextArea" x="26" y="99" w="230" h="31" measuredW="200" measuredH="140" zOrder="1" locked="false" isInGroup="8">
+          <controlProperties>
+            <align>center</align>
+            <bold>true</bold>
+            <color>40463</color>
+            <size>14</size>
+            <text>Mensaauswahl</text>
+            <verticalScrollbar>false</verticalScrollbar>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::TextArea" x="26" y="130" w="230" h="59" measuredW="200" measuredH="140" zOrder="2" locked="false" isInGroup="8">
+          <controlProperties>
+            <bold>true</bold>
+            <size>16</size>
+            <text>Mensa%20Uhlhornsweg%20Ausgabe%20A</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::TextArea" x="26" y="248" w="230" h="59" measuredW="200" measuredH="140" zOrder="4" locked="false" isInGroup="8">
+          <controlProperties>
+            <bold>true</bold>
+            <size>16</size>
+            <text>Mensa%20Uhlhornsweg%20Culinarium</text>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::TextArea" x="26" y="307" w="230" h="59" measuredW="200" measuredH="140" zOrder="5" locked="false" isInGroup="8">
+          <controlProperties>
+            <bold>true</bold>
+            <size>16</size>
+            <text>Mensa%20Wechloy</text>
+          </controlProperties>
+        </control>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::TextArea" x="26" y="366" w="230" h="59" measuredW="200" measuredH="140" zOrder="6" locked="false" isInGroup="8">
+          <controlProperties>
+            <bold>true</bold>
+            <size>16</size>
+            <text>Mensa%20Ofener%20Stra%DFe</text>
+          </controlProperties>
+        </control>
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::ButtonBar" x="26" y="404" w="230" h="27" measuredW="202" measuredH="27" zOrder="7" locked="false" isInGroup="8">
+          <controlProperties>
+            <hrefs>Start-lecker%26bm%3BStart-lecker.bmml%26bm%3BStart-lecker.bmml%26bm%3BStart-lecker.bmml%2CMensa-lecker%26bm%3BMensa-lecker.bmml%26bm%3BMensa-lecker.bmml%26bm%3BMensa-lecker.bmml%2CAnmelden-lecker%26bm%3BAnmelden-lecker.bmml%26bm%3BAnmelden-lecker.bmml%26bm%3BAnmelden-lecker.bmml</hrefs>
+            <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2226%2C404%2C88%2C431%22%20href%3D%22Start-lecker.bmml%22%20alt%3D%22Start-lecker%22%20id%3D%227%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%2288%2C404%2C160%2C431%22%20href%3D%22Mensa-lecker.bmml%22%20alt%3D%22Mensa-lecker%22%20id%3D%227%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22160%2C404%2C254%2C431%22%20href%3D%22Anmelden-lecker.bmml%22%20alt%3D%22Anmelden-lecker%22%20id%3D%227%22/%3E%0A</map>
+            <selectedIndex>1</selectedIndex>
+            <text>Start%2C%20Mensa%2C%20Anmelden</text>
+          </controlProperties>
+        </control>
+        <control controlID="8" controlTypeID="__group__" x="26" y="189" w="230" h="59" measuredW="230" measuredH="59" zOrder="3" locked="false" isInGroup="8">
+          <controlProperties>
+            <href>Start-lecker%26bm%3BStart-lecker.bmml%26bm%3BStart-lecker.bmml%26bm%3BStart-lecker.bmml</href>
+            <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2226%2C189%2C256%2C248%22%20href%3D%22Start-lecker.bmml%22%20alt%3D%22Start-lecker%22%20id%3D%228%22/%3E</map>
+          </controlProperties>
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::TextArea" x="0" y="0" w="230" h="59" measuredW="200" measuredH="140" zOrder="0" locked="false" isInGroup="8">
+              <controlProperties>
+                <bold>true</bold>
+                <size>16</size>
+                <text>Mensa%20Uhlhornsweg%20Ausgabe%20B</text>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+</mockup>
