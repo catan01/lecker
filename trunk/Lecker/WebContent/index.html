@@ -1,0 +1,511 @@
+<html>
+<head>
+	<title>Lecker</title>
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/south-street/jquery-ui-1.10.2.custom.min.css" rel="stylesheet">
+	<script src="js/jquery-1.9.1.js"></script>
+	<script src="js/jquery-ui-1.10.2.custom.js"></script>
+	<script>
+	
+		$(function() {
+			
+			/* Initialize widgets */
+			$( "button" ).button();
+			$( "#datepicker" ).datepicker({
+				inline: true
+			});
+			$( "#datepicker" ).hide(); 
+			
+			/* Toggle datepicker */
+			$("#datepickerImage").click(function() {
+				var visible = $('#datepicker').is(':visible');
+				visible? $('#datepicker').hide() : $('#datepicker').show();
+			});
+			
+			/* Left date-arrow */
+			$("#date_left").click(function() {
+				date.setDate(date.getDate() - 1);
+				var day = date.getDate();
+				var month = date.getMonth() + 1;  /*returns months from 0-11 */
+				var year = date.getFullYear();
+				$( "#datetitle" ).html("Angebot vom " + day + "." + month + "." + year);
+				
+				$( "#datepicker" ).datepicker("setDate", date);
+			});
+			
+			/* Right date-arrow */
+			$("#date_right").click(function() {
+				date.setDate(date.getDate() + 1);
+				var day = date.getDate();
+				var month = date.getMonth() + 1;  /*returns months from 0-11 */
+				var year = date.getFullYear();
+				$( "#datetitle" ).html("Angebot vom " + day + "." + month + "." + year);
+				
+				$( "#datepicker" ).datepicker("setDate", date);
+			});
+			
+			/* Get current date */
+			var date = new Date();
+			var day = date.getDate();
+			var month = date.getMonth() + 1;  /*returns months from 0-11 */
+			var year = date.getFullYear();
+			
+			$( "#datetitle" ).html("Angebot vom " + day + "." + month + "." + year);
+		
+		});
+	</script>
+</head>
+<body>
+	
+	
+	<div id="header">
+		<div id="banner">
+			<span id="title">Lecker!</span>
+		</div>
+		<div id="menu">
+			<button>Anmelden</button>
+			<button>Registrieren</button>
+		</div>
+	</div>
+	<hr/>
+	<div id="date">
+		<span id="datetitle"></span><br>
+		<img id="date_left" class="pointer" src="images/arrow_left.png">&nbsp;&nbsp;&nbsp;
+		<img id="datepickerImage" class="pointer" src="images/calendar.png">&nbsp;&nbsp;&nbsp;
+		<img id="date_right" class="pointer" src="images/arrow_right.png">
+		<div id="datepicker"></div>
+	</div>
+	<div class="mealcontainer">
+		<div class="ausgabe">Ausgabe A</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Hähnchenschnitzel, Chilisauce</b> <img title="Geflügel" src="images/mealinfo/huhn_small.png">
+				<br>
+				1,80 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				5
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Kabeljaufilet, Senfsauce</b> <img title="Fisch" src="images/mealinfo/fisch_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+	</div>
+	<div class="mealcontainer">
+		<div class="ausgabe">Ausgabe B</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+	</div>
+	<div class="mealcontainer">
+		<div class="ausgabe">Culinarium</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+	</div>
+	<div class="mealcontainer">
+		<div class="ausgabe">Wechloy</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+	</div>
+	<div class="mealcontainer">
+		<div class="ausgabe">Ofener Straße</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+		<div class="meal">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/v+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="mealcomments">
+				4
+			</div>
+		</div>
+	</div>
+</body>
+</html>
