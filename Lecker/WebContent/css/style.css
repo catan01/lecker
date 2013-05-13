@@ -1,0 +1,128 @@
+﻿body {
+	font-family: "Verdana";
+	font-size: 12pt;
+	margin: 30px;
+}
+
+button {
+	font: 8pt "Verdana" !important;
+}
+
+.pointer {
+	cursor: pointer; cursor: hand;
+}
+
+/* TOP */
+#header {
+	position: relative;
+	height: 70px;
+}
+#banner {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+#menu {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+#title {
+	font-size: 64pt;
+	color: #0A8104;
+	line-height: 1;
+}
+
+/* DATE */
+#date {
+	margin:0px auto;
+	text-align: center;
+}
+
+#datetitle {
+	font: 24pt "Verdana";
+	color: #0A8104;
+	line-height:1.5;
+}
+
+#datepicker {
+	margin: 0px auto;
+	width: 250px;
+	font-size: 10pt;
+}
+
+hr {
+	color: #0A8104;
+	background-color: #0A8104;
+	border-color: #0A8104;
+}
+
+div.mealcontainer {
+	width: 20%;
+	float: left;
+}
+
+div.ausgabe {
+	font: 18pt "Verdana";
+	text-align: center;
+	color: #0A8104;
+}
+
+div.meal {
+	position: relative;
+	
+	width: 240px;
+	height: 100px;
+	
+	font-size: 10pt;
+	
+	border: 1px solid #dfd9c3;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	
+	background: #f5f3e5 url(south-street/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png) 50% top repeat-x;
+	
+	margin: 5px auto;
+	margin-bottom: 10px;
+}
+
+div.mealpicture {
+	position:absolute;
+	top: 5px;
+	left: 5px;
+}
+
+div.mealtitle {
+	position: absolute;
+	top: 5px;
+	left: 75px;
+	width: 140px;
+	/* word-wrap: break-word;  Zeilenumbruch erzwingen  */
+}
+
+div.mealrating {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+}
+
+div.mealcomments {
+	font-size: 6.5pt;
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	bottom: 5px;
+	right: 5px;
+	background: url(images/bubble_small.png);
+	text-align: center;
+}
+
+/* text selection */
+::selection {
+	background: #F0C97C;
+}
+::-moz-selection {
+	background: #F0C97C;
+}
