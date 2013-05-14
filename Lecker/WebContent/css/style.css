@@ -239,7 +239,7 @@ input.overlay_input_name {
 div.overlay_input_comment {
 	position: absolute;
 	top: 380px;
-	height: 110px;
+	height: 70px;
 	left: 10px;
 	right: 10px;
 }
@@ -249,6 +249,67 @@ textarea.overlay_input_comment {
 	width:100%;
 	height: 100%;
 	resize: none;
+}
+
+div.overlay_input_send {
+	position: absolute;
+	top: 460;
+	right: 10px;
+}
+
+#lightBox2 {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -200px;
+	margin-top: -150px;
+	z-index: 200;
+	width: 400px;
+	height: 300px;
+	background-color: #fff;
+}
+
+#overlay_login {
+	font-size: 10pt;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+div.login_title {
+	position: absolute;
+	top: 10px;
+	width: 100%;
+	font-size: 24pt;
+	text-align: center;
+	
+}
+
+div.login_name {
+	position: absolute;
+	top: 80px;
+	right: 98px;
+}
+
+input.login_name {
+	
+}
+
+div.login_password {
+	position: absolute;
+	right: 10px;
+	top: 120px;
+}
+
+input.login_password {
+	
+}
+
+div.login_lostpassword {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
 }
 
 /* text selection */
