@@ -6,67 +6,90 @@
 	<script src="js/jquery-1.9.1.js"></script>
 	<script src="js/jquery-ui-1.10.2.custom.js"></script>
 	<script>
-	
 		$(function() {
-			
+
 			/* Initialize widgets */
-			$( "button" ).button();
-			$( "#datepicker" ).datepicker({
-				inline: true
+			$("button").button();
+			$("#datepicker").datepicker({
+				inline : true
 			});
-			$( "#datepicker" ).hide();
-			
-			var availableTags = [
-			         			"Gemüsepfanne mit Getreide und Kernen",
-			         			"Hähnchenschnitzel, Chilisauce"
-			         			];
-			
-       		$( "#autocomplete" ).autocomplete({
-       			source: availableTags
-       		});
-			
+			$("#datepicker").hide();
+
+			var availableTags = [ "Gemüsepfanne mit Getreide und Kernen",
+					"Hähnchenschnitzel, Chilisauce" ];
+
+			$("#autocomplete").autocomplete({
+				source : availableTags
+			});
+
 			/* Toggle datepicker */
 			$("#datepickerImage").click(function() {
 				var visible = $('#datepicker').is(':visible');
-				visible? $('#datepicker').hide() : $('#datepicker').show();
+				visible ? $('#datepicker').hide() : $('#datepicker').show();
 			});
-			
+
 			/* Left date-arrow */
-			$("#date_left").click(function() {
-				date.setDate(date.getDate() - 1);
-				var day = date.getDate();
-				var month = date.getMonth() + 1;  /*returns months from 0-11 */
-				var year = date.getFullYear();
-				$( "#datetitle" ).html("Angebot vom " + day + "." + month + "." + year);
-				
-				$( "#datepicker" ).datepicker("setDate", date);
-			});
-			
+			$("#date_left").click(
+					function() {
+						date.setDate(date.getDate() - 1);
+						var day = date.getDate();
+						var month = date.getMonth() + 1; /*returns months from 0-11 */
+						var year = date.getFullYear();
+						$("#datetitle")
+								.html(
+										"Angebot vom " + day + "." + month
+												+ "." + year);
+
+						$("#datepicker").datepicker("setDate", date);
+					});
+
 			/* Right date-arrow */
-			$("#date_right").click(function() {
-				date.setDate(date.getDate() + 1);
-				var day = date.getDate();
-				var month = date.getMonth() + 1;  /*returns months from 0-11 */
-				var year = date.getFullYear();
-				$( "#datetitle" ).html("Angebot vom " + day + "." + month + "." + year);
-				
-				$( "#datepicker" ).datepicker("setDate", date);
-			});
-			
+			$("#date_right").click(
+					function() {
+						date.setDate(date.getDate() + 1);
+						var day = date.getDate();
+						var month = date.getMonth() + 1; /*returns months from 0-11 */
+						var year = date.getFullYear();
+						$("#datetitle")
+								.html(
+										"Angebot vom " + day + "." + month
+												+ "." + year);
+
+						$("#datepicker").datepicker("setDate", date);
+					});
+
 			/* Get current date */
 			var date = new Date();
 			var day = date.getDate();
-			var month = date.getMonth() + 1;  /*returns months from 0-11 */
+			var month = date.getMonth() + 1; /*returns months from 0-11 */
 			var year = date.getFullYear();
+
+			$("#datetitle").html(
+					"Angebot vom " + day + "." + month + "." + year);
+
 			
-			$( "#datetitle" ).html("Angebot vom " + day + "." + month + "." + year);
-		
 		});
+		
+		function overlay(mode) {
+			if (mode == 'display') {
+				if (document.getElementById("overlay") === null) {
+					div = document.createElement("div");
+					div.setAttribute('id', 'overlay');
+					div.setAttribute('onclick', 'overlay();');
+					document.getElementsByTagName("body")[0]
+							.appendChild(div);
+					$("#lightBox").show();
+				}
+			} else {
+				document.getElementsByTagName("body")[0]
+						.removeChild(document.getElementById("overlay"));
+				$("#lightBox").hide();
+			}
+		};
 	</script>
 </head>
 <body>
-	
-	
+	<div id="lightBox">Gerichtinfo...</div>
 	<div id="header">
 		<div id="banner">
 			<span id="title">Lecker!</span>
@@ -92,7 +115,7 @@
 	</div>
 	<div class="mealcontainer">
 		<div class="ausgabe">Ausgabe A</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display');">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -113,7 +136,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -134,7 +157,7 @@
 				5
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -152,7 +175,7 @@
 				Ø 3,4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -176,7 +199,7 @@
 	</div>
 	<div class="mealcontainer">
 		<div class="ausgabe">Ausgabe B</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -197,7 +220,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -218,7 +241,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -239,7 +262,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -263,7 +286,7 @@
 	</div>
 	<div class="mealcontainer">
 		<div class="ausgabe">Culinarium</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -284,7 +307,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -305,7 +328,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -329,7 +352,7 @@
 	</div>
 	<div class="mealcontainer">
 		<div class="ausgabe">Wechloy</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -350,7 +373,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -371,7 +394,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -392,7 +415,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -416,7 +439,7 @@
 	</div>
 	<!-- zwecks praesentation nur 4 ausgaben :D <div class="mealcontainer">
 		<div class="ausgabe">Ofener Straße</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -437,7 +460,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -458,7 +481,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -479,7 +502,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
@@ -500,7 +523,7 @@
 				4
 			</div>
 		</div>
-		<div class="meal">
+		<div class="meal pointer" onclick="overlay('display')">
 			<div class="mealpicture">
 				<img src="images/kartoffeln_small.jpg">
 			</div>
