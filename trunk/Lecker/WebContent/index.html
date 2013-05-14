@@ -89,7 +89,52 @@
 	</script>
 </head>
 <body>
-	<div id="lightBox">Gerichtinfo...</div>
+	<div id="lightBox">
+		<div id="overlay_meal">
+			<div class="overlay_picture">
+				<img src="images/kartoffeln.jpg">
+			</div>
+			<div class="overlay_title">
+				<b>Gemüsepfanne mit Getreide und Kernen</b> <img title="Vegan" src="images/mealinfo/V+_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="overlay_close">
+				<button onclick="overlay()">X</button>
+			</div>
+			<div class="overlay_rating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
+			</div>
+			<div class="overlay_comments">
+				<div class="overlay_comment">
+					<div class="overlay_comment_title">
+						Heinz - 26.04.2013
+					</div>
+					<div class="overlay_comment_rating">
+						<img src="images/star_gray_small.png">
+						<img src="images/star_gray_small.png">
+						<img src="images/star_gray_small.png">
+						<img src="images/star_gray_small.png">
+						<img src="images/star_gray_small.png">
+					</div>
+					<div class="overlay_comment_content">
+						Das schmeckt widerlich!
+					</div>
+				</div>
+			</div>
+			<div class="overlay_input_name">
+				<input class="overlay_input_name" placeholder="Name">
+			</div>
+			<div class="overlay_input_comment">
+				<textarea class="overlay_input_comment" placeholder="Kommentar"></textarea>
+			</div>
+		</div>
+	</div>
 	<div id="header">
 		<div id="banner">
 			<span id="title">Lecker!</span>
@@ -194,6 +239,24 @@
 			</div>
 			<div class="mealcomments">
 				4
+			</div>
+		</div>
+		<div class="meal pointer" onclick="overlay('display')">
+			<div class="mealpicture">
+				<img src="images/kartoffeln_small.jpg">
+			</div>
+			<div class="mealtitle">
+				<b>Kabeljaufilet, Senfsauce</b> <img title="Fisch" src="images/mealinfo/fisch_small.png">
+				<br>
+				1,40 €
+			</div>
+			<div class="mealrating">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_green_small.png">
+				<img src="images/star_gray_small.png">
+				<img src="images/star_gray_small.png">
+				Ø 3,4
 			</div>
 		</div>
 	</div>
