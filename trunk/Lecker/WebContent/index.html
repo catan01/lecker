@@ -14,7 +14,16 @@
 			$( "#datepicker" ).datepicker({
 				inline: true
 			});
-			$( "#datepicker" ).hide(); 
+			$( "#datepicker" ).hide();
+			
+			var availableTags = [
+			         			"Gemüsepfanne mit Getreide und Kernen",
+			         			"Hähnchenschnitzel, Chilisauce"
+			         			];
+			
+       		$( "#autocomplete" ).autocomplete({
+       			source: availableTags
+       		});
 			
 			/* Toggle datepicker */
 			$("#datepickerImage").click(function() {
@@ -68,12 +77,18 @@
 		</div>
 	</div>
 	<hr/>
-	<div id="date">
-		<span id="datetitle"></span><br>
-		<img id="date_left" class="pointer" src="images/arrow_left.png">&nbsp;&nbsp;&nbsp;
-		<img id="datepickerImage" class="pointer" src="images/calendar.png">&nbsp;&nbsp;&nbsp;
-		<img id="date_right" class="pointer" src="images/arrow_right.png">
-		<div id="datepicker"></div>
+	<div id="middle">
+		<div id="search">
+			<input id="autocomplete" placeholder="Gericht suchen">
+		</div>
+		<div id="date">
+			<span id="datetitle"></span><br> <img id="date_left"
+				class="pointer" src="images/arrow_left.png">&nbsp;&nbsp;&nbsp;
+			<img id="datepickerImage" class="pointer" src="images/calendar.png">&nbsp;&nbsp;&nbsp;
+			<img id="date_right" class="pointer" src="images/arrow_right.png">
+			<div id="datepicker"></div>
+		</div>
+		
 	</div>
 	<div class="mealcontainer">
 		<div class="ausgabe">Ausgabe A</div>
@@ -399,7 +414,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="mealcontainer">
+	<!-- zwecks praesentation nur 4 ausgaben :D <div class="mealcontainer">
 		<div class="ausgabe">Ofener Straße</div>
 		<div class="meal">
 			<div class="mealpicture">
@@ -506,6 +521,6 @@
 				4
 			</div>
 		</div>
-	</div>
+	</div> -->
 </body>
 </html>
