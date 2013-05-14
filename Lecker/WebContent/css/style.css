@@ -1,7 +1,7 @@
-﻿body {
+body {
 	font-family: "Verdana";
 	font-size: 12pt;
-	margin: 30px;
+	margin: 10px;
 }
 
 button {
@@ -35,8 +35,13 @@ button {
 	line-height: 1;
 }
 
+#middle {
+
+}
+
 /* DATE */
 #date {
+	width: 500px;
 	margin:0px auto;
 	text-align: center;
 }
@@ -53,6 +58,10 @@ button {
 	font-size: 10pt;
 }
 
+#search {
+	float:right;
+}
+
 hr {
 	color: #0A8104;
 	background-color: #0A8104;
@@ -60,7 +69,7 @@ hr {
 }
 
 div.mealcontainer {
-	width: 20%;
+	width: 25%;
 	float: left;
 }
 
