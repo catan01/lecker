@@ -1,0 +1,29 @@
+Treffen Montag 14.15
+
+
+Server
+-DB -- Stephan
+-Datenbankanbindung  -- Lutz
+--Ordner mit Gericht ID aufm Server -> da Bilder abspeichern
+
+
+
+
+Login
+-Facebook, g+, twitter, open id - API -- Björn
+
+
+
+
+Parser -- Stephan
+
+
+
+Client
+-favoriten
+-Mobile Version -- Tim
+-suche
+-top/flop
+-wochenübersicht
+(-Gerichte highscore)
+(-pizza station)
