@@ -2,8 +2,7 @@ package lecker.model.data;
 
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import lecker.model.data.comments.Commentable;
 
 
 
@@ -13,39 +12,32 @@ import java.util.Arrays;
  * @author LWagner
  *
  */
-public class Meal {
-	public static enum Type {Bla, Blubb} //TODO
-	
+public class Meal extends Commentable {
+	private final Integer ID;
 	private String name;
-	private ArrayList<MealPiece> pieces;
 	private Integer price;
-	private Type type;
+	private Kategorie kategorie;
 	
 	
 	
-	public Meal(String name, int price, Type type) {
+	public Meal(int id, String name, int price, Kategorie kategorie) {
+		this.ID = id;
 		this.name = name;
-		pieces = new ArrayList<MealPiece>();
 		this.price = price;
-		this.type = type;
-	}
-	
-	public Meal(String name, MealPiece[] pieces, int price, Type type) {
-		this(name, price, type);
-		setPieces(pieces);
+		this.kategorie = kategorie;
 	}
 	
 	
+	
+	public int getID() {
+		synchronized (ID) {
+			return this.ID;
+		}
+	}
 	
 	public String getName() {
 		synchronized (this.name) {
 			return this.name;
-		}
-	}
-	
-	public MealPiece[] getPieces() {
-		synchronized(this.pieces) {
-			return pieces.toArray(new MealPiece[0]);
 		}
 	}
 	
@@ -54,16 +46,10 @@ public class Meal {
 			return price;
 		}
 	}
-	public Type getType() {
-		synchronized(this.type) {
-			return type;
-		}
-	}
 	
-	public void setPieces(MealPiece[] pieces) {
-		synchronized(this.pieces) {
-			this.pieces.clear();
-			this.pieces.addAll(Arrays.asList(pieces));
+	public Kategorie getkategorie() {
+		synchronized(this.kategorie) {
+			return kategorie;
 		}
 	}
 	
@@ -73,9 +59,9 @@ public class Meal {
 		}
 	}
 	
-	public void setType(Type type) {
-		synchronized(this.type) {
-			this.type = type;
+	public void setKategorie(Kategorie kategorie) {
+		synchronized(this.kategorie) {
+			this.kategorie = kategorie;
 		}
 	}
 }

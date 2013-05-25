@@ -8,7 +8,6 @@ package lecker.model.db;
  * @author LWagner
  *
  */
-public interface DBStatement {
-	public void postStatement();
-	public String[] getPrepareStatements();
+public interface DBStatement<T> {
+	public T postQuery();
 }
