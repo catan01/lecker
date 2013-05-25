@@ -16,20 +16,20 @@ import java.util.HashMap;
 public class Weekplan {
 	public static enum Day {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday}
 	
-	private HashMap<Day, ArrayList<Meal>> plan;
+	private final HashMap<Day, ArrayList<Integer>> PLAN;
 	
 
 
 	public Weekplan() {
-		plan = new HashMap<Day, ArrayList<Meal>>();
+		PLAN = new HashMap<Day, ArrayList<Integer>>();
 	}
 	
 	
 	
-	public Meal[] getMeals(Day day) {
-		synchronized (this.plan) {
+	public Integer[] getMeals(Day day) {
+		synchronized (this.PLAN) {
 			try {
-				return this.plan.get(day).toArray(new Meal[0]);
+				return this.PLAN.get(day).toArray(new Integer[0]);
 			} catch (NullPointerException exc) {
 				return null;
 			}
@@ -38,21 +38,21 @@ public class Weekplan {
 	
 	
 	
-	public void addMeal(Day day, Meal meal) {
-		synchronized (this.plan) {
-			if (!this.plan.containsKey(day)) {
-				this.plan.put(day, new ArrayList<Meal>());
+	public void addMeal(Day day, int mealID) {
+		synchronized (this.PLAN) {
+			if (!this.PLAN.containsKey(day)) {
+				this.PLAN.put(day, new ArrayList<Integer>());
 			}
-			this.plan.get(day).add(meal);
+			this.PLAN.get(day).add(mealID);
 		}
 	}
 	
-	public void removeMeal(Day day, Meal meal) {
-		synchronized (this.plan) {
+	public void removeMeal(Day day, int mealID) {
+		synchronized (this.PLAN) {
 			try {
-				this.plan.get(day).remove(meal);
-				if (this.plan.get(day).isEmpty()) {
-					this.plan.remove(day);
+				this.PLAN.get(day).remove(mealID);
+				if (this.PLAN.get(day).isEmpty()) {
+					this.PLAN.remove(day);
 				}
 			} catch (NullPointerException exc) { }
 		}

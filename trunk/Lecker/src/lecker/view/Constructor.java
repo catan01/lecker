@@ -9,7 +9,7 @@ package lecker.view;
  *
  */
 public class Constructor {
-	public String getSide(String remoteAddr, AbstractSide side) {
+	public String getSide(String remoteAddr, AbstractSite side) {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(side.getCode(remoteAddr));
 		

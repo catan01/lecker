@@ -13,7 +13,7 @@ import java.util.HashMap;
  *
  */
 public class Canteen {
-	final private HashMap<Integer, HashMap<String, Weekplan>> plans = new HashMap<Integer, HashMap<String, Weekplan>>();
+	private final HashMap<Integer, HashMap<String, Weekplan>> plans = new HashMap<Integer, HashMap<String, Weekplan>>();
 	
 	
 	

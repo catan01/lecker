@@ -1,19 +1,17 @@
 package lecker.model.data;
 
-public class User {
+public class Kategorie {
 	private final String NAME;
 	
 	
 	
-	public User(String name) {
+	public Kategorie(String name) {
 		this.NAME = name;
 	}
 	
 	
 	
 	public String getName() {
-		synchronized(this.NAME) {
-			return this.NAME;
-		}
+		return this.NAME;
 	}
 }

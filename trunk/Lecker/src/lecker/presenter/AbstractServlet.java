@@ -5,7 +5,6 @@ package lecker.presenter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import lecker.model.Loader;
 import lecker.view.Constructor;
 
 
@@ -26,7 +25,14 @@ public abstract class AbstractServlet  extends HttpServlet{
 	@Override
 	public synchronized void init() throws ServletException {
 		super.init();
-		Loader.init();
+		Loader.getInstance().init();
 		constructor = new Constructor();
+	}
+	
+	@Override
+	public synchronized void destroy() {
+		super.destroy();
+		Loader.getInstance().destruct();
+		constructor = null;
 	}
 }
