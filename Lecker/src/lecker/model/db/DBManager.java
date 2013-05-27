@@ -20,15 +20,15 @@ import lecker.presenter.Handler;
  *
  */
 public class DBManager {
-	final static String TITLE_COMMENT = "Kommentar";
+	final static String TITLE_COMMENT = "Bewertung";
 	final static String TITLE_COMMENT_ID = "Bewertung_ID";
 	final static String TITLE_COMMENT_RATING = "Note";
 	final static String TITLE_COMMENT_COMMENT = "Kommentar";
-	final static String TITLE_COMMENT_MEAL = "Speise_Name";
+	final static String TITLE_COMMENT_MEAL = "Speise";
 	final static String TITLE_COMMENT_USER = "Benutzer";
 
 	final static String TITLE_FAVOURITE = "Favorit";
-	final static String TITLE_FAVOURITE_MEAL= "Speise_Name";
+	final static String TITLE_FAVOURITE_MEAL= "Speise";
 	final static String TITLE_FAVOURITE_USER= "Benutzer";
 
 	final static String TITLE_KATEGORIE = "Kategorie";
@@ -38,7 +38,7 @@ public class DBManager {
 	final static String TITLE_LABEL_NAME= "Name";
 
 	final static String TITLE_LABELING = "Kennzeichnung";
-	final static String TITLE_LABELING_MEAL= "Speise_Name";
+	final static String TITLE_LABELING_MEAL= "Speise";
 	final static String TITLE_LABELING_LABEL= "Inhaltsstoff";
 
 	final static String TITLE_MEAL = "Speise";
@@ -50,7 +50,7 @@ public class DBManager {
 	final static String TITLE_OUTLAY_NAME = "Name";
 
 	final static String TITLE_PLAN = "Speiseplan";
-	final static String TITLE_PLAN_MEAL= "Speise_Name";
+	final static String TITLE_PLAN_MEAL= "Speise";
 	final static String TITLE_PLAN_OUTLAY = "Ausgabe";
 	final static String TITLE_PLAN_DAY = "Tag";
 
@@ -67,7 +67,7 @@ public class DBManager {
 	
 	
 	
-	public static void init() {
+	public DBManager() {
 		synchronized (LOCK) {
 			if (connection == null) {
 				try {
@@ -80,19 +80,7 @@ public class DBManager {
 		}
 	}
 	
-	public static void destruct() {
-		synchronized (LOCK) {
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					Handler.getInstance().getExceptionHandler().handle(e);
-				} finally {
-					connection = null;
-				}
-			}
-		}
-	}
+	
 	
 	PreparedStatement prepareStatement(String query) throws SQLException {
 		synchronized (LOCK) {

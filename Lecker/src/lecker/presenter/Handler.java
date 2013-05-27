@@ -7,22 +7,23 @@ import lecker.model.db.DBManager;
 
 
 public class Handler {
-	private final DBManager DBMANAGER;
-	private final ExceptionHandler EXCEPTIONHANDLER;
-	private final Loader LOADER;
-	private final MealManager MEALMANAGER;
-	private final UserManager USERMANAGER;
+	private DBManager dbManager;
+	private final ExceptionHandler exceptonHandler;
+	private final Loader loader;
+	private MealManager mealsManager;
+	private UserManager userManager;
 	
 	private static Handler instance = new Handler();
+	
+	private final Object DBMANAGERLOCK = new Object();
+	private final Object MEALMANAGERLOCK = new Object();
+	private final Object USERMANAGERLOCK = new Object();
 	
 	
 	
 	private Handler() {
-		this.DBMANAGER = new DBManager();
-		this.EXCEPTIONHANDLER = new ExceptionHandler();
-		this.LOADER = new Loader();
-		this.MEALMANAGER = new MealManager();
-		this.USERMANAGER = new UserManager();
+		exceptonHandler = new ExceptionHandler();
+		loader = new Loader();
 	}
 
 
@@ -34,32 +35,58 @@ public class Handler {
 	}
 	
 	public DBManager getDBManager() {
-		synchronized (DBMANAGER) {
-			return this.DBMANAGER;
+		synchronized (this.DBMANAGERLOCK) {
+			return this.dbManager;
 		}
 	}
 	
 	public ExceptionHandler getExceptionHandler() {
-		synchronized (EXCEPTIONHANDLER) {
-			return this.EXCEPTIONHANDLER;
+		synchronized (this.exceptonHandler) {
+			return this.exceptonHandler;
 		}
 	}
 	
 	public Loader getLoader() {
-		synchronized (LOADER) {
-			return this.LOADER;
+		synchronized (this.loader) {
+			return this.loader;
 		}
 	}
 	
 	public MealManager getMealManager() {
-		synchronized (MEALMANAGER) {
-			return this.MEALMANAGER;
+		synchronized (this.MEALMANAGERLOCK) {
+			return this.mealsManager;
 		}
 	}
 	
 	public UserManager getUserManager() {
-		synchronized (USERMANAGER) {
-			return this.USERMANAGER;
+		synchronized (this.USERMANAGERLOCK) {
+			return this.userManager;
 		}
-	}	
+	}
+	
+	
+	
+	public void init() {
+		synchronized (this.DBMANAGERLOCK) {
+			synchronized (this.MEALMANAGERLOCK) {
+				synchronized (this.USERMANAGERLOCK) {
+					this.dbManager = new DBManager();
+					this.mealsManager = new MealManager();
+					this.userManager = new UserManager();
+				}
+			}
+		}
+	}
+	
+	public void destruct() {
+		synchronized (this.DBMANAGERLOCK) {
+			synchronized (this.MEALMANAGERLOCK) {
+				synchronized (this.USERMANAGERLOCK) {
+					this.dbManager = null;
+					this.mealsManager = null;
+					this.userManager = null;
+				}
+			}
+		}
+	}
 }

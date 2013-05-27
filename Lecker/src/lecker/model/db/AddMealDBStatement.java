@@ -42,7 +42,9 @@ public class AddMealDBStatement implements DBStatement<Meal> {
 		try {
 			statement.executeUpdate();
 			ResultSet set = statement.executeQuery();
-			return new Meal(set.getString(DBManager.TITLE_MEAL_NAME), set.getInt(DBManager.TITLE_MEAL_PRICE), Handler.getInstance().getMealManager().getKategorie(set.getString(DBManager.TITLE_MEAL_KATEGORIE)), new Calendar[0], new Label[0]);
+			if (set.next()) {
+				return new Meal(set.getString(DBManager.TITLE_MEAL_NAME), set.getInt(DBManager.TITLE_MEAL_PRICE), Handler.getInstance().getMealManager().getKategorie(set.getString(DBManager.TITLE_MEAL_KATEGORIE)), new Calendar[0], new Label[0]);
+			}
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}

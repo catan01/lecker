@@ -11,48 +11,73 @@ import java.awt.Image;
  *
  */
 public class Comment {
+	private String userName;
 	private int rating;
 	private String comment;
 	private Image image;
 	
+	private final Object USERNAMELOCK = new Object();
+	private final Object RATINGLOCK = new Object();
+	private final Object COMMENTLOCK = new Object();
+	private final Object IMAGELOCK = new Object();
 	
 	
-	public Comment(int rating, String comment) {
+	
+	public Comment(String userName, int rating, String comment) {
+		this.userName = userName;
 		this.rating = rating;
 		this.comment = comment;
 		this.image = null;
 	}
 	
-	public Comment(int rating, String comment, Image image) {
-		this(rating, comment);
+	public Comment(String userName, int rating, String comment, Image image) {
+		this(userName, rating, comment);
 		setImage(image);
 	}
 	
 	
 	
+	public String getUserName() {
+		synchronized (this.USERNAMELOCK) {
+			return this.userName;
+		}
+	}
+	
 	public int getRating() {
-		return rating;
+		synchronized (this.RATINGLOCK) {
+			return rating;
+		}
 	}
 	
 	public String getComment() {
-		return comment;
+		synchronized (this.COMMENTLOCK) {
+			return comment;
+		}
 	}
 	
 	public Image getImage() {
-		return image;
+		synchronized (this.IMAGELOCK) {
+			return image;
+		}
 	}
 	
 	
 	
 	public void setRating(int rating) {
-		this.rating = rating;
+		synchronized (this.RATINGLOCK) {
+			this.rating = rating;
+		}
 	}
 	
 	public void setComment(String comment) {
-		this.comment = comment;
+		synchronized (this.COMMENTLOCK) {
+			this.comment = comment;
+		}
 	}
 	
 	public void setImage(Image image) {
-		this.image = image;
+		synchronized (this.IMAGELOCK) {
+			this.image = image;
+		}
 	}
 }

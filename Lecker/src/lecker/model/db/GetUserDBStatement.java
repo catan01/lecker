@@ -32,14 +32,17 @@ public class GetUserDBStatement implements DBStatement<User> {
 	@Override
 	public User postQuery() {
 		try {
-			ResultSet set = statementFavourites.executeQuery();
-			User user = new User(statementUser.executeQuery().getString("name"));
-			
-			while (set.next()) {
-				user.addFavourite(set.getString(DBManager.TITLE_FAVOURITE_MEAL));
+			ResultSet favouritesSet = statementFavourites.executeQuery();
+			ResultSet userSet = statementUser.executeQuery();
+			if (userSet.next()) {
+				User user = new User(userSet.getString("name"));
+				
+				while (favouritesSet.next()) {
+					user.addFavourite(favouritesSet.getString(DBManager.TITLE_FAVOURITE_MEAL));
+				}
+				
+				return user;
 			}
-			
-			return user;
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}

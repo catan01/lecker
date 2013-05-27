@@ -18,15 +18,9 @@ public class UserManager {
 	
 	
 	
-	public void init() {
+	public UserManager() {
 		synchronized(USERSLOCK) {
 			this.users = new HashMap<String, User>();
-		}
-	}
-	
-	public synchronized void destruct() {
-		synchronized(USERSLOCK) {
-			this.users = null;
 		}
 	}
 	
