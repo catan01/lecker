@@ -9,7 +9,7 @@ div.menu{
 	text-align: center;
 }
 div.menu_button_checked{
-	: #0A8104;
+	background: #0A8104;
 	color:white;
 	border: 3px solid black;
 	text-align: center;
