@@ -1,0 +1,108 @@
+body {
+	font-family: 'Verdana';
+}
+div.menu{
+	background: white;
+	position: fixed;
+	bottom:0;
+	width:98%;
+	text-align: center;
+}
+div.menu_button_checked{
+	: #0A8104;
+	color:white;
+	border: 3px solid black;
+	text-align: center;
+}
+
+div.menu_button_unchecked{
+	background: #BDBDBD;
+	border: 3px solid #0A8104;
+	text-align: center;
+}
+
+#date{
+	position: relative;
+	background: white;
+	height:32px;
+	border: 3px solid #0A8104;
+	font-size: 14px;
+	text-align: center;
+	margin-bottom: 1px;
+	
+}
+#date_left{
+	position: absolute;
+	left: 5px;
+	top:0px;
+}
+#date_middle{
+	text-align: center;
+}
+#date_right{
+	position: absolute;
+	right: 5px;
+	top:0px;
+}
+
+div.meal_category {
+	background: #BDBDBD;
+	padding: 3px;
+	border: 3px solid #0A8104;
+	font-size: 12px;
+	text-align: center;
+	margin-bottom: 1px;
+}
+
+div.meal {
+	background: white;
+	border: 3px solid #0A8104;
+	padding: 3px;
+	font-size: 12px;
+	text-align: center;
+	margin-bottom: 1px;
+}
+
+div.header{
+	background: #0A8104;
+	border: 3px solid #0A8104;
+	font-size: 14px;
+	color: white;
+	text-align: center;
+	margin-bottom: 1px;
+}
+
+
+#login{
+	background: white;
+	border: 3px solid #0A8104;
+	padding: 3px;
+	font-size: 12px;
+	margin-bottom: 1px;
+}
+
+/*login page*/
+
+input.password_input{
+	width: 75%;
+}
+
+div.login_pw{
+	text-align: center;
+}
+
+input.name_input{
+	width: 75%;
+}
+
+div.login_name{
+	text-align: center;
+}
+
+div.login_lostpassword{
+	text-align: left;
+}
+
+button {
+	font-family: 'Verdana';
+}
