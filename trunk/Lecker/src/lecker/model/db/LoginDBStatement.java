@@ -3,6 +3,7 @@ package lecker.model.db;
 
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import lecker.model.data.User;
@@ -29,7 +30,10 @@ public class LoginDBStatement implements DBStatement<User> {
 	@Override
 	public User postQuery() {
 		try {
-			return new User(statement.executeQuery().getString("name"));
+			ResultSet set = statement.executeQuery();
+			if (set.next()) {
+				return new User(set.getString("name"));
+			}
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}

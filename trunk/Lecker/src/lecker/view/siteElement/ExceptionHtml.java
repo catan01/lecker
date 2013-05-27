@@ -2,6 +2,7 @@ package lecker.view.siteElement;
 
 
 
+import lecker.presenter.Handler;
 import lecker.view.MainSiteElement;
 
 
@@ -13,6 +14,12 @@ import lecker.view.MainSiteElement;
  *
  */
 public class ExceptionHtml implements MainSiteElement {
+	public ExceptionHtml(Exception exc) {
+		Handler.getInstance().getExceptionHandler().handle(exc);
+	}
+	
+	
+	
 	@Override
 	public String getNormalCode(String remoteAddr) {
 		return "";

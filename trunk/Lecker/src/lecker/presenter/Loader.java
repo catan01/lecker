@@ -3,7 +3,6 @@ package lecker.presenter;
 
 
 import lecker.model.Parser;
-import lecker.model.db.DBManager;
 
 
 
@@ -28,9 +27,7 @@ final public class Loader {
 					thread.interrupt();
 					thread = null;
 				}
-				DBManager.init();
-				Handler.getInstance().getMealManager().init();
-				Handler.getInstance().getUserManager().init();
+				Handler.getInstance().init();
 				Parser.init();
 			}
 			++initCounter;
@@ -51,9 +48,7 @@ final public class Loader {
 	private void destructInterrupt() {
 		synchronized (LOCK) {
 			if (thread != null) {
-				DBManager.destruct();
-				Handler.getInstance().getMealManager().destruct();
-				Handler.getInstance().getUserManager().destruct();
+				Handler.getInstance().destruct();
 				thread = null;
 			}
 		}

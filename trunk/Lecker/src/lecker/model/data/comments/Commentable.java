@@ -15,7 +15,7 @@ public abstract class Commentable {
 	
 	
 	public Commentable() {
-		this.comments = null;
+		this.comments = new CommentList();
 	}
 	
 	

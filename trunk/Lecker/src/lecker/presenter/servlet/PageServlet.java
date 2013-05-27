@@ -29,13 +29,15 @@ public class PageServlet extends AbstractServlet {
 		try {
 			response.setContentType("text/html");
 			Object attr;
-			if ((attr = request.getAttribute(PARAM_MEAL)) != null) {
-				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new MealHtml(attr), isMobile));
+			if ((attr = request.getParameter(PARAM_MEAL)) != null) {
+				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new MealHtml((String) attr), isMobile));
+			} else if ((attr = request.getParameter(PARAM_Day)) != null) {
+				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml((String) attr), isMobile));
 			} else {
 				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml(), isMobile));
 			}
 		} catch (Exception exc) {
-			response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new ExceptionHtml(), isMobile));
+			response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new ExceptionHtml(exc), isMobile));
 		} finally {
 			response.getOutputStream().flush();
 			response.getOutputStream().close();

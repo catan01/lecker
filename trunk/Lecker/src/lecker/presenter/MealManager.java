@@ -26,72 +26,40 @@ import lecker.model.db.RemoveMealLabelDBStatement;
 
 
 public class MealManager {
-	private ArrayList<Kategorie> kategories;
-	private ArrayList<Label> labels;
-	private HashMap<String, Meal> meals;
-	private HashMap<Outlay, HashMap<Calendar, Plan>> plans;
-	
-	private final Object KATEGORIESLOCK = new Object();
-	private final Object LABELSLOCK = new Object();
-	private final Object MEALSLOCK = new Object();
-	private final Object PLANSLOCK = new Object();
+	private final ArrayList<Kategorie> KATEGORIES;
+	private final ArrayList<Label> LABELS;
+	private final HashMap<String, Meal> MEALS;
+	private final HashMap<Outlay, HashMap<Calendar, Plan>> PLANS;
 	
 	
 	
-	public void init() {
-		synchronized (this.KATEGORIESLOCK) {
-			synchronized(this.LABELSLOCK) {
-				synchronized (this.MEALSLOCK) {
-					synchronized (this.PLANSLOCK) {
-						if (this.kategories != null) {
-							this.kategories = new ArrayList<Kategorie>();
-							this.labels = new ArrayList<Label>();
-							this.meals = new HashMap<String, Meal>();
-							this.plans = new HashMap<Outlay, HashMap<Calendar, Plan>>();
-	
-							kategories.addAll(Arrays.asList(new GetKategoriesDBStatement().postQuery()));
-							labels.addAll(Arrays.asList(new GetLabelsDBStatement().postQuery()));
-							for (String name: Arrays.asList(new GetMealNamesDBStatement().postQuery())) {
-								this.meals.put(name, null);
-							}
-							for (Outlay outlay: Arrays.asList(new GetOutlaysDBStatement().postQuery())) {
-								this.plans.put(outlay, new HashMap<Calendar, Plan>());
-							}
-						}
-					}
-				}
-			}
+	public MealManager() {
+		this.KATEGORIES = new ArrayList<Kategorie>();
+		this.LABELS = new ArrayList<Label>();
+		this.MEALS = new HashMap<String, Meal>();
+		this.PLANS = new HashMap<Outlay, HashMap<Calendar, Plan>>();
+
+		KATEGORIES.addAll(Arrays.asList(new GetKategoriesDBStatement().postQuery()));
+		LABELS.addAll(Arrays.asList(new GetLabelsDBStatement().postQuery()));
+		for (String name: Arrays.asList(new GetMealNamesDBStatement().postQuery())) {
+			this.MEALS.put(name, null);
 		}
-	}
-	
-	public void destruct() {
-		synchronized (this.KATEGORIESLOCK) {
-			synchronized(this.LABELSLOCK) {
-				synchronized (this.MEALSLOCK) {
-					synchronized (this.PLANSLOCK) {
-						if (this.kategories == null) {
-							this.kategories = null;
-							this.labels = null;
-							this.meals = null;
-							this.plans = null;
-						}
-					}
-				}
-			}
+		for (Outlay outlay: Arrays.asList(new GetOutlaysDBStatement().postQuery())) {
+			this.PLANS.put(outlay, new HashMap<Calendar, Plan>());
 		}
 	}
 	
 
 	
 	public Kategorie[] getKategories() {
-		synchronized (this.KATEGORIESLOCK) {
-			return this.kategories.toArray(new Kategorie[0]);
+		synchronized (this.KATEGORIES) {
+			return this.KATEGORIES.toArray(new Kategorie[0]);
 		}
 	}
 	
 	public Kategorie getKategorie(String name) {
-		synchronized (this.KATEGORIESLOCK) {
-			for (Kategorie kategorie: this.kategories) {
+		synchronized (this.KATEGORIES) {
+			for (Kategorie kategorie: this.KATEGORIES) {
 				if (kategorie.getName().equals(name)) {
 					return kategorie;
 				}
@@ -101,14 +69,14 @@ public class MealManager {
 	}
 	
 	public Label[] getLabels() {
-		synchronized (this.LABELSLOCK) {
-			return this.labels.toArray(new Label[0]);
+		synchronized (this.LABELS) {
+			return this.LABELS.toArray(new Label[0]);
 		}
 	}
 	
 	public Label getLabel(String name) {
-		synchronized (this.LABELSLOCK) {
-			for (Label label: this.labels) {
+		synchronized (this.LABELS) {
+			for (Label label: this.LABELS) {
 				if (label.getName().equals(name)) {
 					return label;
 				}
@@ -118,31 +86,31 @@ public class MealManager {
 	}
 	
 	public String[] getMealNames() {
-		synchronized (this.MEALSLOCK) {
-			return this.meals.keySet().toArray(new String[0]);
+		synchronized (this.MEALS) {
+			return this.MEALS.keySet().toArray(new String[0]);
 		}
 	}
 	
 	public Meal getMeal(String name) {
-		synchronized (this.MEALSLOCK) {
-			if (this.meals.containsKey(name)? this.meals.get(name) != null : false) {
-				return this.meals.get(name);
+		synchronized (this.MEALS) {
+			if (this.MEALS.containsKey(name)? this.MEALS.get(name) != null : false) {
+				return this.MEALS.get(name);
 			}
 			Meal meal = new GetMealDBStatement(name).postQuery();
-			this.meals.put(meal.getName(), meal);
+			this.MEALS.put(meal.getName(), meal);
 			return meal;
 		}
 	}
 	
 	public String[] getOutlays() {
-		synchronized (this.PLANSLOCK) {
-			return this.plans.keySet().toArray(new String[0]);
+		synchronized (this.PLANS) {
+			return this.PLANS.keySet().toArray(new String[0]);
 		}
 	}
 	
 	public Outlay getOutlay(String name) {
-		synchronized (this.PLANSLOCK) {
-			for (Outlay outlay: this.plans.keySet()) {
+		synchronized (this.PLANS) {
+			for (Outlay outlay: this.PLANS.keySet()) {
 				if (outlay.getName().equals(name)) {
 					return outlay;
 				}
@@ -152,18 +120,18 @@ public class MealManager {
 	}
 	
 	public Plan getPlan(Outlay outlay, Calendar date) {
-		synchronized (this.PLANSLOCK) {
-			if (this.plans.containsKey(outlay)? this.plans.get(outlay).containsKey(date) : false) {
-				return this.plans.get(outlay).get(date);
+		synchronized (this.PLANS) {
+			if (this.PLANS.containsKey(outlay)? this.PLANS.get(outlay).containsKey(date) : false) {
+				return this.PLANS.get(outlay).get(date);
 			}
 			Plan plan = new GetPlanDBStatement(outlay, date).postQuery();
 			if (plan == null) {
 				return null;
 			}
-			if (!this.plans.containsKey(outlay)) {
-				this.plans.put(outlay, new HashMap<Calendar, Plan>());
+			if (!this.PLANS.containsKey(outlay)) {
+				this.PLANS.put(outlay, new HashMap<Calendar, Plan>());
 			}
-			this.plans.get(outlay).put(date, plan);
+			this.PLANS.get(outlay).put(date, plan);
 			return plan;
 		}
 	}
@@ -171,14 +139,14 @@ public class MealManager {
 	
 	
 	public void addDate(String meal, Outlay outlay, Calendar date) {
-		synchronized (this.MEALSLOCK) {
-			synchronized (this.PLANSLOCK) {
-				if ((this.meals.containsKey(meal) && this.plans.containsKey(outlay))? new AddMealDateDBStatement(meal, outlay, date).postQuery() : false) {
-					if (meals.containsKey(meal)) {
-						meals.get(meal).addDate(date);
+		synchronized (this.MEALS) {
+			synchronized (this.PLANS) {
+				if ((this.MEALS.containsKey(meal) && this.PLANS.containsKey(outlay))? new AddMealDateDBStatement(meal, outlay, date).postQuery() : false) {
+					if (MEALS.containsKey(meal)) {
+						MEALS.get(meal).addDate(date);
 					}
-					if (plans.containsKey(outlay)? plans.get(outlay).containsKey(date) : false) {
-						plans.get(outlay).get(date).addMeal(meals.get(meal));
+					if (PLANS.containsKey(outlay)? PLANS.get(outlay).containsKey(date) : false) {
+						PLANS.get(outlay).get(date).addMeal(MEALS.get(meal));
 					}
 				}
 			}
@@ -186,14 +154,14 @@ public class MealManager {
 	}
 	
 	public void removeDate(String meal, Outlay outlay, Calendar date) {
-		synchronized (this.MEALSLOCK) {
-			synchronized (this.PLANSLOCK) {
-				if ((this.meals.containsKey(meal) && this.plans.containsKey(outlay))? new RemoveMealDateDBStatement(meal, outlay, date).postQuery() : false) {
-					if (this.meals.containsKey(meal)) {
-						this.meals.get(meal).removeDate(date);
+		synchronized (this.MEALS) {
+			synchronized (this.PLANS) {
+				if ((this.MEALS.containsKey(meal) && this.PLANS.containsKey(outlay))? new RemoveMealDateDBStatement(meal, outlay, date).postQuery() : false) {
+					if (this.MEALS.containsKey(meal)) {
+						this.MEALS.get(meal).removeDate(date);
 					}
-					if (this.plans.containsKey(outlay)? this.plans.get(outlay).containsKey(date) : false) {
-						this.plans.get(outlay).get(date).removeMeal(meals.get(meal));
+					if (this.PLANS.containsKey(outlay)? this.PLANS.get(outlay).containsKey(date) : false) {
+						this.PLANS.get(outlay).get(date).removeMeal(MEALS.get(meal));
 					}
 				}
 			}
@@ -201,14 +169,14 @@ public class MealManager {
 	}
 	
 	public void addLabel(String meal, Label label) {
-		synchronized (this.MEALSLOCK) {
-			synchronized (this.LABELSLOCK) {
-				if ((this.meals.containsKey(meal) && this.labels.contains(label))? new AddMealLabelDBStatement(meal, label).postQuery() : false) {
-					if (this.meals.containsKey(meal)) {
-						this.meals.get(meal).addLabel(label);
+		synchronized (this.MEALS) {
+			synchronized (this.LABELS) {
+				if ((this.MEALS.containsKey(meal) && this.LABELS.contains(label))? new AddMealLabelDBStatement(meal, label).postQuery() : false) {
+					if (this.MEALS.containsKey(meal)) {
+						this.MEALS.get(meal).addLabel(label);
 					}
-					if (!this.labels.contains(label)) {
-						this.labels.add(label);
+					if (!this.LABELS.contains(label)) {
+						this.LABELS.add(label);
 					}
 				}
 			}
@@ -216,11 +184,11 @@ public class MealManager {
 	}
 	
 	public void removeLabel(String meal, Label label) {
-		synchronized (this.MEALSLOCK) {
-			synchronized (this.LABELSLOCK) {
-				if ((this.meals.containsKey(meal) && this.labels.contains(label))? new RemoveMealLabelDBStatement(meal, label).postQuery() : false) {
-					if (meals.containsKey(meal)) {
-						meals.get(meal).removeLabel(label);
+		synchronized (this.MEALS) {
+			synchronized (this.LABELS) {
+				if ((this.MEALS.containsKey(meal) && this.LABELS.contains(label))? new RemoveMealLabelDBStatement(meal, label).postQuery() : false) {
+					if (MEALS.containsKey(meal)) {
+						MEALS.get(meal).removeLabel(label);
 					}
 				}
 			}

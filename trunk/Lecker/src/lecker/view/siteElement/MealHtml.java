@@ -10,8 +10,8 @@ public class MealHtml implements MainSiteElement {
 	private String mealName;
 	
 	
-	public MealHtml(Object mealName) {
-		this.mealName = mealName.toString();
+	public MealHtml(String mealName) {
+		this.mealName = mealName;
 	}
 	
 	
