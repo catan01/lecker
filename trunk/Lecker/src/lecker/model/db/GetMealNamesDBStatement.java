@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import lecker.presenter.ExceptionHandler;
+import lecker.presenter.Handler;
 
 
 
@@ -18,10 +18,9 @@ public class GetMealNamesDBStatement implements DBStatement<String[]> {
 	
 	public GetMealNamesDBStatement() {
 		try {
-			statement = DBManager.prepareStatement("SELECT " + DBManager.TITLE_MEAL_NAME + " FROM " + DBManager.TITLE_MEAL + ");");
+			statement = Handler.getInstance().getDBManager().prepareStatement("SELECT " + DBManager.TITLE_MEAL_NAME + " FROM " + DBManager.TITLE_MEAL + ";");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Handler.getInstance().getExceptionHandler().handle(e);
 		}
 	}
 	
@@ -39,9 +38,8 @@ public class GetMealNamesDBStatement implements DBStatement<String[]> {
 			
 			return names.toArray(new String[0]);
 		} catch (SQLException e) {
-			ExceptionHandler.handle(e);
+			Handler.getInstance().getExceptionHandler().handle(e);
 		}
 		return null;
 	}
-
 }

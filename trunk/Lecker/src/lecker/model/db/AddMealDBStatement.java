@@ -3,11 +3,14 @@ package lecker.model.db;
 
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import lecker.model.data.Kategorie;
+import lecker.model.data.Label;
 import lecker.model.data.Meal;
-import lecker.presenter.ExceptionHandler;
+import lecker.presenter.Handler;
 
 
 
@@ -18,22 +21,17 @@ import lecker.presenter.ExceptionHandler;
  *
  */
 public class AddMealDBStatement implements DBStatement<Meal> {
-	PreparedStatement statementAdd;
-	PreparedStatement statementRequest;
-	private String name;
-	private int preis;
-	private Kategorie kategorie;
+	PreparedStatement statement;
 	
 
 	
 	
 	public AddMealDBStatement(String name, int preis, Kategorie kategorie) {
 		try {
-			statementAdd = DBManager.prepareStatement("INSERT INTO " + DBManager.TITLE_MEAL + " (" + DBManager.TITLE_MEAL_NAME + "," + DBManager.TITLE_MEAL_PRICE + "," + DBManager.TITLE_MEAL_KATEGORIE + ") " +
-					"VALUES (" + name + ", " + preis + ", " + kategorie + ");");
-			statementRequest = DBManager.prepareStatement("SELECT " + DBManager.TITLE_MEAL_ID + " FROM " + DBManager.TITLE_MEAL + " WHERE " + DBManager.TITLE_MEAL_NAME + "=" + name + ";");
+			statement = Handler.getInstance().getDBManager().prepareStatement("INSERT INTO " + DBManager.TITLE_MEAL + " (" + DBManager.TITLE_MEAL_NAME + "," + DBManager.TITLE_MEAL_PRICE + "," + DBManager.TITLE_MEAL_KATEGORIE + ") " +
+					"VALUES ('" + name + "'," + preis + ",'" + kategorie + "');");
 		} catch (SQLException e) {
-			ExceptionHandler.handle(e);
+			Handler.getInstance().getExceptionHandler().handle(e);
 		}
 	}
 	
@@ -42,10 +40,11 @@ public class AddMealDBStatement implements DBStatement<Meal> {
 	@Override
 	public Meal postQuery() {
 		try {
-			statementAdd.executeUpdate();
-			return new Meal(statementAdd.executeQuery().getInt("Speise_ID"), name, preis, kategorie);
+			statement.executeUpdate();
+			ResultSet set = statement.executeQuery();
+			return new Meal(set.getString(DBManager.TITLE_MEAL_NAME), set.getInt(DBManager.TITLE_MEAL_PRICE), Handler.getInstance().getMealManager().getKategorie(set.getString(DBManager.TITLE_MEAL_KATEGORIE)), new Calendar[0], new Label[0]);
 		} catch (SQLException e) {
-			ExceptionHandler.handle(e);
+			Handler.getInstance().getExceptionHandler().handle(e);
 		}
 		return null;
 	}

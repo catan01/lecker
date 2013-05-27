@@ -7,19 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import lecker.model.data.Kategorie;
+import lecker.model.data.Outlay;
 import lecker.presenter.Handler;
 
 
 
-public class GetKategoriesDBStatement implements DBStatement<Kategorie[]>{
+public class GetOutlaysDBStatement implements DBStatement<Outlay[]> {
 	private PreparedStatement statement;
 	
 	
 	
-	public GetKategoriesDBStatement() {
+	public GetOutlaysDBStatement() {
 		try {
-			statement = Handler.getInstance().getDBManager().prepareStatement("SELECT " + DBManager.TITLE_KATEGORIE_NAME + " FROM " + DBManager.TITLE_KATEGORIE + ";");
+			statement = Handler.getInstance().getDBManager().prepareStatement("SELECT " + DBManager.TITLE_OUTLAY_NAME + " FROM " + DBManager.TITLE_OUTLAY + ";");
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}
@@ -28,16 +28,16 @@ public class GetKategoriesDBStatement implements DBStatement<Kategorie[]>{
 	
 	
 	@Override
-	public Kategorie[] postQuery() {
+	public Outlay[] postQuery() {
 		try {
+			ArrayList<Outlay> outlays = new ArrayList<Outlay>();
 			ResultSet set = statement.executeQuery();
-			ArrayList<Kategorie> kategories = new ArrayList<Kategorie>();
-			
+		
 			while (set.next()) {
-				kategories.add(new Kategorie(set.getString(DBManager.TITLE_KATEGORIE_NAME)));
+				outlays.add(new Outlay(set.getString(DBManager.TITLE_MEAL_NAME)));
 			}
 			
-			return kategories.toArray(new Kategorie[0]);
+			return outlays.toArray(new Outlay[0]);
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}

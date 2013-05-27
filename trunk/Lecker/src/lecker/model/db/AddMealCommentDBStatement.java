@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import lecker.model.data.comments.Comment;
-import lecker.presenter.ExceptionHandler;
+import lecker.presenter.Handler;
 
 
 
@@ -17,10 +17,10 @@ public class AddMealCommentDBStatement implements DBStatement<Void> {
 	
 	public AddMealCommentDBStatement(int mealID, String userName , Comment comment) {
 		try {
-			statement = DBManager.prepareStatement("INSERT INTO " + DBManager.TITLE_COMMENT + " (" + DBManager.TITLE_COMMENT_RATING + "," + DBManager.TITLE_COMMENT_COMMENT + "," + DBManager.TITLE_COMMENT_MEAL + "," + DBManager.TITLE_COMMENT_USER + ")" +
-					"VALUES (" + comment.getRating() + ", " + comment.getComment() + ", " + mealID + ", " + userName + ");");
+			statement = Handler.getInstance().getDBManager().prepareStatement("INSERT INTO " + DBManager.TITLE_COMMENT + " (" + DBManager.TITLE_COMMENT_RATING + "," + DBManager.TITLE_COMMENT_COMMENT + "," + DBManager.TITLE_COMMENT_MEAL + "," + DBManager.TITLE_COMMENT_USER + ")" +
+					"VALUES (" + comment.getRating() + ",'" + comment.getComment() + "'," + mealID + ",'" + userName + "');");
 		} catch (SQLException e) {
-			ExceptionHandler.handle(e);
+			Handler.getInstance().getExceptionHandler().handle(e);
 		}
 	}
 	
@@ -31,7 +31,7 @@ public class AddMealCommentDBStatement implements DBStatement<Void> {
 		try {
 			statement.executeUpdate();
 		} catch (SQLException e) {
-			ExceptionHandler.handle(e);
+			Handler.getInstance().getExceptionHandler().handle(e);
 		}
 		return null;
 	}

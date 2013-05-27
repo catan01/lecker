@@ -1,23 +1,19 @@
 package lecker.model.db;
 
-
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import lecker.presenter.Handler;
 
-
-
-public class AddUserDBStatement implements DBStatement<Boolean> {
-	private PreparedStatement statement;
+public class RemoveUserFavouriteDBStatement implements DBStatement<Boolean> {
+	PreparedStatement statement;
 	
 	
 	
-	public AddUserDBStatement(String name, String password) {
+	public RemoveUserFavouriteDBStatement(String mealName, String userName) {
 		try {
-			statement = Handler.getInstance().getDBManager().prepareStatement("INSERT INTO " + DBManager.TITLE_USER + " (" + DBManager.TITLE_USER_NAME + ", " + DBManager.TITLE_USER_PW + ") " +
-					"VALUES ('" + name + "','" + password + "');");
+			statement = Handler.getInstance().getDBManager().prepareStatement("DELETE FROM " + DBManager.TITLE_FAVOURITE + " WHERE " + DBManager.TITLE_FAVOURITE_MEAL + "='" + mealName + "' AND "
+		+ DBManager.TITLE_FAVOURITE_USER + "='" + userName + "';");
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}
@@ -35,5 +31,4 @@ public class AddUserDBStatement implements DBStatement<Boolean> {
 		}
 		return false;
 	}
-
 }
