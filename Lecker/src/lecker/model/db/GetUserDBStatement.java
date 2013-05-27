@@ -3,24 +3,27 @@ package lecker.model.db;
 
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import lecker.model.data.User;
-import lecker.presenter.ExceptionHandler;
+import lecker.presenter.Handler;
 
 
 
 public class GetUserDBStatement implements DBStatement<User> {
-	PreparedStatement statement;
+	private PreparedStatement statementUser;
+	private PreparedStatement statementFavourites;
 	
 
 	
 	
 	public GetUserDBStatement(String name) {
 		try {
-			statement = DBManager.prepareStatement("SELECT * FROM " + DBManager.TITLE_USER + " WHERE " + DBManager.TITLE_USER_NAME + "=" + name + ";");
+			statementUser = Handler.getInstance().getDBManager().prepareStatement("SELECT * FROM " + DBManager.TITLE_USER + " WHERE " + DBManager.TITLE_USER_NAME + "='" + name + "';");
+			statementFavourites = Handler.getInstance().getDBManager().prepareStatement("SELECT " + DBManager.TITLE_FAVOURITE_MEAL + " FROM " + DBManager.TITLE_FAVOURITE + " WHERE " + DBManager.TITLE_FAVOURITE_USER + "='" + name + "';");
 		} catch (SQLException e) {
-			ExceptionHandler.handle(e);
+			Handler.getInstance().getExceptionHandler().handle(e);
 		}
 	}
 	
@@ -29,9 +32,16 @@ public class GetUserDBStatement implements DBStatement<User> {
 	@Override
 	public User postQuery() {
 		try {
-			return new User(statement.executeQuery().getString("name"));
+			ResultSet set = statementFavourites.executeQuery();
+			User user = new User(statementUser.executeQuery().getString("name"));
+			
+			while (set.next()) {
+				user.addFavourite(set.getString(DBManager.TITLE_FAVOURITE_MEAL));
+			}
+			
+			return user;
 		} catch (SQLException e) {
-			ExceptionHandler.handle(e);
+			Handler.getInstance().getExceptionHandler().handle(e);
 		}
 		return null;
 	}

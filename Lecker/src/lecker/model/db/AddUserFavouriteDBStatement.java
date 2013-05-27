@@ -9,15 +9,16 @@ import lecker.presenter.Handler;
 
 
 
-public class AddUserDBStatement implements DBStatement<Boolean> {
-	private PreparedStatement statement;
+public class AddUserFavouriteDBStatement implements DBStatement<Boolean> {
+	PreparedStatement statement;
+	
+
 	
 	
-	
-	public AddUserDBStatement(String name, String password) {
+	public AddUserFavouriteDBStatement(String mealName, String userName) {
 		try {
-			statement = Handler.getInstance().getDBManager().prepareStatement("INSERT INTO " + DBManager.TITLE_USER + " (" + DBManager.TITLE_USER_NAME + ", " + DBManager.TITLE_USER_PW + ") " +
-					"VALUES ('" + name + "','" + password + "');");
+			statement = Handler.getInstance().getDBManager().prepareStatement("INSERT INTO " + DBManager.TITLE_FAVOURITE + " (" + DBManager.TITLE_FAVOURITE_MEAL + "," + DBManager.TITLE_FAVOURITE_USER + ") " +
+					"VALUES ('" + mealName + "','" + userName + "');");
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}
@@ -35,5 +36,4 @@ public class AddUserDBStatement implements DBStatement<Boolean> {
 		}
 		return false;
 	}
-
 }

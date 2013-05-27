@@ -7,19 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import lecker.model.data.Kategorie;
+import lecker.model.data.Label;
 import lecker.presenter.Handler;
 
 
 
-public class GetKategoriesDBStatement implements DBStatement<Kategorie[]>{
+public class GetLabelsDBStatement implements DBStatement<Label[]> {
 	private PreparedStatement statement;
 	
 	
 	
-	public GetKategoriesDBStatement() {
+	public GetLabelsDBStatement() {
 		try {
-			statement = Handler.getInstance().getDBManager().prepareStatement("SELECT " + DBManager.TITLE_KATEGORIE_NAME + " FROM " + DBManager.TITLE_KATEGORIE + ";");
+			statement = Handler.getInstance().getDBManager().prepareStatement("SELECT " + DBManager.TITLE_LABEL_NAME + " FROM " + DBManager.TITLE_LABEL + ";");
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}
@@ -28,16 +28,16 @@ public class GetKategoriesDBStatement implements DBStatement<Kategorie[]>{
 	
 	
 	@Override
-	public Kategorie[] postQuery() {
+	public Label[] postQuery() {
 		try {
 			ResultSet set = statement.executeQuery();
-			ArrayList<Kategorie> kategories = new ArrayList<Kategorie>();
+			ArrayList<Label> labels = new ArrayList<Label>();
 			
 			while (set.next()) {
-				kategories.add(new Kategorie(set.getString(DBManager.TITLE_KATEGORIE_NAME)));
+				labels.add(new Label(set.getString(DBManager.TITLE_KATEGORIE_NAME)));
 			}
 			
-			return kategories.toArray(new Kategorie[0]);
+			return labels.toArray(new Label[0]);
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}

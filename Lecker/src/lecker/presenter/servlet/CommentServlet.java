@@ -12,9 +12,9 @@ import lecker.presenter.AbstractServlet;
 
 
 
-public class UserServlet extends AbstractServlet {
-	private static final long serialVersionUID = -9119892559537497519L;
-
+public class CommentServlet extends AbstractServlet {
+	private static final long serialVersionUID = -138956197643698542L;
+	
 	
 	
 	@Override

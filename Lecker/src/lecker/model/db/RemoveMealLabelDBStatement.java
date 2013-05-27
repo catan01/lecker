@@ -5,19 +5,20 @@ package lecker.model.db;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import lecker.model.data.Label;
 import lecker.presenter.Handler;
 
 
 
-public class AddUserDBStatement implements DBStatement<Boolean> {
-	private PreparedStatement statement;
+public class RemoveMealLabelDBStatement implements DBStatement<Boolean> {
+	PreparedStatement statement;
 	
 	
 	
-	public AddUserDBStatement(String name, String password) {
+	public RemoveMealLabelDBStatement(String mealName, Label label) {
 		try {
-			statement = Handler.getInstance().getDBManager().prepareStatement("INSERT INTO " + DBManager.TITLE_USER + " (" + DBManager.TITLE_USER_NAME + ", " + DBManager.TITLE_USER_PW + ") " +
-					"VALUES ('" + name + "','" + password + "');");
+			statement = Handler.getInstance().getDBManager().prepareStatement("DELETE FROM " + DBManager.TITLE_LABELING + " WHERE " + DBManager.TITLE_LABELING_MEAL + "='" + mealName + "' AND "
+		+ DBManager.TITLE_LABELING_LABEL + "='" + label.getName() + "';");
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}
@@ -35,5 +36,4 @@ public class AddUserDBStatement implements DBStatement<Boolean> {
 		}
 		return false;
 	}
-
 }

@@ -11,15 +11,15 @@ import lecker.presenter.Handler;
 
 
 
-public class AddMealDateDBStatement implements DBStatement<Boolean>{
+public class RemoveMealDateDBStatement implements DBStatement<Boolean> {
 	PreparedStatement statement;
 	
 	
 	
-	public AddMealDateDBStatement(String mealName, Outlay outlay, Calendar date) {
+	public RemoveMealDateDBStatement(String mealName, Outlay outlay, Calendar date) {
 		try {
-			statement = Handler.getInstance().getDBManager().prepareStatement("INSERT INTO " + DBManager.TITLE_PLAN + " (" + DBManager.TITLE_PLAN_MEAL + "," + DBManager.TITLE_PLAN_OUTLAY + "," + DBManager.TITLE_PLAN_DAY + ") " +
-					"VALUES ('" + mealName + "','" + outlay + "','" + date + "');");
+			statement = Handler.getInstance().getDBManager().prepareStatement("DELETE FROM " + DBManager.TITLE_PLAN + " WHERE " + DBManager.TITLE_PLAN_MEAL + "='" + mealName + "' AND "
+		+ DBManager.TITLE_PLAN_OUTLAY + "='" + outlay.getName() + "' AND " + DBManager.TITLE_PLAN_DAY + "='" + date.getTime() + "';");
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}

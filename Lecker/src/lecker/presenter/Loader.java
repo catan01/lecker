@@ -16,32 +16,21 @@ import lecker.model.db.DBManager;
 final public class Loader {
 	private Integer initCounter = 0;
 	private Thread thread = null;
-	private final static Loader INSTANCE = new Loader();
 	
-	
-	
-	private Loader() {
-		
-	}
-	
-	public static Loader getInstance() {
-		synchronized (INSTANCE) {
-			return INSTANCE;
-		}
-	}
+	private final Object LOCK = new Object();
 	
 	
 	
 	public void init() {
-		synchronized (INSTANCE) {
+		synchronized (LOCK) {
 			if (initCounter == 0) {
 				if (thread == null? true : thread.isAlive()) {
 					thread.interrupt();
 					thread = null;
 				}
 				DBManager.init();
-				MealManager.init();
-				UserManager.init();
+				Handler.getInstance().getMealManager().init();
+				Handler.getInstance().getUserManager().init();
 				Parser.init();
 			}
 			++initCounter;
@@ -49,7 +38,7 @@ final public class Loader {
 	}
 	
 	public void destruct() {
-		synchronized (INSTANCE) {
+		synchronized (LOCK) {
 			--initCounter;
 			if (initCounter == 0) {
 				thread = new Thread(new Waiter());
@@ -60,11 +49,11 @@ final public class Loader {
 	
 	
 	private void destructInterrupt() {
-		synchronized (INSTANCE) {
+		synchronized (LOCK) {
 			if (thread != null) {
 				DBManager.destruct();
-				MealManager.destruct();
-				UserManager.destruct();
+				Handler.getInstance().getMealManager().destruct();
+				Handler.getInstance().getUserManager().destruct();
 				thread = null;
 			}
 		}

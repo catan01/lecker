@@ -4,87 +4,221 @@ package lecker.presenter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 
-import lecker.model.data.Canteen;
 import lecker.model.data.Kategorie;
+import lecker.model.data.Label;
 import lecker.model.data.Meal;
+import lecker.model.data.Outlay;
+import lecker.model.data.Plan;
+import lecker.model.db.AddMealDateDBStatement;
+import lecker.model.db.AddMealLabelDBStatement;
 import lecker.model.db.GetKategoriesDBStatement;
+import lecker.model.db.GetLabelsDBStatement;
 import lecker.model.db.GetMealDBStatement;
 import lecker.model.db.GetMealNamesDBStatement;
+import lecker.model.db.GetOutlaysDBStatement;
+import lecker.model.db.GetPlanDBStatement;
+import lecker.model.db.RemoveMealDateDBStatement;
+import lecker.model.db.RemoveMealLabelDBStatement;
 
 
 
 public class MealManager {
-	private static HashMap<String, Canteen> canteens;
-	private static HashMap<Integer, Meal> meals;
-	private static ArrayList<String> names;
-	private static ArrayList<Kategorie> kategories;
+	private ArrayList<Kategorie> kategories;
+	private ArrayList<Label> labels;
+	private HashMap<String, Meal> meals;
+	private HashMap<Outlay, HashMap<Calendar, Plan>> plans;
 	
 	
 	
-	public static synchronized void init() {
-		canteens = new HashMap<String, Canteen>();
-		meals = new HashMap<Integer, Meal>();
-		names = new ArrayList<String>();
-		kategories = new ArrayList<Kategorie>();
-		
-		names.addAll(Arrays.asList(new GetMealNamesDBStatement().postQuery()));
-		kategories.addAll(Arrays.asList(new GetKategoriesDBStatement().postQuery()));
+	public void init() {
+		synchronized (this.kategories) {
+			synchronized(this.labels) {
+				synchronized (this.meals) {
+					synchronized (this.plans) {
+						if (this.kategories != null) {
+							this.kategories = new ArrayList<Kategorie>();
+							this.labels = new ArrayList<Label>();
+							this.meals = new HashMap<String, Meal>();
+							this.plans = new HashMap<Outlay, HashMap<Calendar, Plan>>();
+	
+							kategories.addAll(Arrays.asList(new GetKategoriesDBStatement().postQuery()));
+							labels.addAll(Arrays.asList(new GetLabelsDBStatement().postQuery()));
+							for (String name: Arrays.asList(new GetMealNamesDBStatement().postQuery())) {
+								this.meals.put(name, null);
+							}
+							for (Outlay outlay: Arrays.asList(new GetOutlaysDBStatement().postQuery())) {
+								this.plans.put(outlay, new HashMap<Calendar, Plan>());
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	
-	public static synchronized void destruct() {
-		canteens = null;
-		meals = null;
-		names = null;
-		kategories = null;
+	public void destruct() {
+		synchronized (this.kategories) {
+			synchronized(this.labels) {
+				synchronized (this.meals) {
+					synchronized (this.plans) {
+						if (this.kategories == null) {
+							this.kategories = null;
+							this.labels = null;
+							this.meals = null;
+							this.plans = null;
+						}
+					}
+				}
+			}
+		}
 	}
 	
 
 	
-	public static Kategorie[] getKategories() {
-		return kategories.toArray(new Kategorie[0]);
+	public Kategorie[] getKategories() {
+		synchronized (this.kategories) {
+			return this.kategories.toArray(new Kategorie[0]);
+		}
 	}
 	
-	public static Kategorie getKategorie(String name) {
-		for (Kategorie kategorie: kategories) {
-			if (kategorie.getName().equals(name)) {
-				return kategorie;
+	public Kategorie getKategorie(String name) {
+		synchronized (this.kategories) {
+			for (Kategorie kategorie: this.kategories) {
+				if (kategorie.getName().equals(name)) {
+					return kategorie;
+				}
 			}
-		}
-		return null;
-	}
-	
-	public static Canteen getCanteen(String name) {
-		synchronized(canteens) {
-			return canteens.get(name);
-		}
-	}
-	
-	public static String[] getMealNames() {
-		synchronized (names) {
-			return names.toArray(new String[0]);
-		}
-	}
-	
-	public static Meal getMeal(String name) {
-		synchronized (meals) {
-			//TODO
 			return null;
 		}
 	}
 	
-	public static Meal getMeal(int id) {
-		synchronized (meals) {
-			if (meals.containsKey(id)) {
-				return meals.get(id);
+	public Label[] getLabels() {
+		synchronized (this.labels) {
+			return this.labels.toArray(new Label[0]);
+		}
+	}
+	
+	public Label getLabel(String name) {
+		synchronized (this.labels) {
+			for (Label label: this.labels) {
+				if (label.getName().equals(name)) {
+					return label;
+				}
 			}
-			Meal meal = new GetMealDBStatement(id).postQuery();
-			meals.put(meal.getID(), meal);
-			if (!names.contains(meal.getName())) {
-				names.add(meal.getName());
+			return null;
+		}
+	}
+	
+	public String[] getMealNames() {
+		synchronized (this.meals) {
+			return this.meals.keySet().toArray(new String[0]);
+		}
+	}
+	
+	public Meal getMeal(String name) {
+		synchronized (this.meals) {
+			if (this.meals.containsKey(name)? this.meals.get(name) != null : false) {
+				return this.meals.get(name);
 			}
+			Meal meal = new GetMealDBStatement(name).postQuery();
+			this.meals.put(meal.getName(), meal);
 			return meal;
+		}
+	}
+	
+	public String[] getOutlays() {
+		synchronized (this.plans) {
+			return this.plans.keySet().toArray(new String[0]);
+		}
+	}
+	
+	public Outlay getOutlay(String name) {
+		synchronized (this.plans) {
+			for (Outlay outlay: this.plans.keySet()) {
+				if (outlay.getName().equals(name)) {
+					return outlay;
+				}
+			}
+			return null;
+		}
+	}
+	
+	public Plan getPlan(Outlay outlay, Calendar date) {
+		synchronized (this.plans) {
+			if (this.plans.containsKey(outlay)? this.plans.get(outlay).containsKey(date) : false) {
+				return this.plans.get(outlay).get(date);
+			}
+			Plan plan = new GetPlanDBStatement(outlay, date).postQuery();
+			if (plan == null) {
+				return null;
+			}
+			if (!this.plans.containsKey(outlay)) {
+				this.plans.put(outlay, new HashMap<Calendar, Plan>());
+			}
+			this.plans.get(outlay).put(date, plan);
+			return plan;
+		}
+	}
+	
+	
+	
+	public void addDate(String meal, Outlay outlay, Calendar date) {
+		synchronized (this.meals) {
+			synchronized (this.plans) {
+				if ((this.meals.containsKey(meal) && this.plans.containsKey(outlay))? new AddMealDateDBStatement(meal, outlay, date).postQuery() : false) {
+					if (meals.containsKey(meal)) {
+						meals.get(meal).addDate(date);
+					}
+					if (plans.containsKey(outlay)? plans.get(outlay).containsKey(date) : false) {
+						plans.get(outlay).get(date).addMeal(meals.get(meal));
+					}
+				}
+			}
+		}
+	}
+	
+	public void removeDate(String meal, Outlay outlay, Calendar date) {
+		synchronized (this.meals) {
+			synchronized (this.plans) {
+				if ((this.meals.containsKey(meal) && this.plans.containsKey(outlay))? new RemoveMealDateDBStatement(meal, outlay, date).postQuery() : false) {
+					if (this.meals.containsKey(meal)) {
+						this.meals.get(meal).removeDate(date);
+					}
+					if (this.plans.containsKey(outlay)? this.plans.get(outlay).containsKey(date) : false) {
+						this.plans.get(outlay).get(date).removeMeal(meals.get(meal));
+					}
+				}
+			}
+		}
+	}
+	
+	public void addLabel(String meal, Label label) {
+		synchronized (this.meals) {
+			synchronized (this.labels) {
+				if ((this.meals.containsKey(meal) && this.labels.contains(label))? new AddMealLabelDBStatement(meal, label).postQuery() : false) {
+					if (this.meals.containsKey(meal)) {
+						this.meals.get(meal).addLabel(label);
+					}
+					if (!this.labels.contains(label)) {
+						this.labels.add(label);
+					}
+				}
+			}
+		}
+	}
+	
+	public void removeLabel(String meal, Label label) {
+		synchronized (this.meals) {
+			synchronized (this.labels) {
+				if ((this.meals.containsKey(meal) && this.labels.contains(label))? new RemoveMealLabelDBStatement(meal, label).postQuery() : false) {
+					if (meals.containsKey(meal)) {
+						meals.get(meal).removeLabel(label);
+					}
+				}
+			}
 		}
 	}
 }
