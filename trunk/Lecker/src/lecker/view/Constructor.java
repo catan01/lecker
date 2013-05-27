@@ -28,7 +28,7 @@ public class Constructor {
 	
 	
 	
-	public String getSite(String remoteAddr, MainSiteElement site) {
+	public String getSite(String remoteAddr, MainSiteElement site, boolean isMobile) {
 		StringBuffer buffer = new StringBuffer();
 		
 		buffer.append(

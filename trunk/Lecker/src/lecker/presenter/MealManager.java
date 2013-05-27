@@ -31,13 +31,18 @@ public class MealManager {
 	private HashMap<String, Meal> meals;
 	private HashMap<Outlay, HashMap<Calendar, Plan>> plans;
 	
+	private final Object KATEGORIESLOCK = new Object();
+	private final Object LABELSLOCK = new Object();
+	private final Object MEALSLOCK = new Object();
+	private final Object PLANSLOCK = new Object();
+	
 	
 	
 	public void init() {
-		synchronized (this.kategories) {
-			synchronized(this.labels) {
-				synchronized (this.meals) {
-					synchronized (this.plans) {
+		synchronized (this.KATEGORIESLOCK) {
+			synchronized(this.LABELSLOCK) {
+				synchronized (this.MEALSLOCK) {
+					synchronized (this.PLANSLOCK) {
 						if (this.kategories != null) {
 							this.kategories = new ArrayList<Kategorie>();
 							this.labels = new ArrayList<Label>();
@@ -60,10 +65,10 @@ public class MealManager {
 	}
 	
 	public void destruct() {
-		synchronized (this.kategories) {
-			synchronized(this.labels) {
-				synchronized (this.meals) {
-					synchronized (this.plans) {
+		synchronized (this.KATEGORIESLOCK) {
+			synchronized(this.LABELSLOCK) {
+				synchronized (this.MEALSLOCK) {
+					synchronized (this.PLANSLOCK) {
 						if (this.kategories == null) {
 							this.kategories = null;
 							this.labels = null;
@@ -79,13 +84,13 @@ public class MealManager {
 
 	
 	public Kategorie[] getKategories() {
-		synchronized (this.kategories) {
+		synchronized (this.KATEGORIESLOCK) {
 			return this.kategories.toArray(new Kategorie[0]);
 		}
 	}
 	
 	public Kategorie getKategorie(String name) {
-		synchronized (this.kategories) {
+		synchronized (this.KATEGORIESLOCK) {
 			for (Kategorie kategorie: this.kategories) {
 				if (kategorie.getName().equals(name)) {
 					return kategorie;
@@ -96,13 +101,13 @@ public class MealManager {
 	}
 	
 	public Label[] getLabels() {
-		synchronized (this.labels) {
+		synchronized (this.LABELSLOCK) {
 			return this.labels.toArray(new Label[0]);
 		}
 	}
 	
 	public Label getLabel(String name) {
-		synchronized (this.labels) {
+		synchronized (this.LABELSLOCK) {
 			for (Label label: this.labels) {
 				if (label.getName().equals(name)) {
 					return label;
@@ -113,13 +118,13 @@ public class MealManager {
 	}
 	
 	public String[] getMealNames() {
-		synchronized (this.meals) {
+		synchronized (this.MEALSLOCK) {
 			return this.meals.keySet().toArray(new String[0]);
 		}
 	}
 	
 	public Meal getMeal(String name) {
-		synchronized (this.meals) {
+		synchronized (this.MEALSLOCK) {
 			if (this.meals.containsKey(name)? this.meals.get(name) != null : false) {
 				return this.meals.get(name);
 			}
@@ -130,13 +135,13 @@ public class MealManager {
 	}
 	
 	public String[] getOutlays() {
-		synchronized (this.plans) {
+		synchronized (this.PLANSLOCK) {
 			return this.plans.keySet().toArray(new String[0]);
 		}
 	}
 	
 	public Outlay getOutlay(String name) {
-		synchronized (this.plans) {
+		synchronized (this.PLANSLOCK) {
 			for (Outlay outlay: this.plans.keySet()) {
 				if (outlay.getName().equals(name)) {
 					return outlay;
@@ -147,7 +152,7 @@ public class MealManager {
 	}
 	
 	public Plan getPlan(Outlay outlay, Calendar date) {
-		synchronized (this.plans) {
+		synchronized (this.PLANSLOCK) {
 			if (this.plans.containsKey(outlay)? this.plans.get(outlay).containsKey(date) : false) {
 				return this.plans.get(outlay).get(date);
 			}
@@ -166,8 +171,8 @@ public class MealManager {
 	
 	
 	public void addDate(String meal, Outlay outlay, Calendar date) {
-		synchronized (this.meals) {
-			synchronized (this.plans) {
+		synchronized (this.MEALSLOCK) {
+			synchronized (this.PLANSLOCK) {
 				if ((this.meals.containsKey(meal) && this.plans.containsKey(outlay))? new AddMealDateDBStatement(meal, outlay, date).postQuery() : false) {
 					if (meals.containsKey(meal)) {
 						meals.get(meal).addDate(date);
@@ -181,8 +186,8 @@ public class MealManager {
 	}
 	
 	public void removeDate(String meal, Outlay outlay, Calendar date) {
-		synchronized (this.meals) {
-			synchronized (this.plans) {
+		synchronized (this.MEALSLOCK) {
+			synchronized (this.PLANSLOCK) {
 				if ((this.meals.containsKey(meal) && this.plans.containsKey(outlay))? new RemoveMealDateDBStatement(meal, outlay, date).postQuery() : false) {
 					if (this.meals.containsKey(meal)) {
 						this.meals.get(meal).removeDate(date);
@@ -196,8 +201,8 @@ public class MealManager {
 	}
 	
 	public void addLabel(String meal, Label label) {
-		synchronized (this.meals) {
-			synchronized (this.labels) {
+		synchronized (this.MEALSLOCK) {
+			synchronized (this.LABELSLOCK) {
 				if ((this.meals.containsKey(meal) && this.labels.contains(label))? new AddMealLabelDBStatement(meal, label).postQuery() : false) {
 					if (this.meals.containsKey(meal)) {
 						this.meals.get(meal).addLabel(label);
@@ -211,8 +216,8 @@ public class MealManager {
 	}
 	
 	public void removeLabel(String meal, Label label) {
-		synchronized (this.meals) {
-			synchronized (this.labels) {
+		synchronized (this.MEALSLOCK) {
+			synchronized (this.LABELSLOCK) {
 				if ((this.meals.containsKey(meal) && this.labels.contains(label))? new RemoveMealLabelDBStatement(meal, label).postQuery() : false) {
 					if (meals.containsKey(meal)) {
 						meals.get(meal).removeLabel(label);

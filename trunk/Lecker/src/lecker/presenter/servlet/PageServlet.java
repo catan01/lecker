@@ -24,16 +24,18 @@ public class PageServlet extends AbstractServlet {
 	
 	@Override
 	public synchronized void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userAgent = request.getHeader("User-Agent");
+		Boolean isMobile = userAgent.contains("iphone") || userAgent.contains("opera mini") || userAgent.contains("blackberry") || userAgent.contains("android");
 		try {
 			response.setContentType("text/html");
 			Object attr;
 			if ((attr = request.getAttribute(PARAM_MEAL)) != null) {
-				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new MealHtml(attr)));
+				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new MealHtml(attr), isMobile));
 			} else {
-				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml()));
+				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml(), isMobile));
 			}
 		} catch (Exception exc) {
-			response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new ExceptionHtml()));
+			response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new ExceptionHtml(), isMobile));
 		} finally {
 			response.getOutputStream().flush();
 			response.getOutputStream().close();

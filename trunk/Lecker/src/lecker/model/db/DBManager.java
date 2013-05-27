@@ -58,15 +58,17 @@ public class DBManager {
 	final static String TITLE_USER_NAME = "Name";
 	final static String TITLE_USER_PW = "Passwort";
 	
-	private static String url = "jdbc:mysql://localhost:1300/it13g13?autoReconnect=true";
+	private static String url = "jdbc:mysql://ems.informatik.uni-oldenburg.de:1300/it13g13?autoReconnect=true";
 	private static String username = "it13g13";
 	private static String password = "bgfqnc4";
 	private static Connection connection = null;
 	
+	private static final Object LOCK = new Object();
+	
 	
 	
 	public static void init() {
-		synchronized (connection) {
+		synchronized (LOCK) {
 			if (connection == null) {
 				try {
 					Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -79,7 +81,7 @@ public class DBManager {
 	}
 	
 	public static void destruct() {
-		synchronized (connection) {
+		synchronized (LOCK) {
 			if (connection != null) {
 				try {
 					connection.close();
@@ -93,7 +95,7 @@ public class DBManager {
 	}
 	
 	PreparedStatement prepareStatement(String query) throws SQLException {
-		synchronized (connection) {
+		synchronized (LOCK) {
 			if (connection != null) {
 				return connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			}

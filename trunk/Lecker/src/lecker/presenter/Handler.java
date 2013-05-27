@@ -13,18 +13,16 @@ public class Handler {
 	private final MealManager MEALMANAGER;
 	private final UserManager USERMANAGER;
 	
-	private static final Handler instance = new Handler();
+	private static Handler instance = new Handler();
 	
 	
 	
 	private Handler() {
-		synchronized (instance) {
-			this.DBMANAGER = new DBManager();
-			this.EXCEPTIONHANDLER = new ExceptionHandler();
-			this.LOADER = new Loader();
-			this.MEALMANAGER = new MealManager();
-			this.USERMANAGER = new UserManager();
-		}
+		this.DBMANAGER = new DBManager();
+		this.EXCEPTIONHANDLER = new ExceptionHandler();
+		this.LOADER = new Loader();
+		this.MEALMANAGER = new MealManager();
+		this.USERMANAGER = new UserManager();
 	}
 
 
