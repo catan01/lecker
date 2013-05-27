@@ -24,7 +24,7 @@ final public class Loader {
 	public void init() {
 		synchronized (LOCK) {
 			if (initCounter == 0) {
-				if (thread == null? true : thread.isAlive()) {
+				if (thread != null? thread.isAlive() : false) {
 					thread.interrupt();
 					thread = null;
 				}

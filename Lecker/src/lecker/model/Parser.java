@@ -10,7 +10,7 @@ public class Parser {
 	
 	private Parser() {
 		thread = new Thread(new ParserThread());
-		thread.start();
+		//thread.start(); TODO
 	}
 	
 	public static void init() {
