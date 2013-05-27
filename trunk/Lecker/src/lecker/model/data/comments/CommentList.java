@@ -1,5 +1,7 @@
 package lecker.model.data.comments;
 
+import java.util.ArrayList;
+
 
 
 
@@ -10,38 +12,54 @@ package lecker.model.data.comments;
  *
  */
 public class CommentList {
-	private CommentRep first;
-	private CommentRep current;
+	private ArrayList<Comment> comments;
+	private int current;
 	
 	private final Object LOCK = new Object();
 	
 	
 	
 	public CommentList() {
-		this.first = null;
-		this.current = null;
+		this.comments = new ArrayList<Comment>();
+		this.current = -1;
 	}
 	
 	
 	
 	public Comment get(int id) {
 		synchronized (this.LOCK) {
-			try {
-				this.current = this.first;
-				for (int i = 0; i < id; ++i) {
-					this.current = this.current.getNext();
-				}
-				return this.current.get();
-			} catch (NullPointerException exc) {
-				this.current = null;
-				return null;
+			if (id <= comments.size()) {
+				current = id;
 			}
+			return comments.get(id);
 		}
 	}
 	
-	public Comment next() {
+	public Comment getFirst() {
+		return get(0);
+	}
+	
+	public Comment get() {
 		synchronized (this.LOCK) {
-			return (this.current = this.current.getNext()).get();
+			return comments.get(current);
+		}
+	}
+	
+	
+	
+	public Boolean next() {
+		synchronized (this.LOCK) {
+			if (this.current < this.comments.size()) {
+				++this.current;
+				return true;
+			}
+			return false;
+		}
+	}
+	
+	public void setBeforeFirst() {
+		synchronized (LOCK) {
+			current = -1;
 		}
 	}
 	
@@ -49,16 +67,8 @@ public class CommentList {
 	
 	public void addComment(Comment comment) {
 		synchronized (this.LOCK) {
-			CommentRep rep = new CommentRep(comment);
-			rep.setNext(this.first);
-			this.first = rep;
-		}
-	}
-	
-	// To copy
-	private void setFirst(CommentRep rep) {
-		synchronized (this.LOCK) {
-			this.first = rep;
+			comments.add(0, comment);
+			next();
 		}
 	}
 	
@@ -66,49 +76,23 @@ public class CommentList {
 	
 	public CommentList copy() {
 		synchronized(this.LOCK) {
+			int safeCurrent = current;
+			
+			current = -1;
+			
 			CommentList list = new CommentList();
-			list.setFirst(this.first);
+			int count = -1;
+			
+			while (next()) {
+				++count;
+			}
+			while(count > 0) {
+				list.addComment(get((count--) - 1));
+			}
+			
+			current = safeCurrent;
+			
 			return list;
-		}
-	}
-}
-
-
-
-
-
-class CommentRep {
-	private Comment element;
-	private CommentRep next;
-
-	private final Object LOCK = new Object();
-	
-	
-	
-	public CommentRep(Comment element) {
-		this.element = element;
-		this.next = null;
-	}
-	
-	
-	
-	public Comment get()  {
-		synchronized (this.LOCK) {
-			return this.element;
-		}
-	}
-	
-	public CommentRep getNext() {
-		synchronized (this.LOCK) {
-			return this.next;
-		}
-	}
-	
-	
-	
-	public void setNext(CommentRep next) {
-		synchronized (this.LOCK) {
-			this.next = next;
 		}
 	}
 }
