@@ -11,6 +11,8 @@ import java.awt.Image;
  *
  */
 public class Comment {
+	public final static int MAX_RATING = 5;
+	
 	private String userName;
 	private int rating;
 	private String comment;
