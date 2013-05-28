@@ -21,8 +21,8 @@ public class GetPlanDBStatement implements DBStatement<Plan> {
 	
 	public GetPlanDBStatement(Outlay outlay, Calendar date) {
 		try {
-			statement = Handler.getInstance().getDBManager().prepareStatement("SELECT " + DBManager.TITLE_PLAN_MEAL + " FROM " + DBManager.TITLE_PLAN + " WHERE " + DBManager.TITLE_PLAN_OUTLAY + "='" + outlay
-					+  "' AND " + DBManager.TITLE_PLAN_DAY + "='" + date.getTime() + "';");
+			statement = Handler.getInstance().getDBManager().prepareStatement("SELECT " + DBManager.TITLE_PLAN_MEAL + " FROM " + DBManager.TITLE_PLAN + " WHERE " + DBManager.TITLE_PLAN_OUTLAY + "='" + outlay.getName()
+					+  "' AND " + DBManager.TITLE_PLAN_DAY + "='" + DBManager.dateToString(date) + "';");
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}

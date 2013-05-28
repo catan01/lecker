@@ -2,6 +2,7 @@ package lecker.view.siteElement;
 
 
 
+import lecker.presenter.Handler;
 import lecker.view.SiteElement;
 
 
@@ -37,7 +38,10 @@ public class Header implements SiteElement {
 					"</div>" +
 					"<div id='menu'>" +
 						"<button onclick='overlayLogin('display');'>Anmelden</button>" +
-						"<button>Registrieren</button>" +
+						"<button>Registrieren</button><br/>" +
+						"<div id='search'>" +
+							"<input id='autocomplete' placeholder='Gericht suchen'>" +
+						"</div>" +
 					"</div>" +
 				"</div>" +
 				"<hr/>");
@@ -54,7 +58,15 @@ public class Header implements SiteElement {
 	public String getNormalSkript(String remoteAddr) {
 		StringBuffer buffer = new StringBuffer();
 		
+		StringBuffer autoRes = new StringBuffer();
+		for (String name: Handler.getInstance().getMealManager().getMealNames()) {
+			autoRes.append(",'" + name + "'");
+		}
+		autoRes.deleteCharAt(0);
+		
 		buffer.append(
+				"$(function() { var availableTags = [" + autoRes + "];" +
+				  			"$('#autocomplete').autocomplete({ source : availableTags });});" +
 				"function overlayLogin(mode) {" +
 					"if (mode == 'display') {" +
 						"if (document.getElementById('overlay') === null) {" +

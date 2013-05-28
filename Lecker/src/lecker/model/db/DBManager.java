@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 
 import lecker.presenter.Handler;
 
@@ -89,5 +90,19 @@ public class DBManager {
 			}
 			return null;
 		}
+	}
+	
+	
+	
+	public static String dateToString(Calendar date) {
+		return date.get(Calendar.YEAR) + "-" + (date.get(Calendar.MONTH) < 9? "0" : "") + (date.get(Calendar.MONTH) + 1) + "-" + date.get(Calendar.DATE);
+	}
+	
+	public static Calendar stringToDate(String date) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, Integer.parseInt(date.split("-")[0]));
+		cal.set(Calendar.MONTH, Integer.parseInt(date.split("-")[1]) - 1);
+		cal.set(Calendar.DATE, Integer.parseInt(date.split("-")[2]));
+		return cal;
 	}
 }

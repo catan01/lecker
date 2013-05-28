@@ -102,9 +102,9 @@ public class MealManager {
 		}
 	}
 	
-	public String[] getOutlays() {
+	public Outlay[] getOutlays() {
 		synchronized (this.PLANS) {
-			return this.PLANS.keySet().toArray(new String[0]);
+			return this.PLANS.keySet().toArray(new Outlay[0]);
 		}
 	}
 	
