@@ -69,6 +69,101 @@ hr {
 	border-color: #0A8104;
 }
 
+
+
+/* meal */
+.meal_left {
+	width: 250px;
+	position: absolute;
+}
+
+.meal_image {
+	width: 175px;
+	height: 175px;
+	margin-left: auto;
+    margin-right: auto;
+	border: 1px solid #dfd9c3;
+	border-radius: 5px;
+	background: #f5f3e5 url(south-street/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png) 50% top repeat-x;
+}
+
+.meal_name {
+	width: 100%;
+	font-size: 14pt;
+	margin-bottom: 10px;
+}
+
+.meal_labels {
+	width: 200px;
+	float: left;
+}
+
+.meal_price {
+	padding-left: 0px;
+	font-size: 16pt;
+	width: 100px;
+	margin-left: auto;
+	text-align: center;
+	white-space: nowrap;
+	border: 1px solid #dfd9c3;
+	border-radius: 5px;
+	background: #f5f3e5 url(south-street/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png) 50% top repeat-x;
+}
+
+.meal_rating {
+	width: 110px;
+	margin-left: auto;
+    margin-right: auto;
+	border: 1px solid #dfd9c3;
+	border-radius: 5px;
+	background: #f5f3e5 url(south-street/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png) 50% top repeat-x;
+}
+
+.meal_rating_solution {
+	text-align: right;
+}
+
+.meal_right {
+	padding-left: 350px;
+	padding-right: 50px;
+}
+
+.meal_comment {
+	height: 100px;
+	width: 100%;
+	border: 1px solid #dfd9c3;
+	border-radius: 5px;
+	background: #0A8104;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.meal_comment_image {
+	height: 100px;
+	width: 100px;
+	float: left;
+}
+
+.meal_comment_content {
+	padding-left: 110px;
+}
+
+.meal_comment_content_header {
+	padding-left: 10px;
+	height: 20px;
+	color: #f5f3e5;
+}
+
+.meal_comment_content_body {
+	height: 68px;
+	padding: 5px;
+	border: 1px solid #dfd9c3;
+	color: #000000;
+	background: #f5f3e5 url(south-street/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png) 50% top repeat-x;
+}
+
+
+
 div.mealcontainer {
 	width: 25%;
 	float: left;

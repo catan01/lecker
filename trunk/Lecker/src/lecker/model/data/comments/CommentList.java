@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 public class CommentList {
 	private ArrayList<Comment> comments;
-	private int current;
 	
 	private final Object LOCK = new Object();
 	
@@ -21,45 +20,17 @@ public class CommentList {
 	
 	public CommentList() {
 		this.comments = new ArrayList<Comment>();
-		this.current = -1;
 	}
 	
 	
+	
+	public Comment[] get() {
+		return this.comments.toArray(new Comment[0]);
+	}
 	
 	public Comment get(int id) {
 		synchronized (this.LOCK) {
-			if (id <= comments.size()) {
-				current = id;
-			}
-			return comments.get(id);
-		}
-	}
-	
-	public Comment getFirst() {
-		return get(0);
-	}
-	
-	public Comment get() {
-		synchronized (this.LOCK) {
-			return comments.get(current);
-		}
-	}
-	
-	
-	
-	public Boolean next() {
-		synchronized (this.LOCK) {
-			if (this.current < this.comments.size()) {
-				++this.current;
-				return true;
-			}
-			return false;
-		}
-	}
-	
-	public void setBeforeFirst() {
-		synchronized (LOCK) {
-			current = -1;
+			return this.comments.get(id);
 		}
 	}
 	
@@ -67,8 +38,7 @@ public class CommentList {
 	
 	public void addComment(Comment comment) {
 		synchronized (this.LOCK) {
-			comments.add(0, comment);
-			next();
+			this.comments.add(0, comment);
 		}
 	}
 	
@@ -76,21 +46,11 @@ public class CommentList {
 	
 	public CommentList copy() {
 		synchronized(this.LOCK) {
-			int safeCurrent = current;
-			
-			current = -1;
-			
 			CommentList list = new CommentList();
-			int count = -1;
 			
-			while (next()) {
-				++count;
+			for (int i = this.comments.size() - 1; i >= 0; --i) {
+				list.addComment(this.get(i));
 			}
-			while(count > 0) {
-				list.addComment(get((count--) - 1));
-			}
-			
-			current = safeCurrent;
 			
 			return list;
 		}
