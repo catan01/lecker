@@ -40,9 +40,9 @@ public class Constructor {
 						"<link href='css/south-street/jquery-ui-1.10.2.custom.min.css' rel='stylesheet'>" +
 						"<script src='js/jquery-1.9.1.js'></script>" +
 						"<script src='js/jquery-ui-1.10.2.custom.js'></script>" +
-						"<script>" + HEADER.getNormalSkript(remoteAddr) + site.getNormalSkript(remoteAddr) + FOOTER.getNormalSkript(remoteAddr) + "</script>" +
+						"<script>" + HEADER.getSkript(remoteAddr, isMobile) + site.getSkript(remoteAddr, isMobile) + FOOTER.getSkript(remoteAddr, isMobile) + "</script>" +
 					"</header>" +
-					"<body>" + HEADER.getNormalCode(remoteAddr) + site.getNormalCode(remoteAddr) + FOOTER.getNormalCode(remoteAddr) + "</body>" +
+					"<body>" + HEADER.getCode(remoteAddr, isMobile) + site.getCode(remoteAddr, isMobile) + FOOTER.getCode(remoteAddr, isMobile) + "</body>" +
 				"</html>");
 						
 		return buffer.toString();
