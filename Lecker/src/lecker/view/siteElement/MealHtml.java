@@ -28,7 +28,7 @@ public class MealHtml implements MainSiteElement {
 	
 	
 	@Override
-	public String getNormalCode(String remoteAddr) {
+	public String getCode(String remoteAddr, boolean isMobile) {
 		//Variables
 		StringBuilder builder = new StringBuilder();
 		ArrayList<Image> images = new ArrayList<Image>();
@@ -58,17 +58,7 @@ public class MealHtml implements MainSiteElement {
 	}
 
 	@Override
-	public String getMobileCode(String remoteAddr) {
-		return "";
-	}
-
-	@Override
-	public String getNormalSkript(String remoteAddr) {
-		return "";
-	}
-
-	@Override
-	public String getMobileSkript(String remoteAddr) {
+	public String getSkript(String remoteAddr, boolean isMobile) {
 		return "";
 	}
 

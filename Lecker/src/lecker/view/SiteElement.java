@@ -9,9 +9,6 @@ package lecker.view;
  *
  */
 public interface SiteElement {
-	public String getNormalCode(String remoteAddr);
-	public String getMobileCode(String remoteAddr);
-	
-	public String getNormalSkript(String remoteAddr);
-	public String getMobileSkript(String remoteAddr);
+	public String getCode(String remoteAddr, boolean isMobile);
+	public String getSkript(String remoteAddr, boolean isMobile);
 }

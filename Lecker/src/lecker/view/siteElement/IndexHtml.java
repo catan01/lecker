@@ -38,25 +38,21 @@ public class IndexHtml implements MainSiteElement {
 	
 	
 	@Override
-	public String getNormalCode(String remoteAddr) {
-		return showRaster();
-	}
-
-	@Override
-	public String getMobileCode(String remoteAddr) {
+	public String getCode(String remoteAddr, boolean isMobile) {
+		if (!isMobile) {
+			return showRaster();
+		}
+		//TODO
 		return "";
 	}
 
 	@Override
-	public String getNormalSkript(String remoteAddr) {
+	public String getSkript(String remoteAddr, boolean isMobile) {
 		return "";
 	}
 
-	@Override
-	public String getMobileSkript(String remoteAddr) {
-		return "";
-	}
-
+	
+	
 	@Override
 	public String getTitle() {
 		return "Startseite";
