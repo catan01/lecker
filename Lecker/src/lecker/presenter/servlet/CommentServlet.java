@@ -5,6 +5,7 @@ package lecker.presenter.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +13,7 @@ import lecker.presenter.AbstractServlet;
 
 
 
+@WebServlet("/Comment")
 public class CommentServlet extends AbstractServlet {
 	private static final long serialVersionUID = -138956197643698542L;
 	

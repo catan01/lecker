@@ -19,7 +19,7 @@ public class LoginDBStatement implements DBStatement<User> {
 	
 	public LoginDBStatement(String name, String password) {
 		try {
-			statement = Handler.getInstance().getDBManager().prepareStatement("SELECT * FROM " + DBManager.TITLE_USER + " WHERE " + DBManager.TITLE_USER_NAME + "='" + name + "', " + DBManager.TITLE_USER_PW + "='" + password + "';");
+			statement = Handler.getInstance().getDBManager().prepareStatement("SELECT * FROM " + DBManager.TITLE_USER + " WHERE " + DBManager.TITLE_USER_NAME + "='" + name + "' AND " + DBManager.TITLE_USER_PW + "='" + password + "';");
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}
