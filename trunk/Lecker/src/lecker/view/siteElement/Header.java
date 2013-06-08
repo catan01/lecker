@@ -3,6 +3,7 @@ package lecker.view.siteElement;
 
 
 import lecker.presenter.Handler;
+import lecker.presenter.servlet.UserServlet;
 import lecker.view.SiteElement;
 
 
@@ -11,9 +12,9 @@ public class Header implements SiteElement {
 	@Override
 	public String getCode(String remoteAddr, boolean isMobile) {
 		if (!isMobile) {
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder builder = new StringBuilder();
 			
-			buffer.append(
+			builder.append(
 					"<div id='lightBox2'>" +
 						"<div id='overlay_login'>" +
 							"<div class='login_title'>" +
@@ -22,12 +23,15 @@ public class Header implements SiteElement {
 							"<div class='overlay_close'>" +
 								"<button onclick='overlayLogin()'>X</button>" +
 							"</div>" +
-							"<div class='login_name'>" +
-								"Benutzername: <input class='login_name'>" +
-							"</div>" +
-							"<div class='login_password'>" +
-								"Passwort: <input class='login_password'> <button>Anmelden</button>" +
-							"</div>" +
+							"<form id='login' action='Page' type='POST'>" +
+								"<div class='login_name'>" +
+									"Benutzername: <input class='login_name' name='" + UserServlet.PARAM_USER_NAME + "'>" +
+								"</div>" +
+								"<div class='login_password'>" +
+									"Passwort: <input class='login_password'name='" + UserServlet.PARAM_USER_PW + "'>" +
+									"<input type='submit' name='submit' value='Anmelden'/>" +
+								"</div>" +
+							"</form>" + 
 							"<div class='login_lostpassword'>" +
 								"<a>Passwort vergessen?</a>" +
 							"</div>" +
@@ -38,16 +42,17 @@ public class Header implements SiteElement {
 							"<span id='title'>Lecker!</span>" +
 						"</div>" +
 						"<div id='menu'>" +
-							"<button onclick='overlayLogin('display');'>Anmelden</button>" +
+							"<button onclick=\"overlayLogin('display');\">Anmelden</button>" +
 							"<button>Registrieren</button><br/>" +
-							"<div id='search'>" +
-								"<input id='autocomplete' placeholder='Gericht suchen'>" +
-							"</div>" +
 						"</div>" +
 					"</div>" +
-					"<hr/>");
+					"<hr/>" +
+					"Startseite" + //TODO: Breadcrumb
+					"<div id='search'>" +
+						"<input id='autocomplete' placeholder='Gericht suchen'></br>" +
+					"</div></br><br/>");
 			
-			return buffer.toString();
+			return builder.toString();
 		}
 		return "";
 	}
@@ -55,17 +60,18 @@ public class Header implements SiteElement {
 	@Override
 	public String getSkript(String remoteAddr, boolean isMobile) {
 		if (!isMobile) {
-			StringBuffer buffer = new StringBuffer();
-			
-			StringBuffer autoRes = new StringBuffer();
+			StringBuilder autoComp = new StringBuilder();
 			for (String name: Handler.getInstance().getMealManager().getMealNames()) {
-				autoRes.append(",'" + name + "'");
+				autoComp.append(",'" + name + "'");
 			}
-			autoRes.deleteCharAt(0);
+			autoComp.deleteCharAt(0);
 			
-			buffer.append(
-					"$(function() { var availableTags = [" + autoRes + "];" +
+			return
+					// Autocomplete
+					"$(function() { var availableTags = [" + autoComp.toString() + "];" +
 					  			"$('#autocomplete').autocomplete({ source : availableTags });});" +
+		  				
+		  			// Login Overlay
 					"function overlayLogin(mode) {" +
 						"if (mode == 'display') {" +
 							"if (document.getElementById('overlay') === null) {" +
@@ -75,15 +81,29 @@ public class Header implements SiteElement {
 								"document.getElementsByTagName('body')[0]" +
 										".appendChild(div);" +
 								"$('#lightBox2').show();" +
+								
+								// Login
+								"$('#login').submit(function() {" +
+								"$.ajax({" +
+									"type:'POST'," +
+								    "cache:false," +
+									"url:'User'," +
+									"data:$('#login').serialize()," +
+									"success:function(response){" +
+										"alert('TEST');" +
+										//TODO
+										"overlayLogin()" +
+									"}" +
+								"});" +
+								"return false;" +
+								"});" +
 							"}" +
 						"} else {" +
 							"document.getElementsByTagName('body')[0]" +
 									".removeChild(document.getElementById('overlay'));" +
 							"$('#lightBox2').hide();" +
 						"}" +
-					"};");
-			
-			return buffer.toString();
+					"}";
 		}
 		return "";
 	}
