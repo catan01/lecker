@@ -14,4 +14,9 @@ public class Kategorie {
 	public String getName() {
 		return this.NAME;
 	}
+	
+	@Override
+	public String toString() {
+		return this.NAME;
+	}
 }

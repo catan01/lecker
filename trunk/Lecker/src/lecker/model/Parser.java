@@ -1,16 +1,22 @@
 package lecker.model;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Parser {
-	private Thread thread = null;
+	private Timer parserTimer = null;
 	private static Parser instance = null;
 	
+	private static final long PARSE_PERIOD = 86400000; //24 hours = 86 400 000 ms
+	private static final int DAYS_TO_PARSE = 14;
 	
+	private static Date lastParsed = null;
 	
 	private Parser() {
-		thread = new Thread(new ParserThread());
-		//thread.start(); TODO
+		parserTimer = new Timer();
+		parserTimer.scheduleAtFixedRate(new ParserTask(), new Date(), PARSE_PERIOD);
 	}
 	
 	public static void init() {
@@ -19,39 +25,28 @@ public class Parser {
 		}
 	}
 	
-	
-	
-	private void parse() {
-		//TODO
-	}
-	
-	private void firstParse() {
-		//TODO
-	}
-	
-	
-	
-	
-	
-	private class ParserThread implements Runnable {
+	private class ParserTask extends TimerTask {
 		@Override
 		public void run() {
-			//start
-			firstParse();
 			
-			while (true) {
-				try {
-					// new date
-					Calendar calendar = Calendar.getInstance();
-					calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + 1);
-					calendar.set(Calendar.HOUR, 13);
-					calendar.set(Calendar.MINUTE,37);
-					wait(calendar.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
-					parse();
-				} catch (InterruptedException e) {
-					return;
+			ParserOldenburg parser = new ParserOldenburg();
+			
+			for(int i = 0; i <= DAYS_TO_PARSE; i++) {
+				int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+				day = (day - 1 + i) % 7;
+				if(day == 0 || day == 6) {
+					//skip saturday and sunday
+					continue;
+				} else {
+					parser.parse(i);
 				}
 			}
+			
+			lastParsed = new Date();
 		}
+	}
+	
+	public static Date getLastParsed() {
+		return lastParsed;
 	}
 }
