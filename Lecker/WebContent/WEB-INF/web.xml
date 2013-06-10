@@ -17,4 +17,28 @@
   	<servlet-name>ParserStatus</servlet-name>
   	<url-pattern>/ParserStatus</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>CommentServlet</servlet-name>
+  	<servlet-class>lecker.presenter.servlet.CommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CommentServlet</servlet-name>
+  	<url-pattern>/Comment</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>PageServlet</servlet-name>
+  	<servlet-class>lecker.presenter.servlet.PageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>PageServlet</servlet-name>
+  	<url-pattern>/Page</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>UserServlet</servlet-name>
+  	<servlet-class>lecker.presenter.servlet.UserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserServlet</servlet-name>
+  	<url-pattern>/User</url-pattern>
+  </servlet-mapping>
 </web-app>
