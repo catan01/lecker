@@ -25,11 +25,11 @@ public class Header implements SiteElement {
 							"</div>" +
 							"<form id='login' action='Page' type='POST'>" +
 								"<div class='login_name'>" +
-									"Benutzername: <input class='login_name' name='" + UserServlet.PARAM_USER_NAME + "'>" +
+									"Benutzername: <input class='login_name' id='" + UserServlet.PARAM_USER_NAME + "'>" +
 								"</div>" +
 								"<div class='login_password'>" +
-									"Passwort: <input class='login_password'name='" + UserServlet.PARAM_USER_PW + "'>" +
-									"<input type='submit' name='submit' value='Anmelden'/>" +
+									"Passwort: <input type='password' class='login_password'id='" + UserServlet.PARAM_USER_PW + "'>" +
+									"<input type='submit' id='submit' value='Anmelden'/>" +
 								"</div>" +
 							"</form>" + 
 							"<div class='login_lostpassword'>" +
@@ -42,8 +42,6 @@ public class Header implements SiteElement {
 							"<span id='title'>Lecker!</span>" +
 						"</div>" +
 						"<div id='menu'>" +
-							"<button onclick=\"overlayLogin('display');\">Anmelden</button>" +
-							"<button>Registrieren</button><br/>" +
 						"</div>" +
 					"</div>" +
 					"<hr/>" +
@@ -60,19 +58,32 @@ public class Header implements SiteElement {
 	@Override
 	public String getSkript(String remoteAddr, boolean isMobile) {
 		if (!isMobile) {
+			StringBuilder builder = new StringBuilder();
 			StringBuilder autoComp = new StringBuilder();
 			for (String name: Handler.getInstance().getMealManager().getMealNames()) {
 				autoComp.append(",'" + name + "'");
 			}
 			autoComp.deleteCharAt(0);
 			
-			return
-					// Autocomplete
-					"$(function() { var availableTags = [" + autoComp.toString() + "];" +
-					  			"$('#autocomplete').autocomplete({ source : availableTags });});" +
-		  				
-		  			// Login Overlay
-					"function overlayLogin(mode) {" +
+			// Start
+			builder.append(
+					"var name = '" + (Handler.getInstance().getUserManager().getUser(remoteAddr) != null? Handler.getInstance().getUserManager().getUser(remoteAddr).getName() : "") + "';" +
+					"$(function(){" +
+						"if(name != '') {" +
+							"showLogout();" +
+						"} else {" +
+							"showLogin();" +
+							"overlayLogin('display');" +	
+						"}" +
+						"var availableTags = [" + autoComp.toString() + "];" +
+			  			"$('#autocomplete').autocomplete({" +
+			  				"source : availableTags" +
+			  			"});" +
+					"});");
+			
+		  	// login
+			builder.append(
+		  			"function overlayLogin(mode) {" +
 						"if (mode == 'display') {" +
 							"if (document.getElementById('overlay') === null) {" +
 								"div = document.createElement('div');" +
@@ -82,20 +93,23 @@ public class Header implements SiteElement {
 										".appendChild(div);" +
 								"$('#lightBox2').show();" +
 								
-								// Login
+								// Login Send
 								"$('#login').submit(function() {" +
-								"$.ajax({" +
-									"type:'POST'," +
-								    "cache:false," +
-									"url:'User'," +
-									"data:$('#login').serialize()," +
-									"success:function(response){" +
-										"alert('TEST');" +
-										//TODO
-										"overlayLogin()" +
-									"}" +
-								"});" +
-								"return false;" +
+									"var formName = $('#" + UserServlet.PARAM_USER_NAME + "').val();" +
+									"var formPW = $('#" + UserServlet.PARAM_USER_PW + "').val();" +
+									"$.ajax({" +
+										"type:'POST'," +
+									    "cache:false," +
+										"url:'User'," +
+										"data:{" + UserServlet.PARAM_USER_MODE + ":'" + UserServlet.PARAM_MODE_NORMAL + "', " + UserServlet.PARAM_USER_NAME + ":formName, " + UserServlet.PARAM_USER_PW + ":formPW}," +
+										"success:function(response){" +
+											//TODO
+											"name = response;" +
+											"showLogout();" +
+											"overlayLogin();" +
+										"}" +
+									"});" +
+									"return false;" +
 								"});" +
 							"}" +
 						"} else {" +
@@ -103,7 +117,36 @@ public class Header implements SiteElement {
 									".removeChild(document.getElementById('overlay'));" +
 							"$('#lightBox2').hide();" +
 						"}" +
-					"}";
+					"};");
+			
+		  	// showLogin
+			builder.append(
+					"function showLogin() {" +
+						"document.getElementById('menu').innerHTML=\"<button onclick='overlayLogin('display');'>Anmelden</button><button>Registrieren</button><br/>\";" +
+					"};");
+			
+		  	// logout
+			builder.append(
+					"function logout() {" +
+						"$.ajax({" +
+							"type:'POST'," +
+						    "cache:false," +
+							"url:'User'," +
+							"data: {" + UserServlet.PARAM_USER_MODE + ": '" + UserServlet.PARAM_MODE_LOGOUT + "', " + UserServlet.PARAM_USER_NAME + ": name}," +
+							"success:function(response){" +
+								//TODO
+								"showLogin();" +
+							"}" +
+						"});" +
+					"};");
+			
+		  	// showLogout
+			builder.append(
+					"function showLogout() {" +
+						"document.getElementById('menu').innerHTML=name+\" <button onclick='logout();'>Abmelden</button><button>Favoriten</button><br/>\";" +
+					"};");
+			
+		  	return builder.toString();
 		}
 		return "";
 	}
