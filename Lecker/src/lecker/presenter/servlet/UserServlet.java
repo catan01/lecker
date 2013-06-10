@@ -9,7 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lecker.model.data.User;
 import lecker.presenter.AbstractServlet;
+import lecker.presenter.Crypt;
+import lecker.presenter.Handler;
 
 
 
@@ -21,6 +24,7 @@ public class UserServlet extends AbstractServlet {
 	public final static String PARAM_USER_PW = "Password";
 	public final static String PARAM_USER_MODE = "Mode";
 	public final static String PARAM_MODE_NORMAL = "Normal";
+	public final static String PARAM_MODE_LOGOUT = "Logout";
 
 	
 	
@@ -31,6 +35,20 @@ public class UserServlet extends AbstractServlet {
 	
 	@Override
 	public synchronized void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//TODO
+		try {
+			if (request.getParameter(PARAM_USER_MODE).equals(PARAM_MODE_LOGOUT)) {
+				Handler.getInstance().getUserManager().logout(request.getRemoteAddr(), request.getParameter(PARAM_USER_NAME));
+			} else if (request.getParameter(PARAM_USER_MODE).equals(PARAM_MODE_NORMAL)) {
+				User user = Handler.getInstance().getUserManager().login(request.getRemoteAddr(), request.getParameter(PARAM_USER_NAME), Crypt.encrypt(request.getParameter(PARAM_USER_PW)));
+				response.getOutputStream().print(user.getName());
+			} else {
+				response.getOutputStream().print("");
+			}
+		} catch (Exception exc) {
+			response.getOutputStream().print("");
+		} finally {
+			response.getOutputStream().flush();
+			response.getOutputStream().close();
+		}
 	}
 }
