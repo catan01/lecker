@@ -73,7 +73,7 @@ div.header{
 }
 
 
-#login{
+div.box{
 	background: white;
 	border: 3px solid #0A8104;
 	padding: 3px;
@@ -105,4 +105,28 @@ div.login_lostpassword{
 
 button {
 	font-family: 'Verdana';
+}
+
+
+/*meal page*/
+
+div.comment{
+	text-align: right;
+	font-size: 12px;
+}
+
+div.comment_rating{
+	text-align: right;
+}
+
+
+/*canteen page*/
+
+div.canteen {
+	background: #BDBDBD;
+	padding: 3px;
+	border: 3px solid #0A8104;
+	font-size: 12px;
+	text-align: center;
+	margin-bottom: 1px;
 }
