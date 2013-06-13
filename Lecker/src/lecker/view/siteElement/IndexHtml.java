@@ -64,15 +64,14 @@ public class IndexHtml implements MainSiteElement {
 		StringBuilder builder = new StringBuilder();
 		String[] outlayNames = new String[] {"Hauptgericht", "Beilage"}; // TODO
 		
-		builder.append("<div class'mealcontainer'>");
 		for (Outlay outlay: Handler.getInstance().getMealManager().getOutlays()) {
+			builder.append("<div class='mealcontainer'>");
 			builder.append("<div class='ausgabe'>" + outlay.getName() + "</div>");
 			for (String outlayName: outlayNames) {
 				for (String mealName: Handler.getInstance().getMealManager().getPlan(outlay, DATE).getMeals(Handler.getInstance().getMealManager().getKategorie(outlayName))) {
 					Meal meal = Handler.getInstance().getMealManager().getMeal(mealName);					
 					builder.append(
-							"<a href='Page?Meal=" + meal.getName() + "'>" +
-								"<div class='meal pointer'>" +
+								"<div class='meal pointer' onclick=\"window.location.href='Page?Meal=" + meal.getName() + "'\">" +
 									"<div class='mealpicture'>" +
 										"<img src='images/kartoffeln_small.jpg'>" +
 									"</div>" +
@@ -87,12 +86,12 @@ public class IndexHtml implements MainSiteElement {
 									"<div class='mealcomments'>" +
 										"" + meal.getComments().get().length +
 									"</div>" +
-								"</div>" +
-							"</a>");
+								"</div>" );
 				}
 			}
+			builder.append("</div>");
 		}
-		builder.append("</div>");
+		
 		
 		return builder.toString();
 	}
