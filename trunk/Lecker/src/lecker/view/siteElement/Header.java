@@ -73,7 +73,6 @@ public class Header implements SiteElement {
 							"showLogout();" +
 						"} else {" +
 							"showLogin();" +
-							"overlayLogin('display');" +	
 						"}" +
 						"var availableTags = [" + autoComp.toString() + "];" +
 			  			"$('#autocomplete').autocomplete({" +
@@ -122,7 +121,7 @@ public class Header implements SiteElement {
 		  	// showLogin
 			builder.append(
 					"function showLogin() {" +
-						"document.getElementById('menu').innerHTML=\"<button onclick='overlayLogin('display');'>Anmelden</button><button>Registrieren</button><br/>\";" +
+						"$('#menu').html('<button onclick=\\'overlayLogin(\"display\");\\'>Anmelden</button><button>Registrieren</button><br/>');" +
 					"};");
 			
 		  	// logout
@@ -143,7 +142,7 @@ public class Header implements SiteElement {
 		  	// showLogout
 			builder.append(
 					"function showLogout() {" +
-						"document.getElementById('menu').innerHTML=name+\" <button onclick='logout();'>Abmelden</button><button>Favoriten</button><br/>\";" +
+							"$('#menu').html(name+' <button onclick=\\'logout();\\'>Abmelden</button><button>Favoriten</button><br/>');" +
 					"};");
 			
 		  	return builder.toString();
