@@ -9,6 +9,10 @@ import lecker.view.SiteElement;
 
 
 public class Header implements SiteElement {
+	private final static String COOKIENAMETITLE = "LeckerName";
+	
+	
+	
 	@Override
 	public String getCode(String remoteAddr, boolean isMobile) {
 		if (!isMobile) {
@@ -32,6 +36,8 @@ public class Header implements SiteElement {
 									"<input type='submit' id='submit' value='Anmelden'/>" +
 								"</div>" +
 							"</form>" + 
+							"<div class='login_password' id='login_failure'>" +
+							"</div>" +
 							"<div class='login_lostpassword'>" +
 								"<a>Passwort vergessen?</a>" +
 							"</div>" +
@@ -78,6 +84,8 @@ public class Header implements SiteElement {
 			  			"$('#autocomplete').autocomplete({" +
 			  				"source : availableTags" +
 			  			"});" +
+			  			"var textF = document.getElementById('" + UserServlet.PARAM_USER_NAME + "');" +
+			  			"textF.value = getCookie('" + COOKIENAMETITLE + "');" +
 					"});");
 			
 		  	// login
@@ -88,8 +96,7 @@ public class Header implements SiteElement {
 								"div = document.createElement('div');" +
 								"div.setAttribute('id', 'overlay');" +
 								"div.setAttribute('onclick', 'overlayLogin();');" +
-								"document.getElementsByTagName('body')[0]" +
-										".appendChild(div);" +
+								"document.getElementsByTagName('body')[0].appendChild(div);" +
 								"$('#lightBox2').show();" +
 								
 								// Login Send
@@ -102,18 +109,21 @@ public class Header implements SiteElement {
 										"url:'User'," +
 										"data:{" + UserServlet.PARAM_USER_MODE + ":'" + UserServlet.PARAM_MODE_NORMAL + "', " + UserServlet.PARAM_USER_NAME + ":formName, " + UserServlet.PARAM_USER_PW + ":formPW}," +
 										"success:function(response){" +
-											//TODO
-											"name = response;" +
-											"showLogout();" +
-											"overlayLogin();" +
+											"if(response != '') {" +
+												"name = response;" +
+												"document.cookie='" + COOKIENAMETITLE + "=' + name;" +
+												"showLogout();" +
+												"overlayLogin();" +
+											"} else {" +
+												"$('#login_failure').html('Es ist ein Fehler aufgetreten.<br/>Bitte überprüfen Sie ihre eingegebnen Daten und versuchen Sie es erneut.');" +
+											"}" +
 										"}" +
 									"});" +
 									"return false;" +
 								"});" +
 							"}" +
 						"} else {" +
-							"document.getElementsByTagName('body')[0]" +
-									".removeChild(document.getElementById('overlay'));" +
+							"document.getElementsByTagName('body')[0].removeChild(document.getElementById('overlay'));" +
 							"$('#lightBox2').hide();" +
 						"}" +
 					"};");
@@ -133,7 +143,6 @@ public class Header implements SiteElement {
 							"url:'User'," +
 							"data: {" + UserServlet.PARAM_USER_MODE + ": '" + UserServlet.PARAM_MODE_LOGOUT + "', " + UserServlet.PARAM_USER_NAME + ": name}," +
 							"success:function(response){" +
-								//TODO
 								"showLogin();" +
 							"}" +
 						"});" +
@@ -144,6 +153,27 @@ public class Header implements SiteElement {
 					"function showLogout() {" +
 							"$('#menu').html(name+' <button onclick=\\'logout();\\'>Abmelden</button><button>Favoriten</button><br/>');" +
 					"};");
+			
+			// Cookie
+			builder.append(
+					"function getCookie(c_name) {" +
+						"var c_value = document.cookie;" +
+						"var c_start = c_value.indexOf(' ' + c_name + '=');" +
+						"if (c_start == -1) {" +
+							"c_start = c_value.indexOf(c_name + '=');" +
+						"}" +
+						"if (c_start == -1) {" +
+							"c_value = null;" +
+						"} else {" +
+							"c_start = c_value.indexOf('=', c_start) + 1;" +
+							"var c_end = c_value.indexOf(';', c_start);" +
+							"if (c_end == -1) {" +
+								"c_end = c_value.length;" +
+							"}" +
+							"c_value = unescape(c_value.substring(c_start,c_end));" +
+						"}" +
+						"return c_value;" +
+					"}");
 			
 		  	return builder.toString();
 		}
