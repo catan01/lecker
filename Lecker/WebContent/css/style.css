@@ -422,6 +422,12 @@ input.login_password {
 	
 }
 
+div.login_failure {
+	position: absolute;
+	right: 10px;
+	bottom: 50px;
+}
+
 div.login_lostpassword {
 	position: absolute;
 	bottom: 10px;

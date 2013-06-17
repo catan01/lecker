@@ -3,6 +3,7 @@ package lecker.view.siteElement;
 
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import lecker.model.data.Label;
@@ -68,7 +69,9 @@ public class IndexHtml implements MainSiteElement {
 			builder.append("<div class='mealcontainer'>");
 			builder.append("<div class='ausgabe'>" + outlay.getName() + "</div>");
 			for (String outlayName: outlayNames) {
-				for (String mealName: Handler.getInstance().getMealManager().getPlan(outlay, DATE).getMeals(Handler.getInstance().getMealManager().getKategorie(outlayName))) {
+				String[] names = Handler.getInstance().getMealManager().getPlan(outlay, DATE).getMeals(Handler.getInstance().getMealManager().getKategorie(outlayName));
+				Arrays.sort(names);
+				for (String mealName: names) {
 					Meal meal = Handler.getInstance().getMealManager().getMeal(mealName);					
 					builder.append(
 								"<div class='meal pointer' onclick=\"window.location.href='Page?Meal=" + meal.getName() + "'\">" +
@@ -87,6 +90,9 @@ public class IndexHtml implements MainSiteElement {
 										"" + meal.getComments().get().length +
 									"</div>" +
 								"</div>" );
+				}
+				if (!outlayName.equals(outlayNames[outlayNames.length - 1])) {
+					builder.append("<hr/>");
 				}
 			}
 			builder.append("</div>");
