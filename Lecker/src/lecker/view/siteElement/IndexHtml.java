@@ -2,6 +2,8 @@ package lecker.view.siteElement;
 
 
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -23,21 +25,21 @@ import lecker.view.MainSiteElement;
  */
 public class IndexHtml implements MainSiteElement {
 	private final Calendar DATE;
-	
-	
-	
+
+
+
 	public IndexHtml() {
 		DATE = Calendar.getInstance();
 	}
-	
+
 	public IndexHtml(String date) {
 		this();
 		DATE.set(Calendar.YEAR, Integer.parseInt(date.split("-")[0]));
 		DATE.set(Calendar.MONTH, Integer.parseInt(date.split("-")[1]));
 		DATE.set(Calendar.DATE, Integer.parseInt(date.split("-")[2]));
 	}
-	
-	
+
+
 	@Override
 	public String getCode(String remoteAddr, boolean isMobile) {
 		if (!isMobile) {
@@ -52,19 +54,19 @@ public class IndexHtml implements MainSiteElement {
 		return "";
 	}
 
-	
-	
+
+
 	@Override
 	public String getTitle() {
 		return "Startseite";
 	}
-	
-	
-	
+
+
+
 	private String showRaster() {
 		StringBuilder builder = new StringBuilder();
 		String[] outlayNames = new String[] {"Hauptgericht", "Beilage"}; // TODO
-		
+
 		for (Outlay outlay: Handler.getInstance().getMealManager().getOutlays()) {
 			builder.append("<div class='mealcontainer'>");
 			builder.append("<div class='ausgabe'>" + outlay.getName() + "</div>");
@@ -72,24 +74,31 @@ public class IndexHtml implements MainSiteElement {
 				String[] names = Handler.getInstance().getMealManager().getPlan(outlay, DATE).getMeals(Handler.getInstance().getMealManager().getKategorie(outlayName));
 				Arrays.sort(names);
 				for (String mealName: names) {
-					Meal meal = Handler.getInstance().getMealManager().getMeal(mealName);					
+					Meal meal = Handler.getInstance().getMealManager().getMeal(mealName);
+					try {
+						mealName = URLEncoder.encode(mealName, "UTF8");
+					} catch (UnsupportedEncodingException e) {
+						//do nothing
+					}
 					builder.append(
-								"<div class='meal pointer' onclick=\"window.location.href='Page?Meal=" + meal.getName() + "'\">" +
+							"<div class='meal pointer' onclick=\"window.location.href='Page?Meal=" + mealName + "'\">" +
+									"<div class='mealheader'>" +
 									"<div class='mealpicture'>" +
-										"<img src='images/kartoffeln_small.jpg'>" +
+									"<img src='images/meals/Salzkartoffeln/1_small.jpg'>" +
 									"</div>" +
 									"<div class='mealtitle'>" +
-										"<b>" + meal.getName() + "</b> " + loadLabel(meal) + 
-										"<br>" +
-										(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
+									"<b>" + meal.getName() + "</b> " + loadLabel(meal) + 
+									"<br>" +
+									(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
+									"</div>" +
 									"</div>" +
 									"<div class='mealrating'>" +
-										loadRating(meal) +
+									loadRating(meal) +
 									"</div>" +
 									"<div class='mealcomments'>" +
-										"" + meal.getComments().get().length +
+									"" + meal.getComments().get().length +
 									"</div>" +
-								"</div>" );
+							"</div>" );
 				}
 				if (!outlayName.equals(outlayNames[outlayNames.length - 1])) {
 					builder.append("<hr/>");
@@ -97,16 +106,16 @@ public class IndexHtml implements MainSiteElement {
 			}
 			builder.append("</div>");
 		}
-		
-		
+
+
 		return builder.toString();
 	}
-	
-	
-	
+
+
+
 	private String loadRating(Meal meal) {
 		StringBuilder builder = new StringBuilder();
-		
+
 		if (meal.getComments().get().length > 0) {
 			int count = 0, rate = 0;
 			for (Comment com: meal.getComments().get()) {
@@ -122,21 +131,21 @@ public class IndexHtml implements MainSiteElement {
 					builder.append("<img src='images/star_gray_small.png'>");
 				}
 			}
-			builder.append("<b>Ã˜ " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</b>");
+			builder.append("<b>Ø " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</b>");
 		} else {
 			builder.append("Keine Bewertungen vorhanden");
 		}
-		
+
 		return builder.toString();
 	}
-	
+
 	private String loadLabel(Meal meal) {
 		StringBuilder builder = new StringBuilder();
-		
+
 		for (Label label: meal.getLabels()) {
 			builder.append("<img title='" + label.getName() + "' src='images/mealinfo/" + label.getName() + "_small.png'>  ");
 		}
-		
+
 		return builder.toString();
 	}
 }

@@ -3,6 +3,7 @@ package lecker.presenter.servlet;
 
 
 import java.io.IOException;
+import java.net.URLDecoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +14,6 @@ import lecker.presenter.AbstractServlet;
 import lecker.view.siteElement.ExceptionHtml;
 import lecker.view.siteElement.IndexHtml;
 import lecker.view.siteElement.MealHtml;
-
 
 
 @WebServlet("/Page")
@@ -30,6 +30,7 @@ public class PageServlet extends AbstractServlet {
 			response.setContentType("text/html");
 			Object attr;
 			if ((attr = request.getParameter(PARAM_MEAL)) != null) {
+				attr = URLDecoder.decode((String)attr, "UTF8" );
 				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new MealHtml((String) attr), isMobile));
 			} else if ((attr = request.getParameter(PARAM_Day)) != null) {
 				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml((String) attr), isMobile));
