@@ -214,17 +214,19 @@ div.meal {
 	margin-bottom: 10px;
 }
 
-div.mealpicture {
-	position:absolute;
+div.mealheader {
+	position: absolute;
 	top: 5px;
 	left: 5px;
+	width: 230px;
+}
+
+div.mealpicture {
+	float: left;
+	margin-right: 5px;
 }
 
 div.mealtitle {
-	position: absolute;
-	top: 5px;
-	left: 75px;
-	width: 140px;
 	/* word-wrap: break-word;  Zeilenumbruch erzwingen  */
 }
 

@@ -118,7 +118,10 @@ public class MealHtml implements MainSiteElement {
 			}
 			builder.append(" " + ratings[i] + "<br />");
 		}
-		builder.append("<div class='meal_rating_solution'> Ã˜ " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</div></div>");
+		if(count != 0) {
+			builder.append("<div class='meal_rating_solution'> Ø " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</div>");
+		}
+		builder.append("</div>");
 		
 		return builder.toString();
 	}
