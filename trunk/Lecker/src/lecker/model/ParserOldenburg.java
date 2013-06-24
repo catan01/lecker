@@ -144,6 +144,9 @@ public class ParserOldenburg {
 				page += buffer + "\n";
 			}
 			
+			reader.close();
+			connection.disconnect();
+			
 			//clean html
 			page = addHTMLTags(page);
 			page = closeImgTags(page);
