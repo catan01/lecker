@@ -19,6 +19,15 @@ public class Header implements SiteElement {
 			StringBuilder builder = new StringBuilder();
 			
 			builder.append(
+					"<div id='fb-root'></div>" +
+					"<script>(function(d, s, id) {" +
+						"var js, fjs = d.getElementsByTagName(s)[0];" +
+						"if (d.getElementById(id)) return;" +
+						"js = d.createElement(s); js.id = id;" +
+						"js.src = '//connect.facebook.net/de_DE/all.js#xfbml=1';" +
+						"fjs.parentNode.insertBefore(js, fjs);" +
+					"}(document, 'script', 'facebook-jssdk'));</script>" +
+					
 					"<div id='lightBox2'>" +
 						"<div id='overlay_login'>" +
 							"<div class='login_title'>" +

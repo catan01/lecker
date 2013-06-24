@@ -41,7 +41,7 @@ public class Constructor {
 						"<script src='js/jquery-1.9.1.js'></script>" +
 						"<script src='js/jquery-ui-1.10.2.custom.js'></script>" +
 						"<script>" + HEADER.getSkript(remoteAddr, isMobile) + site.getSkript(remoteAddr, isMobile) + FOOTER.getSkript(remoteAddr, isMobile) + "</script>" +
-					"</header>" +
+					"</head>" +
 					"<body>" + HEADER.getCode(remoteAddr, isMobile) + site.getCode(remoteAddr, isMobile) + FOOTER.getCode(remoteAddr, isMobile) + "</body>" +
 				"</html>");
 						
