@@ -38,7 +38,7 @@ public class ParserOldenburg {
 	private static final String CANTEEN_B = "B";
 	private static final String CANTEEN_CULINARIUM = "Culinarium";
 	private static final String CANTEEN_WECHLOY = "Wechloy";
-	private static final String CANTEEN_FH = "Ofener Straße";
+	private static final String CANTEEN_FH = "Ofener Straï¿½e";
 	
 	private static final String CANTEEN_A_ALTERNATIVE = "Alternativ";
 	private static final int CANTEEN_A_ALTERNATIVE_PRICE = 140;
@@ -47,7 +47,7 @@ public class ParserOldenburg {
 	
 	private static final String MAIN_MEAL = "Hauptgericht";
 	
-	private static final String EXTRA_MEAL_1 = "Schälchen";
+	private static final String EXTRA_MEAL_1 = "Schï¿½lchen";
 	private static final String EXTRA_MEAL_2 = "Beilage";
 	private static final int EXTRA_MEAL_PRICE = 35;
 	
@@ -66,7 +66,7 @@ public class ParserOldenburg {
 	private static final String INGREDIENT_FARBSTOFF = "1";
 	private static final String INGREDIENT_KONSERVIERUNGSSTOFF = "2";
 	private static final String INGREDIENT_ANTIOXIDATIONSMITTEL = "3";
-	private static final String INGREDIENT_GESCHMACKVERSTÄRKER = "4";
+	private static final String INGREDIENT_GESCHMACKVERSTÃ„RKER = "4";
 	private static final String INGREDIENT_GESCHWEFELT = "5";
 	private static final String INGREDIENT_GESCHWAERZT = "6";
 	private static final String INGREDIENT_GEWACHST = "7";
@@ -80,16 +80,16 @@ public class ParserOldenburg {
 	private static final String LABEL_BEEF = "Rind";
 	private static final String LABEL_PORK = "Schwein";
 	private static final String LABEL_FISH = "Fisch";
-	private static final String LABEL_CHICKEN = "Geflügel";
+	private static final String LABEL_CHICKEN = "Geflï¿½gel";
 	private static final String LABEL_LAMB = "Lamm";
 	private static final String LABEL_FARBSTOFF = "Farbstoff";
 	private static final String LABEL_KONSERVIERUNGSSTOFF = "Konservierungsstoff";
 	private static final String LABEL_ANTIOXIDATIONSMITTEL = "Antioxidationsmittel";
-	private static final String LABEL_GESCHMACKVERSTÄRKER = "Geschmacksverstärker";
+	private static final String LABEL_GESCHMACKVERSTÃ„RKER = "Geschmacksverstï¿½rker";
 	private static final String LABEL_GESCHWEFELT = "geschwefelt";
-	private static final String LABEL_GESCHWAERZT = "geschwärzt";
+	private static final String LABEL_GESCHWAERZT = "geschwï¿½rzt";
 	private static final String LABEL_GEWACHST = "gewachst";
-	private static final String LABEL_SUESSUNGSMITTEL = "Süßungsmittel";
+	private static final String LABEL_SUESSUNGSMITTEL = "Sï¿½ï¿½ungsmittel";
 	private static final String LABEL_PHENYLALANINQUELLE = "Phenylalaninquelle";
 	private static final String LABEL_PHOSPHAT = "Phosphat";
 	private static final String LABEL_ALKOHOL = "Alkohol";
@@ -116,7 +116,7 @@ public class ParserOldenburg {
 		labelMap.put(INGREDIENT_ANTIOXIDATIONSMITTEL, LABEL_ANTIOXIDATIONSMITTEL);
 		labelMap.put(INGREDIENT_FARBSTOFF, LABEL_FARBSTOFF);
 		labelMap.put(INGREDIENT_KONSERVIERUNGSSTOFF, LABEL_KONSERVIERUNGSSTOFF);
-		labelMap.put(INGREDIENT_GESCHMACKVERSTÄRKER, LABEL_GESCHMACKVERSTÄRKER);
+		labelMap.put(INGREDIENT_GESCHMACKVERSTÃ„RKER, LABEL_GESCHMACKVERSTÃ„RKER);
 		labelMap.put(INGREDIENT_GESCHWAERZT, LABEL_GESCHWAERZT);
 		labelMap.put(INGREDIENT_GEWACHST, LABEL_GEWACHST);
 		labelMap.put(INGREDIENT_GESCHWEFELT, LABEL_GESCHWEFELT);
@@ -216,13 +216,13 @@ public class ParserOldenburg {
 	 */
 	private String replaceCharRefs(String str) {
 		str = str.replaceAll("&euro;", "");
-		str = str.replaceAll("&auml;", "ä");
-		str = str.replaceAll("&Auml;", "Ä");
-		str = str.replaceAll("&ouml;", "ö");
-		str = str.replaceAll("&Ouml;", "Ö");
-		str = str.replaceAll("&uuml;", "ü");
-		str = str.replaceAll("&Uuml;", "Ü");
-		str = str.replaceAll("&szlig;", "ß");
+		str = str.replaceAll("&auml;", "ï¿½");
+		str = str.replaceAll("&Auml;", "ï¿½");
+		str = str.replaceAll("&ouml;", "ï¿½");
+		str = str.replaceAll("&Ouml;", "ï¿½");
+		str = str.replaceAll("&uuml;", "ï¿½");
+		str = str.replaceAll("&Uuml;", "ï¿½");
+		str = str.replaceAll("&szlig;", "ï¿½");
 		return str;
 	}
 	

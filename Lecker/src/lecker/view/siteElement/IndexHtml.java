@@ -82,22 +82,22 @@ public class IndexHtml implements MainSiteElement {
 					}
 					builder.append(
 							"<div class='meal pointer' onclick=\"window.location.href='Page?Meal=" + mealName + "'\">" +
-									"<div class='mealheader'>" +
+								"<div class='mealheader'>" +
 									"<div class='mealpicture'>" +
-									"<img src='images/meals/Salzkartoffeln/1_small.jpg'>" +
+										"<img src='images/meals/Salzkartoffeln/1_small.jpg'>" +
 									"</div>" +
 									"<div class='mealtitle'>" +
-									"<b>" + meal.getName() + "</b> " + loadLabel(meal) + 
-									"<br>" +
-									(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
+										"<b>" + meal.getName() + "</b> " + loadLabel(meal) + 
+										"<br>" +
+										(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
 									"</div>" +
-									"</div>" +
-									"<div class='mealrating'>" +
+								"</div>" +
+								"<div class='mealrating'>" +
 									loadRating(meal) +
-									"</div>" +
-									"<div class='mealcomments'>" +
+								"</div>" +
+								"<div class='mealcomments'>" +
 									"" + meal.getComments().get().length +
-									"</div>" +
+								"</div>" +
 							"</div>" );
 				}
 				if (!outlayName.equals(outlayNames[outlayNames.length - 1])) {
@@ -131,7 +131,7 @@ public class IndexHtml implements MainSiteElement {
 					builder.append("<img src='images/star_gray_small.png'>");
 				}
 			}
-			builder.append("<b>Ø " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</b>");
+			builder.append("<b>Ã˜ " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</b>");
 		} else {
 			builder.append("Keine Bewertungen vorhanden");
 		}

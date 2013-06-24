@@ -60,7 +60,9 @@ public class Header implements SiteElement {
 						"</div>" +
 					"</div>" +
 					"<hr/>" +
-					"Startseite" + //TODO: Breadcrumb
+					"<div id='breadcrumb'>" +
+						"<a href='Page'>Startseite</a>" + //TODO: Breadcrumb
+					"</div>" +
 					"<div id='search'>" +
 						"<input id='autocomplete' placeholder='Gericht suchen'></br>" +
 					"</div></br><br/>");
@@ -141,6 +143,7 @@ public class Header implements SiteElement {
 			builder.append(
 					"function showLogin() {" +
 						"$('#menu').html('<button onclick=\\'overlayLogin(\"display\");\\'>Anmelden</button><button>Registrieren</button><br/>');" +
+						"document.getElementById('onLogin').disabled = true;" +
 					"};");
 			
 		  	// logout
@@ -161,6 +164,7 @@ public class Header implements SiteElement {
 			builder.append(
 					"function showLogout() {" +
 							"$('#menu').html(name+' <button onclick=\\'logout();\\'>Abmelden</button><button>Favoriten</button><br/>');" +
+							"document.getElementById('onLogin').disabled = false;" +
 					"};");
 			
 			// Cookie
