@@ -10,6 +10,7 @@ import lecker.model.data.Label;
 import lecker.model.data.Meal;
 import lecker.model.data.comments.Comment;
 import lecker.presenter.Handler;
+import lecker.presenter.servlet.CommentServlet;
 import lecker.view.MainSiteElement;
 
 
@@ -48,7 +49,20 @@ public class MealHtml implements MainSiteElement {
 			this.showImage(images.toArray(new Image[0])) + "<br/>" +
 			this.showDescription() + "<br/>" +
 			this.showRating(ratings) + "<br/>" +
-		"</div><div class='meal_right'>");
+			"</div><div class='meal_right'>" +
+			"<div class='comment' id='insertAnker'>" +
+				"<form id='comment' action='Page' type='POST'>" +
+					"<input type='hidden' name='Meal' value='" + MEAL.getName() + "'/>" +
+					"<textarea rows='4' cols='100'  class='comment_comment' id='" + CommentServlet.PARAM_COMMENT + "'></textarea></br>" +
+					"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='1'>" +
+					"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='2'>" +
+					"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='3'>" +
+					"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='4'>" +
+					"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='5'>" +
+					"<input type='submit' id='onLogin' value='Senden'/>" +
+					"<div id='comment_response'></div>" +
+				"</form>" +
+			"</div>");
 		for (Comment comment: comments) {
 			builder.append(showComment(comment));
 		}
@@ -59,7 +73,32 @@ public class MealHtml implements MainSiteElement {
 
 	@Override
 	public String getSkript(String remoteAddr, boolean isMobile) {
-		return "";
+		return "$(function(){" +
+					"$('#comment').submit(function() {" +
+						"var formComment = $('#" + CommentServlet.PARAM_COMMENT + "').val();" +
+						"var formRating = 0;" +
+						"var ratingsCb = document.getElementsByName('" + CommentServlet.PARAM_RATING + "');" +
+						"for ( var i = 0; i < ratingsCb.length; i++) {" +
+							"if(ratingsCb[i].checked) {" +
+								"formRating = i + 1;" +
+							"}" +
+						"}" +
+						"$.ajax({" +
+							"type:'POST'," +
+						    "cache:false," +
+							"url:'Comment'," +
+							"data:{" + CommentServlet.PARAM_MEAL + ":'" + MEAL.getName() + "', " + CommentServlet.PARAM_COMMENT + ":formComment, " + CommentServlet.PARAM_RATING + ":formRating}," +
+							"success:function(response){" +
+								"if (response == '') {" +
+									"document.getElementById('comment_response').innerHTML = 'Kommentar gespeichert';" +
+								"} else {" +
+									"document.getElementById('comment_response').innerHTML = response;" +
+								"}" +
+							"}" +
+						"});" +
+						"return false;" +
+					"});" +
+				"});";
 	}
 
 
@@ -118,8 +157,8 @@ public class MealHtml implements MainSiteElement {
 			}
 			builder.append(" " + ratings[i] + "<br />");
 		}
-		if(count != 0) {
-			builder.append("<div class='meal_rating_solution'> Ø " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</div>");
+		if(count >= 0) {
+			builder.append("<div class='meal_rating_solution'> Ã˜ " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</div>");
 		}
 		builder.append("</div>");
 		
