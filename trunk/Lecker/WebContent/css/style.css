@@ -29,6 +29,15 @@ button:active {
 	background: #ffffff;
 }
 
+a:link {
+	text-decoration:none;
+	color:#4da20b;
+}
+
+a:hover {
+	font-weight:bold;
+}
+
 .pointer {
 	cursor: pointer; cursor: hand;
 }
