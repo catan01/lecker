@@ -65,6 +65,19 @@ public class IndexHtml implements MainSiteElement {
 
 	private String showRaster() {
 		StringBuilder builder = new StringBuilder();
+		
+		builder.append(
+		"<div id='date'>"+
+			"<span id='datetitle'>Angebot vom " + DATE.get(Calendar.DAY_OF_MONTH) + "." + (DATE.get(Calendar.MONTH) + 1) + "." + DATE.get(Calendar.YEAR) + "</span><br>" +
+				"<img id='date_left' class='pointer' src='images/arrow_left.png'>" +
+				"&nbsp;&nbsp;&nbsp;" +
+				"<img id='datepickerImage' class='pointer' src='images/calendar.png'>" +
+				"&nbsp;&nbsp;&nbsp;" +
+				"<img id='date_right' class='pointer' src='images/arrow_right.png'>" +
+				"<div id='datepicker'></div>" +
+		"</div>" +
+	"</div>");
+		
 		String[] outlayNames = new String[] {"Hauptgericht", "Beilage"}; // TODO
 
 		for (Outlay outlay: Handler.getInstance().getMealManager().getOutlays()) {

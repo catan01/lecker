@@ -60,12 +60,13 @@ public class Header implements SiteElement {
 						"</div>" +
 					"</div>" +
 					"<hr/>" +
+					"<div id='middle'>" +
 					"<div id='breadcrumb'>" +
 						"<a href='Page'>Startseite</a>" + //TODO: Breadcrumb
 					"</div>" +
 					"<div id='search'>" +
-						"<input id='autocomplete' placeholder='Gericht suchen'></br>" +
-					"</div></br><br/>");
+						"<input id='autocomplete' placeholder='Gericht suchen'>" +
+					"</div>");
 			
 			return builder.toString();
 		}
