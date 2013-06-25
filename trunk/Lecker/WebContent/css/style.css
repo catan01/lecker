@@ -69,6 +69,10 @@ a:hover {
 
 }
 
+#breadcrumb {
+	float:left;
+}
+
 /* DATE */
 #date {
 	width: 500px;

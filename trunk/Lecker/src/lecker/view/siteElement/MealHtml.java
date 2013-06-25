@@ -44,6 +44,8 @@ public class MealHtml implements MainSiteElement {
 				ratings[0]++;
 			}
 		}
+		//close middle div
+		builder.append("<br/><br/></div>");
 		
 		builder.append("<div class='meal_left'>" +
 			this.showImage(images.toArray(new Image[0])) + "<br/>" +
@@ -157,7 +159,7 @@ public class MealHtml implements MainSiteElement {
 			}
 			builder.append(" " + ratings[i] + "<br />");
 		}
-		if(count >= 0) {
+		if(count > 0) {
 			builder.append("<div class='meal_rating_solution'> Ø " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</div>");
 		}
 		builder.append("</div>");

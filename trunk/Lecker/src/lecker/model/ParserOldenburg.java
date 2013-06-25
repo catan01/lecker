@@ -38,7 +38,7 @@ public class ParserOldenburg {
 	private static final String CANTEEN_B = "B";
 	private static final String CANTEEN_CULINARIUM = "Culinarium";
 	private static final String CANTEEN_WECHLOY = "Wechloy";
-	private static final String CANTEEN_FH = "Ofener Stra�e";
+	private static final String CANTEEN_FH = "Ofener Straße";
 	
 	private static final String CANTEEN_A_ALTERNATIVE = "Alternativ";
 	private static final int CANTEEN_A_ALTERNATIVE_PRICE = 140;
@@ -47,7 +47,7 @@ public class ParserOldenburg {
 	
 	private static final String MAIN_MEAL = "Hauptgericht";
 	
-	private static final String EXTRA_MEAL_1 = "Sch�lchen";
+	private static final String EXTRA_MEAL_1 = "Schälchen";
 	private static final String EXTRA_MEAL_2 = "Beilage";
 	private static final int EXTRA_MEAL_PRICE = 35;
 	
@@ -80,16 +80,16 @@ public class ParserOldenburg {
 	private static final String LABEL_BEEF = "Rind";
 	private static final String LABEL_PORK = "Schwein";
 	private static final String LABEL_FISH = "Fisch";
-	private static final String LABEL_CHICKEN = "Gefl�gel";
+	private static final String LABEL_CHICKEN = "Geflügel";
 	private static final String LABEL_LAMB = "Lamm";
 	private static final String LABEL_FARBSTOFF = "Farbstoff";
 	private static final String LABEL_KONSERVIERUNGSSTOFF = "Konservierungsstoff";
 	private static final String LABEL_ANTIOXIDATIONSMITTEL = "Antioxidationsmittel";
-	private static final String LABEL_GESCHMACKVERSTÄRKER = "Geschmacksverst�rker";
+	private static final String LABEL_GESCHMACKVERSTÄRKER = "Geschmacksverstärker";
 	private static final String LABEL_GESCHWEFELT = "geschwefelt";
-	private static final String LABEL_GESCHWAERZT = "geschw�rzt";
+	private static final String LABEL_GESCHWAERZT = "geschwärzt";
 	private static final String LABEL_GEWACHST = "gewachst";
-	private static final String LABEL_SUESSUNGSMITTEL = "S��ungsmittel";
+	private static final String LABEL_SUESSUNGSMITTEL = "Süßungsmittel";
 	private static final String LABEL_PHENYLALANINQUELLE = "Phenylalaninquelle";
 	private static final String LABEL_PHOSPHAT = "Phosphat";
 	private static final String LABEL_ALKOHOL = "Alkohol";
@@ -216,13 +216,13 @@ public class ParserOldenburg {
 	 */
 	private String replaceCharRefs(String str) {
 		str = str.replaceAll("&euro;", "");
-		str = str.replaceAll("&auml;", "�");
-		str = str.replaceAll("&Auml;", "�");
-		str = str.replaceAll("&ouml;", "�");
-		str = str.replaceAll("&Ouml;", "�");
-		str = str.replaceAll("&uuml;", "�");
-		str = str.replaceAll("&Uuml;", "�");
-		str = str.replaceAll("&szlig;", "�");
+		str = str.replaceAll("&auml;", "ä");
+		str = str.replaceAll("&Auml;", "Ä");
+		str = str.replaceAll("&ouml;", "ö");
+		str = str.replaceAll("&Ouml;", "Ö");
+		str = str.replaceAll("&uuml;", "ü");
+		str = str.replaceAll("&Uuml;", "Ü");
+		str = str.replaceAll("&szlig;", "ß");
 		return str;
 	}
 	
