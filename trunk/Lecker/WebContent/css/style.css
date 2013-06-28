@@ -434,6 +434,12 @@ div.login_password {
 	top: 120px;
 }
 
+div.login_facebook {
+	position: absolute;
+	right: 100px;
+	top: 175px;
+}
+
 input.login_password {
 	
 }
