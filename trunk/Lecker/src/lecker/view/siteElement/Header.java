@@ -20,13 +20,18 @@ public class Header implements SiteElement {
 			
 			builder.append(
 					"<div id='fb-root'></div>" +
-					"<script>(function(d, s, id) {" +
-						"var js, fjs = d.getElementsByTagName(s)[0];" +
-						"if (d.getElementById(id)) return;" +
-						"js = d.createElement(s); js.id = id;" +
-						"js.src = '//connect.facebook.net/de_DE/all.js#xfbml=1';" +
-						"fjs.parentNode.insertBefore(js, fjs);" +
-					"}(document, 'script', 'facebook-jssdk'));</script>" +
+							"<script>" +
+							  "window.fbAsyncInit = function() {" +
+							    "FB.init({appId: '511627772223820', status: true, cookie: true," +
+							             "xfbml: true});" +
+							  "};" +
+							  "(function() {" +
+							    "var e = document.createElement('script'); e.async = true;" +
+							    "e.src = document.location.protocol +" +
+							      "'//connect.facebook.net/de_DE/all.js';" +
+							    "document.getElementById('fb-root').appendChild(e);" +
+							  "}());" +
+							"</script>" +
 					
 					"<div id='lightBox2'>" +
 						"<div id='overlay_login'>" +
@@ -47,6 +52,7 @@ public class Header implements SiteElement {
 							"</form>" + 
 							"<div class='login_password' id='login_failure'>" +
 							"</div>" +
+							"<div class='login_facebook'> <fb:login-button autologoutlink='true';>Mit Facebook einloggen</fb:login-button></div>" +
 							"<div class='login_lostpassword'>" +
 								"<a>Passwort vergessen?</a>" +
 							"</div>" +
@@ -62,7 +68,7 @@ public class Header implements SiteElement {
 					"<hr/>" +
 					"<div id='middle'>" +
 					"<div id='breadcrumb'>" +
-						"<a href='Page'>Startseite</a>" + //TODO: Breadcrumb
+						"<a href='Page'>Startseite</a>" + //TODO: Breadcrumb +
 					"</div>" +
 					"<div id='search'>" +
 						"<input id='autocomplete' placeholder='Gericht suchen'>" +
