@@ -24,8 +24,10 @@ import lecker.view.MainSiteElement;
  *
  */
 public class IndexHtml implements MainSiteElement {
+	
+	private static final int MAX_NAME_LENGTH = 40;
+	
 	private final Calendar DATE;
-
 
 
 	public IndexHtml() {
@@ -94,13 +96,14 @@ public class IndexHtml implements MainSiteElement {
 						//do nothing
 					}
 					builder.append(
-							"<div class='meal pointer' onclick=\"window.location.href='Page?Meal=" + mealName + "'\">" +
+							"<div class='meal pointer' onclick=\"window.location.href='Page?Meal=" + mealName + "'\"" +
+											(meal.getName().length() > MAX_NAME_LENGTH ? " title='" + meal.getName() + "'>" : ">") +
 								"<div class='mealheader'>" +
 									"<div class='mealpicture'>" +
 										"<img src='images/meals/Salzkartoffeln/1_small.jpg'>" +
 									"</div>" +
 									"<div class='mealtitle'>" +
-										"<b>" + meal.getName() + "</b> " + loadLabel(meal) + 
+										"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
 										"<br>" +
 										(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
 									"</div>" +
@@ -160,5 +163,12 @@ public class IndexHtml implements MainSiteElement {
 		}
 
 		return builder.toString();
+	}
+	
+	private String shortenMealName(String name) {
+		if(name.length() > MAX_NAME_LENGTH) {
+			return (name.substring(0, MAX_NAME_LENGTH) + "...");
+		}
+		return name;
 	}
 }

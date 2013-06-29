@@ -60,7 +60,9 @@ public class Header implements SiteElement {
 					"</div>" +
 					"<div id='header'>" +
 						"<div id='banner'>" +
-							"<span id='title'>Lecker!</span>" +
+							"<canvas id='logo' width='400' height='70'><span id='title'>" +
+							"Lecker!</span></canvas>" +
+							getLogoSkript() +
 						"</div>" +
 						"<div id='menu'>" +
 						"</div>" +
@@ -198,5 +200,37 @@ public class Header implements SiteElement {
 		  	return builder.toString();
 		}
 		return "";
+	}
+	
+	private String getLogoSkript() {
+		return  "<script>var c=document.getElementById('logo');" +
+				"var ctx=c.getContext('2d');" +
+				"ctx.font='64pt verdana, sans-serif, helvetica';" +
+				"ctx.fillStyle='#0A8104';" +
+				"ctx.fillText('Lecker!',90,64);" +
+				"ctx.lineWidth = 4;" +
+				"ctx.strokeStyle='#0A8104';" +
+				"ctx.moveTo(2,25);" +
+				"ctx.lineTo(86,25);" +
+				"ctx.stroke();" +
+				"ctx.beginPath();" +
+				"ctx.arc(44,25,40,0,Math.PI);" +
+				"ctx.stroke();" +
+				"ctx.beginPath();" +
+				"ctx.save();" +
+				"ctx.arc(40,25,20,Math.PI,-Math.PI/2);" +
+				"ctx.scale(1.5,0.1);" +
+				"ctx.stroke();" +
+				"ctx.beginPath();" +
+				"ctx.restore();" +
+				"ctx.save();" +
+				"ctx.arc(60,25,20,Math.PI,-Math.PI/2);" +
+				"ctx.scale(1.5,0.1);" +
+				"ctx.stroke();" +
+				"ctx.beginPath();" +
+				"ctx.restore();" +
+				"ctx.arc(80,25,20,Math.PI,-Math.PI/2);" +
+				"ctx.scale(1.5,0.1);" +
+				"ctx.stroke();</script>";
 	}
 }
