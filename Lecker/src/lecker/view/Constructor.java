@@ -32,6 +32,7 @@ public class Constructor {
 		StringBuffer buffer = new StringBuffer();
 		
 		buffer.append(
+				"<!DOCTYPE html>" +
 				"<html>" +
 					"<head>" +
 						"<title>" + site.getTitle() + title + "</title>" +
