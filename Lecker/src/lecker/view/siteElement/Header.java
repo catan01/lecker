@@ -21,18 +21,13 @@ public class Header implements SiteElement {
 			
 			builder.append(
 					"<div id='fb-root'></div>" +
-							"<script>" +
-							  "window.fbAsyncInit = function() {" +
-							    "FB.init({appId: '511627772223820', status: true, cookie: true," +
-							             "xfbml: true});" +
-							  "};" +
-							  "(function() {" +
-							    "var e = document.createElement('script'); e.async = true;" +
-							    "e.src = document.location.protocol +" +
-							      "'//connect.facebook.net/de_DE/all.js';" +
-							    "document.getElementById('fb-root').appendChild(e);" +
-							  "}());" +
-							"</script>" +
+					"<script>(function(d, s, id) {" +
+						"var js, fjs = d.getElementsByTagName(s)[0];" +
+						"if (d.getElementById(id)) return;" +
+						"js = d.createElement(s); js.id = id;" +
+						"js.src = '//connect.facebook.net/de_DE/all.js#xfbml=1';" +
+						"fjs.parentNode.insertBefore(js, fjs);" +
+					"}(document, 'script', 'facebook-jssdk'));</script>" +
 					
 					"<div id='lightBox2'>" +
 						"<div id='overlay_login'>" +
@@ -42,7 +37,7 @@ public class Header implements SiteElement {
 							"<div class='overlay_close'>" +
 								"<button onclick='overlayLogin()'>X</button>" +
 							"</div>" +
-							"<form id='login' action='.' type='POST'>" +
+							"<form id='login' action='Page' type='POST'>" +
 								"<div class='login_name'>" +
 									"Benutzername: <input class='login_name' id='" + UserServlet.PARAM_USER_NAME + "'>" +
 								"</div>" +
@@ -53,7 +48,6 @@ public class Header implements SiteElement {
 							"</form>" + 
 							"<div class='login_password' id='login_failure'>" +
 							"</div>" +
-							"<div class='login_facebook'> <fb:login-button autologoutlink='true';>Mit Facebook einloggen</fb:login-button></div>" +
 							"<div class='login_lostpassword'>" +
 								"<a>Passwort vergessen?</a>" +
 							"</div>" +
@@ -61,9 +55,7 @@ public class Header implements SiteElement {
 					"</div>" +
 					"<div id='header'>" +
 						"<div id='banner'>" +
-							"<a href='.'><canvas id='logo' width='400' height='70'><span id='title'>" +
-							"Lecker!</span></canvas></a>" +
-							getLogoSkript() +
+							"<span id='title'>Lecker!</span>" +
 						"</div>" +
 						"<div id='menu'>" +
 						"</div>" +
@@ -71,7 +63,7 @@ public class Header implements SiteElement {
 					"<hr/>" +
 					"<div id='middle'>" +
 					"<div id='breadcrumb'>" +
-						"<a href='.'>Startseite</a>" + //TODO: Breadcrumb +
+						"<a href='Page'>Startseite</a>" + //TODO: Breadcrumb
 					"</div>" +
 					"<div id='search'>" +
 						"<input id='autocomplete' placeholder='Gericht suchen'>" +
@@ -98,14 +90,14 @@ public class Header implements SiteElement {
 			if (user != null) {
 				for ( int i = 0; i < user.getFavorites().length; ++i) {
 					if (i != 0) {
-						builder.append(",");
+						favorites.append(",");
 					}
-					builder.append("'" + user.getFavorites()[i] + "'");
+					favorites.append("'" + user.getFavorites()[i] + "'");
 				}
 			}
 			builder.append(
 					"var name = '" + (user != null? user.getName() : "") + "';" +
-					"var favorites = new Array(" + favorites.toString() + ");" +
+					"var favorites = new Array(" + favorites + ");" +
 					"$(function(){" +
 						"if(name != '') {" +
 							"showLogout();" +
@@ -170,10 +162,7 @@ public class Header implements SiteElement {
 			builder.append(
 					"function showLogin() {" +
 						"$('#menu').html('<button onclick=\\'overlayLogin(\"display\");\\'>Anmelden</button><button>Registrieren</button><br/>');" +
-						"var commentButton = document.getElementById('onLogin');" +
-						"if(commentButton) {" +
-							"commentButton.disabled = true;" +
-						"}" +
+						"document.getElementById('onLogin').disabled = true;" +
 					"};");
 			
 		  	// logout
@@ -194,10 +183,7 @@ public class Header implements SiteElement {
 			builder.append(
 					"function showLogout() {" +
 							"$('#menu').html(name+' <button onclick=\\'logout();\\'>Abmelden</button><button onclick=\\'showFavorites();\\'>Favoriten</button><br/>');" +
-							"var commentButton = document.getElementById('onLogin');" +
-							"if(commentButton) {" +
-								"commentButton.disabled = false;" +
-							"}" +
+							"document.getElementById('onLogin').disabled = false;" +
 					"};");
 			
 			// Cookie
@@ -219,42 +205,10 @@ public class Header implements SiteElement {
 							"c_value = unescape(c_value.substring(c_start,c_end));" +
 						"}" +
 						"return c_value;" +
-					"};");
+					"}");
 			
 		  	return builder.toString();
 		}
 		return "";
-	}
-	
-	private String getLogoSkript() {
-		return  "<script>var c=document.getElementById('logo');" +
-				"var ctx=c.getContext('2d');" +
-				"ctx.font='64pt verdana, sans-serif, helvetica';" +
-				"ctx.fillStyle='#0A8104';" +
-				"ctx.fillText('Lecker!',90,64);" +
-				"ctx.lineWidth = 4;" +
-				"ctx.strokeStyle='#0A8104';" +
-				"ctx.moveTo(2,25);" +
-				"ctx.lineTo(86,25);" +
-				"ctx.stroke();" +
-				"ctx.beginPath();" +
-				"ctx.arc(44,25,40,0,Math.PI);" +
-				"ctx.stroke();" +
-				"ctx.beginPath();" +
-				"ctx.save();" +
-				"ctx.arc(40,25,20,Math.PI,-Math.PI/2);" +
-				"ctx.scale(1.5,0.1);" +
-				"ctx.stroke();" +
-				"ctx.beginPath();" +
-				"ctx.restore();" +
-				"ctx.save();" +
-				"ctx.arc(60,25,20,Math.PI,-Math.PI/2);" +
-				"ctx.scale(1.5,0.1);" +
-				"ctx.stroke();" +
-				"ctx.beginPath();" +
-				"ctx.restore();" +
-				"ctx.arc(80,25,20,Math.PI,-Math.PI/2);" +
-				"ctx.scale(1.5,0.1);" +
-				"ctx.stroke();</script>";
 	}
 }
