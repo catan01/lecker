@@ -34,6 +34,17 @@ public class Header implements SiteElement {
 							    "document.getElementById('fb-root').appendChild(e);" +
 							  "}());" +
 							"</script>" +
+
+					"<script>" +
+					  "window.___gcfg = {" +
+					  "lang: 'de'" +
+					"}" +
+					"(function() {" +
+					  "var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;" +
+					  "po.src = 'https://apis.google.com/js/client:plusone.js?onload=OnLoadCallback';" +
+					  "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);" +
+					"})();" +
+					"</script>" +
 					
 					"<div id='lightBox2'>" +
 						"<div id='overlay_login'>" +
@@ -54,7 +65,20 @@ public class Header implements SiteElement {
 							"</form>" + 
 							"<div class='login_password' id='login_failure'>" +
 							"</div>" +
+							
 							"<div class='login_facebook'> <fb:login-button autologoutlink='true';>Mit Facebook einloggen</fb:login-button></div>" +
+							
+							"<span id='signinButton'>" +
+							"<span" +
+							  "class='g-signin'" +
+							  "data-callback='signinCallback'" +
+							  "data-clientid='864440246543.apps.googleusercontent.com'" +
+							  "data-cookiepolicy='single_host_origin'" +
+							  "data-requestvisibleactions='http://schemas.google.com/AddActivity'" +
+							  "data-scope='https://www.googleapis.com/auth/plus.login'>" +
+							"</span>" +
+							"</span>" +
+							  
 							"<div class='login_lostpassword'>" +
 								"<a>Passwort vergessen?</a>" +
 							"</div>" +
