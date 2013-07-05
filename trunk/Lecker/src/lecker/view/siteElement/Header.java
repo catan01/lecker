@@ -94,10 +94,6 @@ public class Header implements SiteElement {
 						"</div>" +
 					"</div>" +
 					"<hr/>" +
-					"<div id='middle'>" +
-					"<div id='breadcrumb'>" +
-						"<a href='.'>Startseite</a>" + //TODO: Breadcrumb +
-					"</div>" +
 					"<div id='search'>" +
 						"<form id='searchForm' action='.' method='GET'>" +
 							"<input type='text' id='searchMeal' maxlength='32' name='" + AbstractServlet.PARAM_SEARCH +"' placeholder='Gericht suchen' />" +
