@@ -60,8 +60,8 @@ public class Header implements SiteElement {
 					"</div>" +
 					"<div id='header'>" +
 						"<div id='banner'>" +
-							"<canvas id='logo' width='400' height='70'><span id='title'>" +
-							"Lecker!</span></canvas>" +
+							"<a href='Page'><canvas id='logo' width='400' height='70'><span id='title'>" +
+							"Lecker!</span></canvas></a>" +
 							getLogoSkript() +
 						"</div>" +
 						"<div id='menu'>" +
@@ -152,7 +152,10 @@ public class Header implements SiteElement {
 			builder.append(
 					"function showLogin() {" +
 						"$('#menu').html('<button onclick=\\'overlayLogin(\"display\");\\'>Anmelden</button><button>Registrieren</button><br/>');" +
-						"document.getElementById('onLogin').disabled = true;" +
+						"var commentButton = document.getElementById('onLogin');" +
+						"if(commentButton) {" +
+							"commentButton.disabled = true;" +
+						"}" +
 					"};");
 			
 		  	// logout
@@ -173,7 +176,10 @@ public class Header implements SiteElement {
 			builder.append(
 					"function showLogout() {" +
 							"$('#menu').html(name+' <button onclick=\\'logout();\\'>Abmelden</button><button>Favoriten</button><br/>');" +
-							"document.getElementById('onLogin').disabled = false;" +
+							"var commentButton = document.getElementById('onLogin');" +
+							"if(commentButton) {" +
+								"commentButton.disabled = false;" +
+							"}" +
 					"};");
 			
 			// Cookie
@@ -195,7 +201,7 @@ public class Header implements SiteElement {
 							"c_value = unescape(c_value.substring(c_start,c_end));" +
 						"}" +
 						"return c_value;" +
-					"}");
+					"};");
 			
 		  	return builder.toString();
 		}

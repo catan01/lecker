@@ -23,7 +23,7 @@ public abstract class AbstractServlet  extends HttpServlet{
 	private static final long serialVersionUID = -2073359112073417611L;
 	
 	public final static String PARAM_MEAL = "Meal";
-	public final static String PARAM_Day = "Day";
+	public final static String PARAM_DAY = "Day";
 	
 	protected Constructor constructor;
 
