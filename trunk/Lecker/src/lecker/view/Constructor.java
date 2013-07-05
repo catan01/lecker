@@ -37,8 +37,8 @@ public class Constructor {
 					"<head>" +
 						"<title>" + site.getTitle() + title + "</title>" +
 						"<link rel='icon' href='images/favicon.png' type='image/png'>" +
-						"<link href='css/style.css' rel='stylesheet'>" +
 						"<link href='css/south-street/jquery-ui-1.10.2.custom.min.css' rel='stylesheet'>" +
+						"<link href='css/style.css' rel='stylesheet'>" +
 						"<script src='js/jquery-1.9.1.js'></script>" +
 						"<script src='js/jquery-ui-1.10.2.custom.js'></script>" +
 						"<script>" + HEADER.getSkript(remoteAddr, isMobile) + site.getSkript(remoteAddr, isMobile) + FOOTER.getSkript(remoteAddr, isMobile) + "</script>" +

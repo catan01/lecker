@@ -90,8 +90,11 @@ a:hover {
 #datepicker {
 	display: none;
 	margin: 0px auto;
-	width: 250px;
-	font-size: 10pt;
+	width: 190px;
+}
+
+div.ui-datepicker{
+ font-size:8pt !important;
 }
 
 #search {
@@ -242,7 +245,7 @@ div.mealpicture {
 }
 
 div.mealtitle {
-	/* word-wrap: break-word;  Zeilenumbruch erzwingen  */
+	 word-wrap: break-word;  /* Zeilenumbruch erzwingen  */
 }
 
 div.mealrating {

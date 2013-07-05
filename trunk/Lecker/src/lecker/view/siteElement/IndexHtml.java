@@ -37,7 +37,7 @@ public class IndexHtml implements MainSiteElement {
 	public IndexHtml(String date) {
 		this();
 		DATE.set(Calendar.YEAR, Integer.parseInt(date.split("-")[0]));
-		DATE.set(Calendar.MONTH, Integer.parseInt(date.split("-")[1]));
+		DATE.set(Calendar.MONTH, Integer.parseInt(date.split("-")[1]) - 1);
 		DATE.set(Calendar.DATE, Integer.parseInt(date.split("-")[2]));
 	}
 
@@ -53,6 +53,46 @@ public class IndexHtml implements MainSiteElement {
 
 	@Override
 	public String getSkript(String remoteAddr, boolean isMobile) {
+		if(!isMobile) {
+			StringBuilder builder = new StringBuilder();
+			
+			//NextDay
+			builder.append(
+					"function changeDay(days) {" +
+						"var $picker = $('#datepicker');" +
+						"var date=new Date($picker.datepicker('getDate'));" +
+						"date.setDate(date.getDate()+ days);" +
+						"window.location.href='Page?Day=' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();" +
+						
+					"};");
+			
+			builder.append(
+					"$(function(){" +
+						"$('#datepicker').datepicker({" +
+							"dateFormat: 'yy-mm-dd'," +
+							"onSelect : function(dateText) {" +
+								"$('#datepicker').hide();" +
+								"window.location.href='Page?Day=' + dateText;" +
+							"}" +
+						"});" +
+						"$('#datepicker').hide();" +
+						"$('#datepicker').datepicker('setDate', '" + DATE.get(Calendar.YEAR) + "-" + (DATE.get(Calendar.MONTH) + 1) + "-" + DATE.get(Calendar.DAY_OF_MONTH) + "');" +
+						
+						//clickHandler
+						"$('#datepickerImage').click(function() {" +
+							"var visible = $('#datepicker').is(':visible');" +
+							"visible ? $('#datepicker').hide() : $('#datepicker').show();" +
+						"});" +					
+						"$('#date_right').click(function(){changeDay(1);});" +
+						"$('#date_left').click(function(){changeDay(-1);});" +
+					"});");
+			
+
+			
+			
+			return builder.toString();
+		}
+		
 		return "";
 	}
 
