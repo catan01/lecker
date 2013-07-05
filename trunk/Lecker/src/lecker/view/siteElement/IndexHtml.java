@@ -62,7 +62,7 @@ public class IndexHtml implements MainSiteElement {
 						"var $picker = $('#datepicker');" +
 						"var date=new Date($picker.datepicker('getDate'));" +
 						"date.setDate(date.getDate()+ days);" +
-						"window.location.href='Page?Day=' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();" +
+						"window.location.href='?Day=' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();" +
 						
 					"};");
 			
@@ -72,7 +72,7 @@ public class IndexHtml implements MainSiteElement {
 							"dateFormat: 'yy-mm-dd'," +
 							"onSelect : function(dateText) {" +
 								"$('#datepicker').hide();" +
-								"window.location.href='Page?Day=' + dateText;" +
+								"window.location.href='?Day=' + dateText;" +
 							"}" +
 						"});" +
 						"$('#datepicker').hide();" +
@@ -136,11 +136,11 @@ public class IndexHtml implements MainSiteElement {
 						//do nothing
 					}
 					builder.append(
-							"<div class='meal pointer' onclick=\"window.location.href='Page?Meal=" + mealName + "'\"" +
+							"<div class='meal pointer' onclick=\"window.location.href='?Meal=" + mealName + "'\"" +
 											(meal.getName().length() > MAX_NAME_LENGTH ? " title='" + meal.getName() + "'>" : ">") +
 								"<div class='mealheader'>" +
 									"<div class='mealpicture'>" +
-										"<img src='images/meals/Salzkartoffeln/1_small.jpg'>" +
+										"<img src='images/meals/" + (meal.hasPicture() ? meal.getName() + "/1_small.jpg'>" : "template_small.png'>") +
 									"</div>" +
 									"<div class='mealtitle'>" +
 										"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 

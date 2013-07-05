@@ -43,7 +43,7 @@ public class GetMealDBStatement implements DBStatement<Meal> {
 			ResultSet datesSet = statementDates.executeQuery();
 			ResultSet labelsSet = statementLabels.executeQuery();
 			if (mealSet.next()) {
-				Meal meal = new Meal(mealSet.getString(DBManager.TITLE_MEAL_NAME), mealSet.getInt(DBManager.TITLE_MEAL_PRICE), Handler.getInstance().getMealManager().getKategorie(mealSet.getString(DBManager.TITLE_MEAL_KATEGORIE)), new Calendar[0], new Label[0]);
+				Meal meal = new Meal(mealSet.getString(DBManager.TITLE_MEAL_NAME), mealSet.getInt(DBManager.TITLE_MEAL_PRICE), Handler.getInstance().getMealManager().getKategorie(mealSet.getString(DBManager.TITLE_MEAL_KATEGORIE)), new Calendar[0], new Label[0], mealSet.getBoolean(DBManager.TITLE_MEAL_PICTURE));
 				while (commentsSet.next()) {
 					meal.addComment(new Comment(commentsSet.getString(DBManager.TITLE_COMMENT_USER), commentsSet.getInt(DBManager.TITLE_COMMENT_RATING), commentsSet.getString(DBManager.TITLE_COMMENT_COMMENT)));
 				}
