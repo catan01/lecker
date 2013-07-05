@@ -14,6 +14,7 @@ import lecker.presenter.AbstractServlet;
 import lecker.view.siteElement.ExceptionHtml;
 import lecker.view.siteElement.IndexHtml;
 import lecker.view.siteElement.MealHtml;
+import lecker.view.siteElement.SearchHtml;
 
 
 
@@ -35,6 +36,8 @@ public class PageServlet extends AbstractServlet {
 				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new MealHtml((String) attr), isMobile));
 			} else if ((attr = request.getParameter(PARAM_DAY)) != null) {
 				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml((String) attr), isMobile));
+			} else if ((attr = request.getParameter(PARAM_SEARCH)) != null){
+				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new SearchHtml((String) attr), isMobile));
 			} else {
 				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml(), isMobile));
 			}

@@ -2,6 +2,7 @@ package lecker.view.siteElement;
 
 
 
+import lecker.presenter.AbstractServlet;
 import lecker.model.data.User;
 import lecker.presenter.Handler;
 import lecker.presenter.servlet.UserServlet;
@@ -21,13 +22,18 @@ public class Header implements SiteElement {
 			
 			builder.append(
 					"<div id='fb-root'></div>" +
-					"<script>(function(d, s, id) {" +
-						"var js, fjs = d.getElementsByTagName(s)[0];" +
-						"if (d.getElementById(id)) return;" +
-						"js = d.createElement(s); js.id = id;" +
-						"js.src = '//connect.facebook.net/de_DE/all.js#xfbml=1';" +
-						"fjs.parentNode.insertBefore(js, fjs);" +
-					"}(document, 'script', 'facebook-jssdk'));</script>" +
+							"<script>" +
+							  "window.fbAsyncInit = function() {" +
+							    "FB.init({appId: '511627772223820', status: true, cookie: true," +
+							             "xfbml: true});" +
+							  "};" +
+							  "(function() {" +
+							    "var e = document.createElement('script'); e.async = true;" +
+							    "e.src = document.location.protocol +" +
+							      "'//connect.facebook.net/de_DE/all.js';" +
+							    "document.getElementById('fb-root').appendChild(e);" +
+							  "}());" +
+							"</script>" +
 					
 					"<div id='lightBox2'>" +
 						"<div id='overlay_login'>" +
@@ -37,7 +43,7 @@ public class Header implements SiteElement {
 							"<div class='overlay_close'>" +
 								"<button onclick='overlayLogin()'>X</button>" +
 							"</div>" +
-							"<form id='login' action='Page' type='POST'>" +
+							"<form id='login' action='.' type='POST'>" +
 								"<div class='login_name'>" +
 									"Benutzername: <input class='login_name' id='" + UserServlet.PARAM_USER_NAME + "'>" +
 								"</div>" +
@@ -48,6 +54,7 @@ public class Header implements SiteElement {
 							"</form>" + 
 							"<div class='login_password' id='login_failure'>" +
 							"</div>" +
+							"<div class='login_facebook'> <fb:login-button autologoutlink='true';>Mit Facebook einloggen</fb:login-button></div>" +
 							"<div class='login_lostpassword'>" +
 								"<a>Passwort vergessen?</a>" +
 							"</div>" +
@@ -55,7 +62,9 @@ public class Header implements SiteElement {
 					"</div>" +
 					"<div id='header'>" +
 						"<div id='banner'>" +
-							"<span id='title'>Lecker!</span>" +
+							"<a href='.'><canvas id='logo' width='400' height='70'><span id='title'>" +
+							"Lecker!</span></canvas></a>" +
+							getLogoSkript() +
 						"</div>" +
 						"<div id='menu'>" +
 						"</div>" +
@@ -63,10 +72,13 @@ public class Header implements SiteElement {
 					"<hr/>" +
 					"<div id='middle'>" +
 					"<div id='breadcrumb'>" +
-						"<a href='Page'>Startseite</a>" + //TODO: Breadcrumb
+						"<a href='.'>Startseite</a>" + //TODO: Breadcrumb +
 					"</div>" +
 					"<div id='search'>" +
-						"<input id='autocomplete' placeholder='Gericht suchen'>" +
+						"<form id='searchForm' action='.' method='GET'>" +
+							"<input type='text' id='searchMeal' maxlength='32' name='" + AbstractServlet.PARAM_SEARCH +"' placeholder='Gericht suchen' />" +
+							"<input type='submit' hidden='true' />" +
+						"</form>" +
 					"</div>");
 			
 			return builder.toString();
@@ -79,13 +91,9 @@ public class Header implements SiteElement {
 		User user = Handler.getInstance().getUserManager().getUser(remoteAddr);
 		if (!isMobile) {
 			StringBuilder builder = new StringBuilder();
-			StringBuilder autoComp = new StringBuilder();
-			for (String name: Handler.getInstance().getMealManager().getMealNames()) {
-				autoComp.append(",'" + name + "'");
-			}
-			autoComp.deleteCharAt(0);
 			
 			// Start
+
 			StringBuilder favorites = new StringBuilder();
 			if (user != null) {
 				for ( int i = 0; i < user.getFavorites().length; ++i) {
@@ -104,10 +112,6 @@ public class Header implements SiteElement {
 						"} else {" +
 							"showLogin();" +
 						"}" +
-						"var availableTags = [" + autoComp.toString() + "];" +
-			  			"$('#autocomplete').autocomplete({" +
-			  				"source : availableTags" +
-			  			"});" +
 			  			"var textF = document.getElementById('" + UserServlet.PARAM_USER_NAME + "');" +
 			  			"textF.value = getCookie('" + COOKIENAMETITLE + "');" +
 					"});");
@@ -162,7 +166,10 @@ public class Header implements SiteElement {
 			builder.append(
 					"function showLogin() {" +
 						"$('#menu').html('<button onclick=\\'overlayLogin(\"display\");\\'>Anmelden</button><button>Registrieren</button><br/>');" +
-						"document.getElementById('onLogin').disabled = true;" +
+						"var commentButton = document.getElementById('onLogin');" +
+						"if(commentButton) {" +
+							"commentButton.disabled = true;" +
+						"}" +
 					"};");
 			
 		  	// logout
@@ -183,7 +190,10 @@ public class Header implements SiteElement {
 			builder.append(
 					"function showLogout() {" +
 							"$('#menu').html(name+' <button onclick=\\'logout();\\'>Abmelden</button><button onclick=\\'showFavorites();\\'>Favoriten</button><br/>');" +
-							"document.getElementById('onLogin').disabled = false;" +
+							"var commentButton = document.getElementById('onLogin');" +
+							"if(commentButton) {" +
+								"commentButton.disabled = false;" +
+							"}" +
 					"};");
 			
 			// Cookie
@@ -205,10 +215,42 @@ public class Header implements SiteElement {
 							"c_value = unescape(c_value.substring(c_start,c_end));" +
 						"}" +
 						"return c_value;" +
-					"}");
+					"};");
 			
 		  	return builder.toString();
 		}
 		return "";
+	}
+	
+	private String getLogoSkript() {
+		return  "<script>var c=document.getElementById('logo');" +
+				"var ctx=c.getContext('2d');" +
+				"ctx.font='64pt verdana, sans-serif, helvetica';" +
+				"ctx.fillStyle='#0A8104';" +
+				"ctx.fillText('Lecker!',90,64);" +
+				"ctx.lineWidth = 4;" +
+				"ctx.strokeStyle='#0A8104';" +
+				"ctx.moveTo(2,25);" +
+				"ctx.lineTo(86,25);" +
+				"ctx.stroke();" +
+				"ctx.beginPath();" +
+				"ctx.arc(44,25,40,0,Math.PI);" +
+				"ctx.stroke();" +
+				"ctx.beginPath();" +
+				"ctx.save();" +
+				"ctx.arc(40,25,20,Math.PI,-Math.PI/2);" +
+				"ctx.scale(1.5,0.1);" +
+				"ctx.stroke();" +
+				"ctx.beginPath();" +
+				"ctx.restore();" +
+				"ctx.save();" +
+				"ctx.arc(60,25,20,Math.PI,-Math.PI/2);" +
+				"ctx.scale(1.5,0.1);" +
+				"ctx.stroke();" +
+				"ctx.beginPath();" +
+				"ctx.restore();" +
+				"ctx.arc(80,25,20,Math.PI,-Math.PI/2);" +
+				"ctx.scale(1.5,0.1);" +
+				"ctx.stroke();</script>";
 	}
 }
