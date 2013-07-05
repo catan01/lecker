@@ -138,15 +138,13 @@ public class IndexHtml implements MainSiteElement {
 					builder.append(
 							"<div class='meal pointer' onclick=\"window.location.href='?Meal=" + mealName + "'\"" +
 											(meal.getName().length() > MAX_NAME_LENGTH ? " title='" + meal.getName() + "'>" : ">") +
-								"<div class='mealheader'>" +
-									"<div class='mealpicture'>" +
-										"<img src='images/meals/" + (meal.hasPicture() ? meal.getName() + "/1_small.jpg'>" : "template_small.png'>") +
-									"</div>" +
-									"<div class='mealtitle'>" +
-										"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
-										"<br>" +
-										(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
-									"</div>" +
+								"<div class='mealpicture'>" +
+									"<img src='images/meals/" + (meal.hasPicture() ? meal.getName() + "/1_small.jpg'>" : "template_small.png'>") +
+								"</div>" +
+								"<div class='mealtitle'>" +
+									"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
+									"<br>" +
+									(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
 								"</div>" +
 								"<div class='mealrating'>" +
 									loadRating(meal) +
