@@ -117,8 +117,7 @@ public class IndexHtml implements MainSiteElement {
 				"&nbsp;&nbsp;&nbsp;" +
 				"<img id='date_right' class='pointer' src='images/arrow_right.png'>" +
 				"<div id='datepicker'></div>" +
-		"</div>" +
-	"</div>");
+		"</div>");
 		
 		String[] outlayNames = new String[] {"Hauptgericht", "Beilage"}; // TODO
 
@@ -145,7 +144,7 @@ public class IndexHtml implements MainSiteElement {
 								"<div class='mealtitle'>" +
 									"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
 									"<br>" +
-									(meal.getPrice() / 100) + "." + ((priceDec < 10) ? priceDec + "0" : priceDec) + " &#8364" +
+									(meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" +
 								"</div>" +
 								"<div class='mealrating'>" +
 									loadRating(meal) +

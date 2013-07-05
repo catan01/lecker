@@ -25,8 +25,7 @@ public class SearchHtml implements MainSiteElement {
 				"<div id='searchHeader'>" +
 						"<span id='searchTitle'>Suchergebnisse für: <i>" + search + "</i></span>" +
 						"<hr/>" +
-				"</div>" +
-			"</div>");
+				"</div>");
 		
 		String[] mealNames = Handler.getInstance().getMealManager().getMealNames();
 		ArrayList<String> foundMeals = new ArrayList<String>();
@@ -40,6 +39,7 @@ public class SearchHtml implements MainSiteElement {
 		if(foundMeals.size() > 0) {
 			for(String mealName : foundMeals) {
 				Meal meal = Handler.getInstance().getMealManager().getMeal(mealName);
+				Integer priceDec = meal.getPrice() % 100;
 				try {
 					mealName = URLEncoder.encode(mealName, "UTF8");
 				} catch (UnsupportedEncodingException e) {
@@ -54,7 +54,7 @@ public class SearchHtml implements MainSiteElement {
 							"<div class='mealtitle'>" +
 								"<b>" + IndexHtml.shortenMealName(meal.getName()) + "</b> " + IndexHtml.loadLabel(meal) + 
 								"<br>" +
-								(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
+								(meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" +
 							"</div>" +
 							"<div class='mealrating'>" +
 								IndexHtml.loadRating(meal) +
@@ -79,8 +79,7 @@ public class SearchHtml implements MainSiteElement {
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Suche";
 	}
 
 }

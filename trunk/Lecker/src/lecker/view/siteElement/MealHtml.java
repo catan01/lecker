@@ -45,8 +45,8 @@ public class MealHtml implements MainSiteElement {
 				ratings[0]++;
 			}
 		}
-		//close middle div
-		builder.append("<br/><br/></div>");
+
+		builder.append("<br/><br/>");
 		
 		builder.append("<div class='meal_left'>" +
 			this.showImage(images.toArray(new Image[0])) + "<br/>" +
@@ -160,7 +160,7 @@ public class MealHtml implements MainSiteElement {
 				
 				"</div>" +
 				"<div class='meal_price'>" + 
-				(MEAL.getPrice() / 100) + "." + ((priceDec < 10) ? priceDec + "0" : priceDec) + " &#8364" +
+				(MEAL.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" +
 				"</div>" +
 				"<div id='meal_favorite'>" +
 					"<button type='button' id='favorite' onclick='addFavorite();'>Favorit hinzufügen</button>" +
