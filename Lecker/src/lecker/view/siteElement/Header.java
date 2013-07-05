@@ -2,6 +2,7 @@ package lecker.view.siteElement;
 
 
 
+import lecker.model.data.User;
 import lecker.presenter.Handler;
 import lecker.presenter.servlet.UserServlet;
 import lecker.view.SiteElement;
@@ -83,6 +84,7 @@ public class Header implements SiteElement {
 
 	@Override
 	public String getSkript(String remoteAddr, boolean isMobile) {
+		User user = Handler.getInstance().getUserManager().getUser(remoteAddr);
 		if (!isMobile) {
 			StringBuilder builder = new StringBuilder();
 			StringBuilder autoComp = new StringBuilder();
@@ -92,8 +94,18 @@ public class Header implements SiteElement {
 			autoComp.deleteCharAt(0);
 			
 			// Start
+			StringBuilder favorites = new StringBuilder();
+			if (user != null) {
+				for ( int i = 0; i < user.getFavorites().length; ++i) {
+					if (i != 0) {
+						builder.append(",");
+					}
+					builder.append("'" + user.getFavorites()[i] + "'");
+				}
+			}
 			builder.append(
-					"var name = '" + (Handler.getInstance().getUserManager().getUser(remoteAddr) != null? Handler.getInstance().getUserManager().getUser(remoteAddr).getName() : "") + "';" +
+					"var name = '" + (user != null? user.getName() : "") + "';" +
+					"var favorites = new Array(" + favorites.toString() + ");" +
 					"$(function(){" +
 						"if(name != '') {" +
 							"showLogout();" +
@@ -130,7 +142,8 @@ public class Header implements SiteElement {
 										"data:{" + UserServlet.PARAM_USER_MODE + ":'" + UserServlet.PARAM_MODE_NORMAL + "', " + UserServlet.PARAM_USER_NAME + ":formName, " + UserServlet.PARAM_USER_PW + ":formPW}," +
 										"success:function(response){" +
 											"if(response != '') {" +
-												"name = response;" +
+												"name = response.split('|')[0];" +
+												"favorites = response.split('|')[1].split(':');" +
 												"document.cookie='" + COOKIENAMETITLE + "=' + name;" +
 												"showLogout();" +
 												"overlayLogin();" +
@@ -146,6 +159,11 @@ public class Header implements SiteElement {
 							"document.getElementsByTagName('body')[0].removeChild(document.getElementById('overlay'));" +
 							"$('#lightBox2').hide();" +
 						"}" +
+					"};");
+			
+			// show the favorites
+			builder.append("function showFavorites() {" +
+						"alert('Sie haben ' + favorites.length + ' Favoriten');" +
 					"};");
 			
 		  	// showLogin
@@ -175,7 +193,7 @@ public class Header implements SiteElement {
 		  	// showLogout
 			builder.append(
 					"function showLogout() {" +
-							"$('#menu').html(name+' <button onclick=\\'logout();\\'>Abmelden</button><button>Favoriten</button><br/>');" +
+							"$('#menu').html(name+' <button onclick=\\'logout();\\'>Abmelden</button><button onclick=\\'showFavorites();\\'>Favoriten</button><br/>');" +
 							"var commentButton = document.getElementById('onLogin');" +
 							"if(commentButton) {" +
 								"commentButton.disabled = false;" +

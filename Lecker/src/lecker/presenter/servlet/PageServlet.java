@@ -16,6 +16,7 @@ import lecker.view.siteElement.IndexHtml;
 import lecker.view.siteElement.MealHtml;
 
 
+
 @WebServlet("/")
 public class PageServlet extends AbstractServlet {
 	private static final long serialVersionUID = 4437194099333577090L;

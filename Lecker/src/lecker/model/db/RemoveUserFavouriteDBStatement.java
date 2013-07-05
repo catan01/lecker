@@ -12,8 +12,8 @@ public class RemoveUserFavouriteDBStatement implements DBStatement<Boolean> {
 	
 	public RemoveUserFavouriteDBStatement(String mealName, String userName) {
 		try {
-			statement = Handler.getInstance().getDBManager().prepareStatement("DELETE FROM " + DBManager.TITLE_FAVOURITE + " WHERE " + DBManager.TITLE_FAVOURITE_MEAL + "='" + mealName + "' AND "
-		+ DBManager.TITLE_FAVOURITE_USER + "='" + userName + "';");
+			statement = Handler.getInstance().getDBManager().prepareStatement("DELETE FROM " + DBManager.TITLE_FAVORITE + " WHERE " + DBManager.TITLE_FAVORITE_MEAL + "='" + mealName + "' AND "
+		+ DBManager.TITLE_FAVORITE_USER + "='" + userName + "';");
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}

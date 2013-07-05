@@ -12,16 +12,16 @@ import lecker.presenter.Handler;
 
 
 public class GetUserDBStatement implements DBStatement<User> {
-	private PreparedStatement statementUser;
-	private PreparedStatement statementFavourites;
+	protected PreparedStatement statementUser;
+	private PreparedStatement statementFavorites;
 	
 
 	
 	
-	public GetUserDBStatement(String name) {
+	public GetUserDBStatement(String name, String password) {
 		try {
-			statementUser = Handler.getInstance().getDBManager().prepareStatement("SELECT * FROM " + DBManager.TITLE_USER + " WHERE " + DBManager.TITLE_USER_NAME + "='" + name + "';");
-			statementFavourites = Handler.getInstance().getDBManager().prepareStatement("SELECT " + DBManager.TITLE_FAVOURITE_MEAL + " FROM " + DBManager.TITLE_FAVOURITE + " WHERE " + DBManager.TITLE_FAVOURITE_USER + "='" + name + "';");
+			statementUser = Handler.getInstance().getDBManager().prepareStatement("SELECT * FROM " + DBManager.TITLE_USER + " WHERE " + DBManager.TITLE_USER_NAME + "='" + name + "' AND " + DBManager.TITLE_USER_PW + "='" + password + "';");
+			statementFavorites = Handler.getInstance().getDBManager().prepareStatement("SELECT " + DBManager.TITLE_FAVORITE_MEAL + " FROM " + DBManager.TITLE_FAVORITE + " WHERE " + DBManager.TITLE_FAVORITE_USER + "='" + name + "';");
 		} catch (SQLException e) {
 			Handler.getInstance().getExceptionHandler().handle(e);
 		}
@@ -32,15 +32,14 @@ public class GetUserDBStatement implements DBStatement<User> {
 	@Override
 	public User postQuery() {
 		try {
-			ResultSet favouritesSet = statementFavourites.executeQuery();
+			ResultSet favouritesSet = statementFavorites.executeQuery();
 			ResultSet userSet = statementUser.executeQuery();
 			if (userSet.next()) {
 				User user = new User(userSet.getString("name"));
 				
 				while (favouritesSet.next()) {
-					user.addFavourite(favouritesSet.getString(DBManager.TITLE_FAVOURITE_MEAL));
+					user.addFavorite(favouritesSet.getString(DBManager.TITLE_FAVORITE_MEAL));
 				}
-				
 				return user;
 			}
 		} catch (SQLException e) {

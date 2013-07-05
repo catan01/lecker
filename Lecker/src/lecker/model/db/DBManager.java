@@ -28,9 +28,9 @@ public class DBManager {
 	final static String TITLE_COMMENT_MEAL = "Speise";
 	final static String TITLE_COMMENT_USER = "Benutzer";
 
-	final static String TITLE_FAVOURITE = "Favorit";
-	final static String TITLE_FAVOURITE_MEAL= "Speise";
-	final static String TITLE_FAVOURITE_USER= "Benutzer";
+	final static String TITLE_FAVORITE = "Favorit";
+	final static String TITLE_FAVORITE_MEAL= "Speise";
+	final static String TITLE_FAVORITE_USER= "Benutzer";
 
 	final static String TITLE_KATEGORIE = "Kategorie";
 	final static String TITLE_KATEGORIE_NAME= "Name";

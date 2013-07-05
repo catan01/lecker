@@ -11,6 +11,7 @@ import lecker.model.data.Meal;
 import lecker.model.data.comments.Comment;
 import lecker.presenter.Handler;
 import lecker.presenter.servlet.CommentServlet;
+import lecker.presenter.servlet.FavoriteServlet;
 import lecker.view.MainSiteElement;
 
 
@@ -49,12 +50,11 @@ public class MealHtml implements MainSiteElement {
 		
 		builder.append("<div class='meal_left'>" +
 			this.showImage(images.toArray(new Image[0])) + "<br/>" +
-			this.showDescription() + "<br/>" +
+			this.showDescription(remoteAddr) + "<br/>" +
 			this.showRating(ratings) + "<br/>" +
 			"</div><div class='meal_right'>" +
 			"<div class='comment' id='insertAnker'>" +
 				"<form id='comment' action='.' type='POST'>" +
-					"<input type='hidden' name='Meal' value='" + MEAL.getName() + "'/>" +
 					"<textarea rows='4' cols='100'  class='comment_comment' id='" + CommentServlet.PARAM_COMMENT + "'></textarea></br>" +
 					"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='1'>" +
 					"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='2'>" +
@@ -75,7 +75,9 @@ public class MealHtml implements MainSiteElement {
 
 	@Override
 	public String getSkript(String remoteAddr, boolean isMobile) {
-		return "$(function(){" +
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append("$(function(){" +
 					"$('#comment').submit(function() {" +
 						"var formComment = $('#" + CommentServlet.PARAM_COMMENT + "').val();" +
 						"var formRating = 0;" +
@@ -100,7 +102,27 @@ public class MealHtml implements MainSiteElement {
 						"});" +
 						"return false;" +
 					"});" +
-				"});";
+				"});");
+	
+	  	// add a Favourite
+		builder.append(
+	  			"function addFavorite() {" +
+  					"$.ajax({" +
+						"type:'POST'," +
+					    "cache:false," +
+						"url:'Favorite'," +
+						"data:{" + FavoriteServlet.PARAM_MEAL + ":'" + MEAL.getName() + "'}," +
+						"success:function(response){" +
+							"if(response != '') {" +
+								"alert(response);" +
+							"} else {" +
+								"alert('Die Speise wurde ihren Favoriten hinzugefügt.');" +
+							"}" +
+						"}" +
+					"});" +
+	  			"}");
+		
+		return builder.toString();
 	}
 
 
@@ -122,7 +144,7 @@ public class MealHtml implements MainSiteElement {
 		return builder.toString();
 	}
 	
-	private String showDescription() {
+	private String showDescription(String remoteAddr) {
 		StringBuilder builder = new StringBuilder();
 		
 		builder.append(
@@ -137,6 +159,9 @@ public class MealHtml implements MainSiteElement {
 				"</div>" +
 				"<div class='meal_price'>" + 
 					(MEAL.getPrice() / 100) + "." + (MEAL.getPrice() % 100) + " &#8364" +
+				"</div>" +
+				"<div id='meal_favorite'>" +
+					"<button type='button' id='favorite' onclick='addFavorite();'>Favorit hinzufügen</button>" +
 				"</div>");
 
 		return builder.toString();
