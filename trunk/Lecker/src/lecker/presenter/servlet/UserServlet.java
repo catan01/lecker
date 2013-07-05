@@ -40,7 +40,14 @@ public class UserServlet extends AbstractServlet {
 				Handler.getInstance().getUserManager().logout(request.getRemoteAddr(), request.getParameter(PARAM_USER_NAME));
 			} else if (request.getParameter(PARAM_USER_MODE).equals(PARAM_MODE_NORMAL)) {
 				User user = Handler.getInstance().getUserManager().login(request.getRemoteAddr(), request.getParameter(PARAM_USER_NAME), Crypt.encrypt(request.getParameter(PARAM_USER_PW)));
-				response.getOutputStream().print(user.getName());
+				StringBuilder favorites = new StringBuilder();
+				for (int i = 0; i < user.getFavorites().length; ++i) {
+					if ( i != 0) {
+						favorites.append(":");
+					}
+					favorites.append(user.getFavorites()[i]);
+				}
+				response.getOutputStream().print(user.getName() + "|" + favorites.toString());
 			} else {
 				response.getOutputStream().print("");
 			}

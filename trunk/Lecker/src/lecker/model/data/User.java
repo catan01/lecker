@@ -8,26 +8,26 @@ import java.util.Arrays;
 
 
 public class User {
-	private final ArrayList<String> FAVOURITES;
+	private final ArrayList<String> FAVORITES;
 	private final String NAME;
 	
 	
 	
 	public User(String name) {
 		this.NAME = name;
-		this.FAVOURITES = new ArrayList<String>();
+		this.FAVORITES = new ArrayList<String>();
 	}
 	
-	public User(String name, String[] favourites) {
+	public User(String name, String[] favorites) {
 		this(name);
-		this.FAVOURITES.addAll(Arrays.asList(favourites));
+		this.FAVORITES.addAll(Arrays.asList(favorites));
 	}
 	
 	
 	
-	public String[] getFavourites() {
-		synchronized(this.FAVOURITES) {
-			return this.FAVOURITES.toArray(new String[0]);
+	public String[] getFavorites() {
+		synchronized(this.FAVORITES) {
+			return this.FAVORITES.toArray(new String[0]);
 		}
 	}
 	
@@ -39,15 +39,15 @@ public class User {
 	
 	
 	
-	public void addFavourite(String mealName) {
-		synchronized(this.FAVOURITES) {
-			this.FAVOURITES.add(mealName);
+	public void addFavorite(String mealName) {
+		synchronized(this.FAVORITES) {
+			this.FAVORITES.add(mealName);
 		}
 	}
 	
-	public void removeFavourite(String mealName) {
-		synchronized(this.FAVOURITES) {
-			this.FAVOURITES.remove(mealName);
+	public void removeFavorite(String mealName) {
+		synchronized(this.FAVORITES) {
+			this.FAVORITES.remove(mealName);
 		}
 	}
 }
