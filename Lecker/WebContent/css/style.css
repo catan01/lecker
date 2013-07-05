@@ -70,6 +70,10 @@ a:hover {
 
 }
 
+#search {
+	
+}
+
 #breadcrumb {
 	float:left;
 }
@@ -83,6 +87,18 @@ a:hover {
 
 #datetitle {
 	font-size: 24pt;
+	color: #0A8104;
+	line-height:1.5;
+}
+
+#searchHeader {
+	width: 600px;
+	margin: 0px auto;
+	text-align: center;
+}
+
+#searchTitle {
+	font-size: 18pt;
 	color: #0A8104;
 	line-height:1.5;
 }
@@ -200,7 +216,10 @@ hr {
 	background: #f5f3e5 url(south-street/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png) 50% top repeat-x;
 }
 
-
+div.searchResult {
+	margin-right: 10px !important;
+	float: left;
+}
 
 div.mealcontainer {
 	width: 20%;

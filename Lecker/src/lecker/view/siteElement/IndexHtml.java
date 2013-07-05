@@ -25,7 +25,7 @@ import lecker.view.MainSiteElement;
  */
 public class IndexHtml implements MainSiteElement {
 	
-	private static final int MAX_NAME_LENGTH = 40;
+	public static final int MAX_NAME_LENGTH = 40;
 	
 	private final Calendar DATE;
 
@@ -167,7 +167,7 @@ public class IndexHtml implements MainSiteElement {
 
 
 
-	private String loadRating(Meal meal) {
+	public static String loadRating(Meal meal) {
 		StringBuilder builder = new StringBuilder();
 
 		if (meal.getComments().get().length > 0) {
@@ -193,7 +193,7 @@ public class IndexHtml implements MainSiteElement {
 		return builder.toString();
 	}
 
-	private String loadLabel(Meal meal) {
+	public static String loadLabel(Meal meal) {
 		StringBuilder builder = new StringBuilder();
 
 		for (Label label: meal.getLabels()) {
@@ -203,7 +203,7 @@ public class IndexHtml implements MainSiteElement {
 		return builder.toString();
 	}
 	
-	private String shortenMealName(String name) {
+	public static String shortenMealName(String name) {
 		if(name.length() > MAX_NAME_LENGTH) {
 			return (name.substring(0, MAX_NAME_LENGTH) + "...");
 		}
