@@ -53,7 +53,7 @@ public class MealHtml implements MainSiteElement {
 			this.showRating(ratings) + "<br/>" +
 			"</div><div class='meal_right'>" +
 			"<div class='comment' id='insertAnker'>" +
-				"<form id='comment' action='Page' type='POST'>" +
+				"<form id='comment' action='.' type='POST'>" +
 					"<input type='hidden' name='Meal' value='" + MEAL.getName() + "'/>" +
 					"<textarea rows='4' cols='100'  class='comment_comment' id='" + CommentServlet.PARAM_COMMENT + "'></textarea></br>" +
 					"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='1'>" +
@@ -117,7 +117,7 @@ public class MealHtml implements MainSiteElement {
 	private String showImage(Image[] images) {
 		StringBuilder builder = new StringBuilder();
 		
-		builder.append("<div class='meal_image'></div>");
+		builder.append("<div class='meal_image'><img src='images/meals/template.png'></div>");
 
 		return builder.toString();
 	}

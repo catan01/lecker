@@ -46,6 +46,7 @@ public class DBManager {
 	final static String TITLE_MEAL_NAME = "Name";
 	final static String TITLE_MEAL_PRICE = "Preis";
 	final static String TITLE_MEAL_KATEGORIE = "Kategorie";
+	final static String TITLE_MEAL_PICTURE = "Bild";
 
 	final static String TITLE_OUTLAY = "Ausgabe";
 	final static String TITLE_OUTLAY_NAME = "Name";

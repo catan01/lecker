@@ -41,7 +41,7 @@ public class Header implements SiteElement {
 							"<div class='overlay_close'>" +
 								"<button onclick='overlayLogin()'>X</button>" +
 							"</div>" +
-							"<form id='login' action='Page' type='POST'>" +
+							"<form id='login' action='.' type='POST'>" +
 								"<div class='login_name'>" +
 									"Benutzername: <input class='login_name' id='" + UserServlet.PARAM_USER_NAME + "'>" +
 								"</div>" +
@@ -60,7 +60,7 @@ public class Header implements SiteElement {
 					"</div>" +
 					"<div id='header'>" +
 						"<div id='banner'>" +
-							"<a href='Page'><canvas id='logo' width='400' height='70'><span id='title'>" +
+							"<a href='.'><canvas id='logo' width='400' height='70'><span id='title'>" +
 							"Lecker!</span></canvas></a>" +
 							getLogoSkript() +
 						"</div>" +
@@ -70,7 +70,7 @@ public class Header implements SiteElement {
 					"<hr/>" +
 					"<div id='middle'>" +
 					"<div id='breadcrumb'>" +
-						"<a href='Page'>Startseite</a>" + //TODO: Breadcrumb +
+						"<a href='.'>Startseite</a>" + //TODO: Breadcrumb +
 					"</div>" +
 					"<div id='search'>" +
 						"<input id='autocomplete' placeholder='Gericht suchen'>" +

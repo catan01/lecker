@@ -22,18 +22,21 @@ public class Meal extends Commentable {
 	private ArrayList<Label> labels;
 	private String name;
 	private Integer price;
+	private boolean hasPicture;
 	
 	
-	
-	public Meal(String name, int price, Kategorie kategorie, Calendar[] dates, Label[] labels) {
+	public Meal(String name, int price, Kategorie kategorie, Calendar[] dates, Label[] labels, boolean hasPicture) {
 		this.dates = new ArrayList<Calendar>(Arrays.asList(dates));
 		this.kategorie = kategorie;
 		this.labels = new ArrayList<Label>(Arrays.asList(labels));
 		this.name = name;
 		this.price = price;
+		this.hasPicture = hasPicture;
 	}
 	
-
+	public synchronized boolean hasPicture() {
+		return this.hasPicture;
+	}
 	
 	public Calendar[] getDates() {
 		synchronized (dates) {
