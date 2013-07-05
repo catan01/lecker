@@ -103,7 +103,8 @@ public class Header implements SiteElement {
 							"<input type='text' id='searchMeal' maxlength='32' name='" + AbstractServlet.PARAM_SEARCH +"' placeholder='Gericht suchen' />" +
 							"<input type='submit' hidden='true' />" +
 						"</form>" +
-					"</div>");
+					"</div>" +
+					"<div id='onLogin'></div>");
 			
 			return builder.toString();
 		}
