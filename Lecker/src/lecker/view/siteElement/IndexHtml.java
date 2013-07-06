@@ -28,14 +28,18 @@ public class IndexHtml implements MainSiteElement {
 	public static final int MAX_NAME_LENGTH = 40;
 	
 	private final Calendar DATE;
+	private final String CHOSEN_OUTLAY;
 
 
-	public IndexHtml() {
+	public IndexHtml(String chosenOutlay) {
 		DATE = Calendar.getInstance();
+		CHOSEN_OUTLAY = chosenOutlay;
 	}
+	
 
-	public IndexHtml(String date) {
-		this();
+
+	public IndexHtml(String date, String chosenOutlay) {
+		this(chosenOutlay);
 		DATE.set(Calendar.YEAR, Integer.parseInt(date.split("-")[0]));
 		DATE.set(Calendar.MONTH, Integer.parseInt(date.split("-")[1]) - 1);
 		DATE.set(Calendar.DATE, Integer.parseInt(date.split("-")[2]));
@@ -46,8 +50,13 @@ public class IndexHtml implements MainSiteElement {
 	public String getCode(String remoteAddr, boolean isMobile) {
 		if (!isMobile) {
 			return showRaster();
+		}else if(isMobile) {
+			if(CHOSEN_OUTLAY.equals("")) {
+				return showChooseOutlay();
+			} else {
+				return showMobile(CHOSEN_OUTLAY);   //FIXME wird noch nicht aufgerufen
+			}
 		}
-		//TODO
 		return "";
 	}
 
@@ -91,6 +100,8 @@ public class IndexHtml implements MainSiteElement {
 			
 			
 			return builder.toString();
+		}else if(isMobile) {
+			//TODO skript für tag vor und zurück für mobile
 		}
 		
 		return "";
@@ -212,4 +223,98 @@ public class IndexHtml implements MainSiteElement {
 		}
 		return name;
 	}
+	
+	
+	private String showMobile(String chosenOutlay) {
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append(
+				"<div id='date'>" +
+						"<span id='date_left'>" +
+							"<img src='images/arrow_left.png'>" + //TODO Aenderung des Datums
+						"</span>" +
+						"<span id='date_middle'>" +
+							"<b>Angebot vom " + DATE.get(Calendar.DAY_OF_MONTH) + "." + (DATE.get(Calendar.MONTH) + 1) + "." + DATE.get(Calendar.YEAR) + "</b></span>" +
+						"<span id='date_right'>" +
+							"<img src='images/arrow_right.png'>" + //TODO Aenderung des Datums
+						"</span>" +
+				"</div>");
+		
+		String[] categoryNames = new String[] {"Hauptgericht", "Beilage"}; // TODO
+
+		for (Outlay outlay: Handler.getInstance().getMealManager().getOutlays()) {
+		if (outlay.getName().equals(chosenOutlay)) {
+			builder.append("<div class='header'><b>" + outlay.getName() + "</b></div>");
+			for (String categoryName: categoryNames) {
+				String[] names = Handler.getInstance().getMealManager().getPlan(outlay, DATE).getMeals(Handler.getInstance().getMealManager().getKategorie(categoryName));
+				Arrays.sort(names);
+				builder.append("<div class='meal_category'>" + categoryName + "</b></div>");
+				for (String mealName: names) {
+					Meal meal = Handler.getInstance().getMealManager().getMeal(mealName);
+					try {
+						mealName = URLEncoder.encode(mealName, "UTF8");
+					} catch (UnsupportedEncodingException e) {
+						//do nothing
+					}
+					builder.append(
+							"<div class='meal' onclick=\"window.location.href='?Meal=" + mealName + "'\"" +
+											(meal.getName().length() > MAX_NAME_LENGTH ? " title='" + meal.getName() + "'>" : ">") +
+								"<div class='mealheader'>" +
+									"<div class='meal'>" +
+										"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
+										"<br>" +
+										(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
+									"</div>" +
+								"</div>" +
+								"<div class='mealrating'>" +
+									loadRating(meal) +
+								"</div>" +
+								"<div class='mealcomments'>" +
+									"" + meal.getComments().get().length +
+								"</div>" +
+							"</div>" );
+				}
+				if (!categoryName.equals(categoryNames[categoryNames.length - 1])) {
+					builder.append("<hr/>");
+				}
+			}
+			builder.append("</div>");
+		}
+
+		}
+		return builder.toString();
+	}
+
+	private String showChooseOutlay() {
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append(
+				"<div class='header'>" +
+						"<b>Mensaauswahl</b>" +
+				"</div>" +
+						
+				"<div class='canteen' onclick=\"window.location.href='?Ausgabe=A'\">" +
+					"<b>Mensa Ulhornsweg Ausgabe A</b>" +
+				"</div>" +
+				"<div class='canteen' onclick=\"window.location.href='?Ausgabe=B'\">" +
+					"<b>Mensa Ulhornsweg Ausgabe B</b>" +
+				"</div>" +
+				"<div class='canteen' onclick=\"window.location.href='?Ausgabe=Culinarium'\">" +
+					"<b>Mensa Ulhornsweg Culinarium</b>" +
+				"</div>" +
+				"<div class='canteen' onclick=\"window.location.href='?Ausgabe=Wechloy'\">" +
+					"<b>Mensa Wechloy</b>" +
+				"</div>" +
+				"<div class='canteen' onclick=\"window.location.href='?Ausgabe=Ofener Straße'\">" +
+					"<b>Mensa Ofener Straße</b>" +
+				"</div>"
+			);
+			
+			return builder.toString();
+		}
+
+		
+	
+	
+	
 }

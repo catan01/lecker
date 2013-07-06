@@ -24,7 +24,8 @@ public abstract class AbstractServlet  extends HttpServlet{
 	
 	public final static String PARAM_MEAL = "Meal";
 	public final static String PARAM_DAY = "Day";
-	
+	public final static String PARAM_OUTLAY = "O";
+			
 	public final static String PARAM_SEARCH = "s";
 	
 	protected Constructor constructor;

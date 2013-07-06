@@ -21,6 +21,10 @@ div.menu_button_unchecked{
 	text-align: center;
 }
 
+div.pointer{
+	cursor: pointer; cursor: hand;
+}
+
 #date{
 	position: relative;
 	background: white;
