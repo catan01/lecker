@@ -36,7 +36,7 @@ public class PageServlet extends AbstractServlet {
 				attr = URLDecoder.decode((String)attr, "UTF8" );
 				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new MealHtml((String) attr), isMobile));
 			} else if ((attr = request.getParameter(PARAM_DAY)) != null) {
-					response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml(chosenOutlay, (String) attr), isMobile));
+					response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml((String) attr, chosenOutlay), isMobile));
 			} else if ((attr = request.getParameter(PARAM_SEARCH)) != null){
 				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new SearchHtml((String) attr), isMobile));
 			} else {

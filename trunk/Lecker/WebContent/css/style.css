@@ -222,6 +222,12 @@ div.mealcontainer {
 	float: left;
 }
 
+div.noPlan {
+	font-size: 24pt;
+	text-align: center;
+	color: #0A8104;
+}
+
 div.ausgabe {
 	font-size: 18pt;
 	text-align: center;

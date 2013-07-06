@@ -136,6 +136,15 @@ public class MealManager {
 		}
 	}
 	
+	public boolean hasPlan(Calendar date) {
+		for (Outlay outlay: this.PLANS.keySet()) {
+			if (this.PLANS.get(outlay).containsKey(date)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	
 	public void addDate(String meal, Outlay outlay, Calendar date) {
