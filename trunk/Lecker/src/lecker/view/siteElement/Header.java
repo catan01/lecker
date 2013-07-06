@@ -108,7 +108,10 @@ public class Header implements SiteElement {
 			
 			return builder.toString();
 		}
-		return "";
+		else {
+			//mobile
+			return "";
+		}
 	}
 
 	@Override

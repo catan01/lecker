@@ -27,19 +27,20 @@ public class PageServlet extends AbstractServlet {
 	@Override
 	public synchronized void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userAgent = request.getHeader("User-Agent");
-		Boolean isMobile = userAgent.contains("iphone") || userAgent.contains("opera mini") || userAgent.contains("blackberry") || userAgent.contains("android");
+		Boolean isMobile = userAgent.contains("iPhone") || userAgent.contains("iPad") || userAgent.contains("Opera Mini") || userAgent.contains("Opera Mobi") || userAgent.contains("BlackBerry") || userAgent.contains("Android");
 		try {
 			response.setContentType("text/html");
 			Object attr;
+			String chosenOutlay = (request.getParameter(PARAM_OUTLAY) != null ? request.getParameter(PARAM_OUTLAY) : "");
 			if ((attr = request.getParameter(PARAM_MEAL)) != null) {
 				attr = URLDecoder.decode((String)attr, "UTF8" );
 				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new MealHtml((String) attr), isMobile));
 			} else if ((attr = request.getParameter(PARAM_DAY)) != null) {
-				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml((String) attr), isMobile));
+					response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml(chosenOutlay, (String) attr), isMobile));
 			} else if ((attr = request.getParameter(PARAM_SEARCH)) != null){
 				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new SearchHtml((String) attr), isMobile));
 			} else {
-				response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml(), isMobile));
+					response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new IndexHtml(chosenOutlay), isMobile));
 			}
 		} catch (Exception exc) {
 			response.getOutputStream().print(constructor.getSite(request.getRemoteAddr(), new ExceptionHtml(exc), isMobile));

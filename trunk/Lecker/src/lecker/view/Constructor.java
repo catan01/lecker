@@ -30,7 +30,7 @@ public class Constructor {
 	
 	public String getSite(String remoteAddr, MainSiteElement site, boolean isMobile) {
 		StringBuffer buffer = new StringBuffer();
-		
+		if (!isMobile) {
 		buffer.append(
 				"<!DOCTYPE html>" +
 				"<html>" +
@@ -45,7 +45,19 @@ public class Constructor {
 					"</head>" +
 					"<body>" + HEADER.getCode(remoteAddr, isMobile) + site.getCode(remoteAddr, isMobile) + FOOTER.getCode(remoteAddr, isMobile) + "</body>" +
 				"</html>");
-						
+		} else if (isMobile) {
+			buffer.append(
+					"<!DOCTYPE html>" +
+					"<html>" +
+						"<head>" +
+							"<title>" + site.getTitle() + title + "</title>" +
+							"<link rel='icon' href='images/favicon.png' type='image/png'>" +
+							"<link href='css/mobile_style.css' rel='stylesheet'>" +
+							"<script>" + HEADER.getSkript(remoteAddr, isMobile) + site.getSkript(remoteAddr, isMobile) + FOOTER.getSkript(remoteAddr, isMobile) + "</script>" +
+						"</head>" +
+						"<body>" + HEADER.getCode(remoteAddr, isMobile) + site.getCode(remoteAddr, isMobile) + FOOTER.getCode(remoteAddr, isMobile) + "</body>" +
+					"</html>");
+		}
 		return buffer.toString();
 	}
 }
