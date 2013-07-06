@@ -134,7 +134,7 @@ public class Header implements SiteElement {
 							"showLogin();" +
 						"}" +
 			  			"var textF = document.getElementById('" + UserServlet.PARAM_USER_NAME + "');" +
-			  			"textF.value = getCookie('" + COOKIENAMETITLE + "');" +
+			  			"textF.value = localStorage.getItem('" + COOKIENAMETITLE + "');" +
 					"});");
 			
 		  	// login
@@ -161,7 +161,7 @@ public class Header implements SiteElement {
 											"if(response != '') {" +
 												"name = response.split('|')[0];" +
 												"favorites = response.split('|')[1].split(':');" +
-												"document.cookie='" + COOKIENAMETITLE + "=' + name;" +
+												"localStorage.setItem('" + COOKIENAMETITLE + "', name);" +
 												"showLogout();" +
 												"overlayLogin();" +
 											"} else {" +
