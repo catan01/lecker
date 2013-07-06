@@ -117,45 +117,48 @@ public class IndexHtml implements MainSiteElement {
 				"&nbsp;&nbsp;&nbsp;" +
 				"<img id='date_right' class='pointer' src='images/arrow_right.png'>" +
 				"<div id='datepicker'></div>" +
-		"</div>");
+		"</div></br></br>");
 		
-		String[] outlayNames = new String[] {"Hauptgericht", "Beilage"}; // TODO
-
+		String[] outlayNames = new String[] {"Hauptgericht", "Pasta", "Alternativ", "Beilage"}; // TODO
+		
 		for (Outlay outlay: Handler.getInstance().getMealManager().getOutlays()) {
 			builder.append("<div class='mealcontainer'>");
 			builder.append("<div class='ausgabe'>" + outlay.getName() + "</div>");
 			for (String outlayName: outlayNames) {
 				String[] names = Handler.getInstance().getMealManager().getPlan(outlay, DATE).getMeals(Handler.getInstance().getMealManager().getKategorie(outlayName));
 				Arrays.sort(names);
-				for (String mealName: names) {
-					Meal meal = Handler.getInstance().getMealManager().getMeal(mealName);
-					Integer priceDec = meal.getPrice() % 100;
-					try {
-						mealName = URLEncoder.encode(mealName, "UTF8");
-					} catch (UnsupportedEncodingException e) {
-						//do nothing
+				if (names.length > 0) {
+					builder.append("<div class='mealtype'>" + outlayName + "</div>");
+					for (String mealName: names) {
+						Meal meal = Handler.getInstance().getMealManager().getMeal(mealName);
+						Integer priceDec = meal.getPrice() % 100;
+						try {
+							mealName = URLEncoder.encode(mealName, "UTF8");
+						} catch (UnsupportedEncodingException e) {
+							//do nothing
+						}
+						builder.append(
+								"<div class='meal pointer' onclick=\"window.location.href='?Meal=" + mealName + "'\"" +
+												(meal.getName().length() > MAX_NAME_LENGTH ? " title='" + meal.getName() + "'>" : ">") +
+									"<div class='mealpicture'>" +
+										"<img src='images/meals/" + (meal.hasPicture() ? meal.getName() + "/1_small.jpg'>" : "template_small.png'>") +
+									"</div>" +
+									"<div class='mealtitle'>" +
+										"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
+										"<br>" +
+										(meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" +
+									"</div>" +
+									"<div class='mealrating'>" +
+										loadRating(meal) +
+									"</div>" +
+									"<div class='mealcomments'>" +
+										"" + meal.getComments().get().length +
+									"</div>" +
+								"</div>" );
 					}
-					builder.append(
-							"<div class='meal pointer' onclick=\"window.location.href='?Meal=" + mealName + "'\"" +
-											(meal.getName().length() > MAX_NAME_LENGTH ? " title='" + meal.getName() + "'>" : ">") +
-								"<div class='mealpicture'>" +
-									"<img src='images/meals/" + (meal.hasPicture() ? meal.getName() + "/1_small.jpg'>" : "template_small.png'>") +
-								"</div>" +
-								"<div class='mealtitle'>" +
-									"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
-									"<br>" +
-									(meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" +
-								"</div>" +
-								"<div class='mealrating'>" +
-									loadRating(meal) +
-								"</div>" +
-								"<div class='mealcomments'>" +
-									"" + meal.getComments().get().length +
-								"</div>" +
-							"</div>" );
-				}
-				if (!outlayName.equals(outlayNames[outlayNames.length - 1])) {
-					builder.append("<hr/>");
+					if (!outlayName.equals(outlayNames[outlayNames.length - 1])) {
+						builder.append("<hr/>");
+					} 
 				}
 			}
 			builder.append("</div>");

@@ -59,14 +59,18 @@ public class Header implements SiteElement {
 									"Benutzername: <input class='login_name' id='" + UserServlet.PARAM_USER_NAME + "'>" +
 								"</div>" +
 								"<div class='login_password'>" +
-									"Passwort: <input type='password' class='login_password'id='" + UserServlet.PARAM_USER_PW + "'>" +
-									"<input type='submit' id='submit' value='Anmelden'/>" +
+									"Passwort: <input type='password' class='login_password' id='" + UserServlet.PARAM_USER_PW + "'>" +
+								"</div>" +
+								"<div class='login_submit'>" +
+									"<input type='submit' id='submit' value='Anmelden'>" +
 								"</div>" +
 							"</form>" + 
-							"<div class='login_password' id='login_failure'>" +
+							"<div id='login_failure'>" +
 							"</div>" +
 							
-							"<div class='login_facebook'> <fb:login-button autologoutlink='true';>Mit Facebook einloggen</fb:login-button></div>" +
+							"<div class='login_facebook'>" +
+								"<fb:login-button autologoutlink='true';>Mit Facebook einloggen</fb:login-button>" +
+							"</div>" +
 							
 							"<span id='signinButton'>" +
 							"<span" +
@@ -165,7 +169,7 @@ public class Header implements SiteElement {
 												"showLogout();" +
 												"overlayLogin();" +
 											"} else {" +
-												"$('#login_failure').html('Es ist ein Fehler aufgetreten.<br/>Bitte überprüfen Sie ihre eingegebnen Daten und versuchen Sie es erneut.');" +
+												"$('#login_failure').html(\" <div class ='login_failure'>Fehlerhafte Eingabe! </div>\");" +
 											"}" +
 										"}" +
 									"});" +
