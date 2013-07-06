@@ -228,6 +228,21 @@ div.ausgabe {
 	color: #0A8104;
 }
 
+div.mealtype {
+	text-align: center;
+	font-size: 12pt;
+	color: #7E8A8C;
+	padding-bottom: 10px;
+	<!-- padding-left: 60px; -->
+}
+
+div.mealline {
+	padding-top: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	paddding-bottom: 0px;
+}
+
 div.meal {
 	position: relative;
 	
@@ -446,24 +461,31 @@ input.login_name {
 
 div.login_password {
 	position: absolute;
-	right: 10px;
+	right: 98px;
 	top: 120px;
-}
-
-div.login_facebook {
-	position: absolute;
-	right: 100px;
-	top: 175px;
 }
 
 input.login_password {
 	
 }
 
-div.login_failure {
+div.login_submit {
 	position: absolute;
-	right: 10px;
-	bottom: 50px;
+	top: 155px;
+	right: 97px;
+}
+
+div.login_facebook {
+	position: absolute;
+	right: 97px;
+	top: 220px;
+}
+
+div.login_failure {
+	text-align: center;
+	position: relative;
+	top: 50px;
+	color: red;
 }
 
 div.login_lostpassword {

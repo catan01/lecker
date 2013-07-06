@@ -139,7 +139,7 @@ public class MealHtml implements MainSiteElement {
 	private String showImage(Image[] images) {
 		StringBuilder builder = new StringBuilder();
 		
-		builder.append("<div class='meal_image'><img src='images/meals/template.png'></div>");
+		builder.append("<div class='meal_image'><img src='images/meals/" + (MEAL.hasPicture() ? MEAL.getName() + "/1.jpg'>" : "template.png'>") + "</div>");
 
 		return builder.toString();
 	}
