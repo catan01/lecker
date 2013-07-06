@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import lecker.model.data.Label;
 import lecker.model.data.Meal;
@@ -27,12 +28,12 @@ public class IndexHtml implements MainSiteElement {
 	
 	public static final int MAX_NAME_LENGTH = 40;
 	
-	private final Calendar DATE;
+	private final GregorianCalendar DATE;
 	private final String CHOSEN_OUTLAY;
 
 
 	public IndexHtml(String chosenOutlay) {
-		DATE = Calendar.getInstance();
+		DATE = new GregorianCalendar();
 		CHOSEN_OUTLAY = chosenOutlay;
 	}
 	
@@ -130,6 +131,17 @@ public class IndexHtml implements MainSiteElement {
 				"<div id='datepicker'></div>" +
 		"</div></br></br>");
 		
+		// Weekend
+		if (DATE.get(GregorianCalendar.DAY_OF_WEEK) == GregorianCalendar.SATURDAY || DATE.get(GregorianCalendar.DAY_OF_WEEK) == GregorianCalendar.SUNDAY) {
+			return builder.toString() + "<div class='noPlan'>An Wochenenden hat die Mensa geschlossen.</div></br></br></br>";
+		}
+		
+		// No Plan
+		if (!Handler.getInstance().getMealManager().hasPlan(DATE)) {
+			return builder.toString() + "<div class='noPlan'>Leider gibt es für diesen Tag noch keinen Plan.</br>Wahrscheinlich liegt er zu weit in der Zukunft oder der Vergangenheit.</div></br></br></br>";
+		}
+		
+		// Normal
 		String[] outlayNames = new String[] {"Hauptgericht", "Pasta", "Alternativ", "Beilage"}; // TODO
 		
 		for (Outlay outlay: Handler.getInstance().getMealManager().getOutlays()) {
