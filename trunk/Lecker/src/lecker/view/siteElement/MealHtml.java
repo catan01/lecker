@@ -293,6 +293,7 @@ public class MealHtml implements MainSiteElement {
 	"<div class='meal'>" +
 		"<b> Preis: " + 
 		(MEAL.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+		//Bewertung
 		IndexHtml.loadRating(MEAL) +
 		"</b>" +
 		"<div id='meal_favorite'>" +
@@ -303,10 +304,7 @@ public class MealHtml implements MainSiteElement {
 	"<div class='header'>" +
 		"<b> Kommentare </b>" +
 	"</div>" +
-		
-	//TODO Kommentare anzeigen
-	//TODO Bewertungen anzeigen 
-	
+	//schreiben
 "<div class='box'>" +
 	"<form id='comment' action='.' type='POST'>" +
 	"<textarea  class='comment_comment' id='" + CommentServlet.PARAM_COMMENT + "'></textarea></br>" +
@@ -318,6 +316,7 @@ public class MealHtml implements MainSiteElement {
 		"<input type='submit' id='onLogin' value='Senden'/>" +
 	"<div id='comment_response'></div>" +
 "</form></div>");
+		//anzeigen
 for (Comment comment: comments) {
 	builder.append(showComment(comment, true));
 }

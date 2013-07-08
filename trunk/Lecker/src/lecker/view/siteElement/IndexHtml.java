@@ -33,9 +33,15 @@ public class IndexHtml implements MainSiteElement {
 	private final String CHOSEN_OUTLAY;
 
 
-	public IndexHtml(String chosenOutlay) {
+
+public IndexHtml(String chosenOutlay) {
 		DATE = new GregorianCalendar();
+		if( chosenOutlay.contains("Ofener")) {
+			CHOSEN_OUTLAY = "Ofener Straße";
+		} else {
 		CHOSEN_OUTLAY = chosenOutlay;
+		}
+		
 	}
 	
 
@@ -103,7 +109,29 @@ public class IndexHtml implements MainSiteElement {
 			
 			return builder.toString();
 		}else if(isMobile) {
-			//TODO skript für tag vor und zurück für mobile
+StringBuilder builder = new StringBuilder();
+			
+			//NextDay
+			builder.append(
+					"function changeDay(days) {" +
+
+						"var date = new Date('" + DATE.get(Calendar.YEAR) + "-" + (DATE.get(Calendar.MONTH) + 1) + "-" + DATE.get(Calendar.DAY_OF_MONTH) + "');" +
+						"date.setDate(date.getDate()+ days);" +
+						"window.location.href='?O=" + CHOSEN_OUTLAY + "&Day=' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();" +
+						
+					"};");
+			
+			builder.append(
+					"$(function(){" +
+						//clickHandler
+						"$('#date_right').click(function(){changeDay(1);});" +
+						"$('#date_left').click(function(){changeDay(-1);});" +
+					"});");
+			
+
+			
+			
+			return builder.toString();
 		}
 		
 		return "";
@@ -256,12 +284,12 @@ public class IndexHtml implements MainSiteElement {
 		builder.append(
 				"<div id='date'>" +
 						"<span id='date_left'>" +
-							"<img src='images/arrow_left.png'>" + //TODO Aenderung des Datums
+							"<img src='images/arrow_left.png'>" +
 						"</span>" +
 						"<span id='date_middle'>" +
 							"<b>Angebot vom " + DATE.get(Calendar.DAY_OF_MONTH) + "." + (DATE.get(Calendar.MONTH) + 1) + "." + DATE.get(Calendar.YEAR) + "</b></span>" +
 						"<span id='date_right'>" +
-							"<img src='images/arrow_right.png'>" + //TODO Aenderung des Datums
+							"<img src='images/arrow_right.png'>" +
 						"</span>" +
 				"</div>");
 		
