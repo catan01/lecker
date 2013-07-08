@@ -2,7 +2,7 @@ package lecker.model.data;
 
 
 
-public class Outlay {
+public class Outlay implements Comparable<Outlay>{
 	private final String NAME;
 	
 	
@@ -17,5 +17,21 @@ public class Outlay {
 		synchronized (NAME) {
 			return this.NAME;
 		}
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		try {
+			return ((Outlay) obj).getName().equals(this.NAME);
+		} catch (Exception exc) {
+			return false;
+		}
+	}
+
+
+
+	@Override
+	public int compareTo(Outlay o) {
+		return -(((char) o.getName().charAt(0)) - ((char) this.getName().charAt(0)));
 	}
 }
