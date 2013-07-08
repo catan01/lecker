@@ -13,6 +13,7 @@ import lecker.model.data.Label;
 import lecker.model.data.Meal;
 import lecker.model.data.Outlay;
 import lecker.model.data.comments.Comment;
+import lecker.presenter.AbstractServlet;
 import lecker.presenter.Handler;
 import lecker.view.MainSiteElement;
 
@@ -256,7 +257,7 @@ public class IndexHtml implements MainSiteElement {
 						"</span>" +
 				"</div>");
 		
-		String[] categoryNames = new String[] {"Hauptgericht", "Beilage"}; // TODO
+		String[] categoryNames = new String[] {"Hauptgericht", "Pasta", "Alternativ", "Beilage"}; // TODO
 
 		for (Outlay outlay: Handler.getInstance().getMealManager().getOutlays()) {
 		if (outlay.getName().equals(chosenOutlay)) {
@@ -264,34 +265,30 @@ public class IndexHtml implements MainSiteElement {
 			for (String categoryName: categoryNames) {
 				String[] names = Handler.getInstance().getMealManager().getPlan(outlay, DATE).getMeals(Handler.getInstance().getMealManager().getKategorie(categoryName));
 				Arrays.sort(names);
-				builder.append("<div class='meal_category'>" + categoryName + "</b></div>");
-				for (String mealName: names) {
-					Meal meal = Handler.getInstance().getMealManager().getMeal(mealName);
-					try {
-						mealName = URLEncoder.encode(mealName, "UTF8");
-					} catch (UnsupportedEncodingException e) {
-						//do nothing
+				if (names.length > 0) {
+					builder.append("<div class='meal_category'><b>" + categoryName + "</b></div>");
+					for (String mealName: names) {
+						Meal meal = Handler.getInstance().getMealManager().getMeal(mealName);
+						try {
+							mealName = URLEncoder.encode(mealName, "UTF8");
+						} catch (UnsupportedEncodingException e) {
+							//do nothing
+						}
+						builder.append(
+								"<div class='meal' onclick=\"window.location.href='?Meal=" + mealName + "'\"" +
+										(meal.getName().length() > MAX_NAME_LENGTH ? " title='" + meal.getName() + "'>" : ">") +
+										"<div class='mealheader'>" +
+										"<div class='meal'>" +
+											"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
+											"<br>" +
+											(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
+											"</div>" +
+											"</div>" +
+											"<div class='mealrating'>" +
+											loadRating(meal) +
+											"</div>" +
+								"</div>" );
 					}
-					builder.append(
-							"<div class='meal' onclick=\"window.location.href='?Meal=" + mealName + "'\"" +
-											(meal.getName().length() > MAX_NAME_LENGTH ? " title='" + meal.getName() + "'>" : ">") +
-								"<div class='mealheader'>" +
-									"<div class='meal'>" +
-										"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
-										"<br>" +
-										(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
-									"</div>" +
-								"</div>" +
-								"<div class='mealrating'>" +
-									loadRating(meal) +
-								"</div>" +
-								"<div class='mealcomments'>" +
-									"" + meal.getComments().get().length +
-								"</div>" +
-							"</div>" );
-				}
-				if (!categoryName.equals(categoryNames[categoryNames.length - 1])) {
-					builder.append("<hr/>");
 				}
 			}
 			builder.append("</div>");
@@ -309,19 +306,19 @@ public class IndexHtml implements MainSiteElement {
 						"<b>Mensaauswahl</b>" +
 				"</div>" +
 						
-				"<div class='canteen' onclick=\"window.location.href='?Ausgabe=A'\">" +
+				"<div class='canteen' onclick=\"window.location.href='?"+ AbstractServlet.PARAM_OUTLAY + "=A'\">" +
 					"<b>Mensa Ulhornsweg Ausgabe A</b>" +
 				"</div>" +
-				"<div class='canteen' onclick=\"window.location.href='?Ausgabe=B'\">" +
+				"<div class='canteen' onclick=\"window.location.href='?"+ AbstractServlet.PARAM_OUTLAY + "=B'\">" +
 					"<b>Mensa Ulhornsweg Ausgabe B</b>" +
 				"</div>" +
-				"<div class='canteen' onclick=\"window.location.href='?Ausgabe=Culinarium'\">" +
+				"<div class='canteen' onclick=\"window.location.href='?"+ AbstractServlet.PARAM_OUTLAY + "=Culinarium'\">" +
 					"<b>Mensa Ulhornsweg Culinarium</b>" +
 				"</div>" +
-				"<div class='canteen' onclick=\"window.location.href='?Ausgabe=Wechloy'\">" +
+				"<div class='canteen' onclick=\"window.location.href='?"+ AbstractServlet.PARAM_OUTLAY + "=Wechloy'\">" +
 					"<b>Mensa Wechloy</b>" +
 				"</div>" +
-				"<div class='canteen' onclick=\"window.location.href='?Ausgabe=Ofener Straße'\">" +
+				"<div class='canteen' onclick=\"window.location.href='?"+ AbstractServlet.PARAM_OUTLAY + "=Ofener Straße'\">" +
 					"<b>Mensa Ofener Straße</b>" +
 				"</div>"
 			);

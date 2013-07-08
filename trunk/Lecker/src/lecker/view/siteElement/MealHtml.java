@@ -31,6 +31,7 @@ public class MealHtml implements MainSiteElement {
 	
 	@Override
 	public String getCode(String remoteAddr, boolean isMobile) {
+		
 		//Variables
 		StringBuilder builder = new StringBuilder();
 		ArrayList<Image> images = new ArrayList<Image>();
@@ -45,7 +46,7 @@ public class MealHtml implements MainSiteElement {
 				ratings[0]++;
 			}
 		}
-
+		if (!isMobile) {
 		builder.append("<br/><br/>");
 		
 		builder.append("<div class='meal_left'>" +
@@ -69,6 +70,10 @@ public class MealHtml implements MainSiteElement {
 			builder.append(showComment(comment));
 		}
 		builder.append("<div/>");
+		
+		} else if (isMobile) {
+			return showMobileMeal(remoteAddr);
+		}
 		
 		return builder.toString();
 	}
@@ -147,7 +152,6 @@ public class MealHtml implements MainSiteElement {
 	private String showDescription(String remoteAddr) {
 		StringBuilder builder = new StringBuilder();
 		Integer priceDec = MEAL.getPrice() % 100;
-		
 		builder.append(
 				"<div class='meal_name'>" +
 					MEAL.getName() +
@@ -218,4 +222,51 @@ public class MealHtml implements MainSiteElement {
 
 		return builder.toString();
 	}
+	
+	String showMobileMeal(String remoteAddr) {	
+		//Variables
+		StringBuilder builder = new StringBuilder();
+		ArrayList<Image> images = new ArrayList<Image>();
+		Integer priceDec = MEAL.getPrice() % 100;
+		int[] ratings = new int[Comment.MAX_RATING + 1];
+		for (Comment com: comments) {
+			if (com.getImage() != null) {
+				images.add(com.getImage());
+			}
+			try {
+				ratings[com.getRating()]++;
+			} catch (Exception exc) {
+				ratings[0]++;
+			}
+		}
+		//header
+		builder.append(				
+			"<div class='header'>" +
+					"<b>" + IndexHtml.shortenMealName(MEAL.getName()) + "</b> " + IndexHtml.loadLabel(MEAL) + 
+			"</div>" +	
+			"<div class='meal'>" +
+				this.showImage(images.toArray(new Image[0])) + "<br/>" +
+			"</div>" + 
+	//price and favorite
+	"<div class='meal'>" +
+		"<b> Preis: " + 
+		(MEAL.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" +
+		"</b>" +
+		"<div id='meal_favorite'>" +
+			"<button type='button' id='favorite' onclick='addFavorite();'>Favorit hinzufügen</button>" +
+		"</div>" +
+	"</div>" +
+	//Kommentare	
+	"<div class='header'>" +
+		"<b> Kommentare </b>" +
+	"</div>" 
+		
+	//TODO Kommentare anzeigen
+	//TODO Bewertungen anzeigen 
+		);
+		return builder.toString();
+	}
+	
+	
+	
 }
