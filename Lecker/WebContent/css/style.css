@@ -532,6 +532,8 @@ div.favs {
 	text-align: center;
 	position: relative;
 	top: 75px;
+	height: 200px;
+	overflow: auto;
 }
 
 div.favs a {
