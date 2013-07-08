@@ -34,7 +34,6 @@ public class FavoriteServlet extends AbstractServlet {
 	@Override
 	public synchronized void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			System.out.println("TEST");
 			Map<String, String[]> map = request.getParameterMap();
 			if (map.containsKey(PARAM_MEAL)? map.get(PARAM_MEAL) != null : false) {
 				User user = Handler.getInstance().getUserManager().getUser(request.getRemoteAddr());

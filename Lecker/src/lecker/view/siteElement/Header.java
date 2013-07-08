@@ -127,12 +127,100 @@ public class Header implements SiteElement {
 	@Override
 	public String getSkript(String remoteAddr, boolean isMobile) {
 		User user = Handler.getInstance().getUserManager().getUser(remoteAddr);
-		if (!isMobile) {
-			StringBuilder builder = new StringBuilder();
+		StringBuilder builder = new StringBuilder();
 			
-			// Start
+		// Start
 
+		builder.append(
+				"var name = '" + (user != null? user.getName() : "") + "';" +
+				"$(function(){" +
+					"if(name != '') {" +
+						"showLogout();" +
+					"} else {" +
+						"showLogin();" +
+					"}" +
+		  			"var textF = document.getElementById('" + UserServlet.PARAM_USER_NAME + "');" +
+		  			"textF.value = localStorage.getItem('" + UserServlet.COOKIENAMETITLE + "');" +
+				"});");
+		
+	  	// login
+		builder.append(
+	  			"function overlayLogin(mode) {" +
+					"if (mode == 'display') {" +
+						"if (document.getElementById('overlay') === null) {" +
+							"div = document.createElement('div');" +
+							"div.setAttribute('id', 'overlay');" +
+							"div.setAttribute('onclick', 'overlayLogin();');" +
+							"document.getElementsByTagName('body')[0].appendChild(div);" +
+							"$('#lightBox2').show();" +
+							
+							// Login Send
+							"$('#login').submit(function() {" +
+								"var formName = $('#" + UserServlet.PARAM_USER_NAME + "').val();" +
+								"var formPW = $('#" + UserServlet.PARAM_USER_PW + "').val();" +
+								"$.ajax({" +
+									"type:'POST'," +
+								    "cache:false," +
+									"url:'User'," +
+									"data:{" + UserServlet.PARAM_USER_MODE + ":'" + UserServlet.PARAM_MODE_NORMAL + "', " + UserServlet.PARAM_USER_NAME + ":formName, " + UserServlet.PARAM_USER_PW + ":formPW}," +
+									"success:function(response){" +
+										"if(response != '') {" +
+											"name = response.split('|')[0];" +
+											"favorites = response.split('|')[1].split(':');" +
+											"localStorage.setItem('" + UserServlet.COOKIENAMETITLE + "', name);" +
+											"showLogout();" +
+											"overlayLogin();" +
+										"} else {" +
+											"$('#login_failure').html(\" <div class ='login_failure'>Fehlerhafte Eingabe! </div>\");" +
+										"}" +
+									"}" +
+								"});" +
+								"return false;" +
+							"});" +
+						"}" +
+					"} else {" +
+						"document.getElementsByTagName('body')[0].removeChild(document.getElementById('overlay'));" +
+						"$('#lightBox2').hide();" +
+					"}" +
+				"};");
+			
+	  	// showLogin
+		builder.append(
+				"function showLogin() {" +
+					"$('#menu').html('<button onclick=\\'overlayLogin(\"display\");\\'>Anmelden</button>" + (isMobile? "<a href=\".\"><button>Start</button></a>" : "<button>Registrieren</button>") + "<br/>');" +
+					"var commentButton = document.getElementById('onLogin');" +
+					"if(commentButton) {" +
+						"commentButton.disabled = true;" +
+					"}" +
+				"};");
+		
+	  	// logout
+		builder.append(
+				"function logout() {" +
+					"$.ajax({" +
+						"type:'POST'," +
+					    "cache:false," +
+						"url:'User'," +
+						"data: {" + UserServlet.PARAM_USER_MODE + ": '" + UserServlet.PARAM_MODE_LOGOUT + "', " + UserServlet.PARAM_USER_NAME + ": name}," +
+						"success:function(response){" +
+							"showLogin();" +
+						"}" +
+					"});" +
+				"};");
+		
+	  	// showLogout
+		builder.append(
+				"function showLogout() {" +
+						"$('#menu').html(" + (isMobile? "" : "name") + "' <button onclick=\\'logout();\\'>Abmelden</button>" + (isMobile? "<a href=\".\"><button>Start</button></a>" : "<button onclick=\\'overlayFavorites(\"display\");\\'>Favoriten</button>") + "<br/>');" +
+						"var commentButton = document.getElementById('onLogin');" +
+						"if(commentButton) {" +
+							"commentButton.disabled = false;" +
+						"}" +
+				"};");
+		
+		if (!isMobile) {
 			StringBuilder favorites = new StringBuilder();
+			
 			if (user != null) {
 				for ( int i = 0; i < user.getFavorites().length; ++i) {
 					if (i != 0) {
@@ -141,62 +229,10 @@ public class Header implements SiteElement {
 					favorites.append("'" + user.getFavorites()[i] + "'");
 				}
 			}
-			builder.append(
-					"var name = '" + (user != null? user.getName() : "") + "';" +
-					"var favorites = new Array(" + favorites + ");" +
-					"$(function(){" +
-						"if(name != '') {" +
-							"showLogout();" +
-						"} else {" +
-							"showLogin();" +
-						"}" +
-			  			"var textF = document.getElementById('" + UserServlet.PARAM_USER_NAME + "');" +
-			  			"textF.value = localStorage.getItem('" + UserServlet.COOKIENAMETITLE + "');" +
-					"});");
-			
-		  	// login
-			builder.append(
-		  			"function overlayLogin(mode) {" +
-						"if (mode == 'display') {" +
-							"if (document.getElementById('overlay') === null) {" +
-								"div = document.createElement('div');" +
-								"div.setAttribute('id', 'overlay');" +
-								"div.setAttribute('onclick', 'overlayLogin();');" +
-								"document.getElementsByTagName('body')[0].appendChild(div);" +
-								"$('#lightBox2').show();" +
-								
-								// Login Send
-								"$('#login').submit(function() {" +
-									"var formName = $('#" + UserServlet.PARAM_USER_NAME + "').val();" +
-									"var formPW = $('#" + UserServlet.PARAM_USER_PW + "').val();" +
-									"$.ajax({" +
-										"type:'POST'," +
-									    "cache:false," +
-										"url:'User'," +
-										"data:{" + UserServlet.PARAM_USER_MODE + ":'" + UserServlet.PARAM_MODE_NORMAL + "', " + UserServlet.PARAM_USER_NAME + ":formName, " + UserServlet.PARAM_USER_PW + ":formPW}," +
-										"success:function(response){" +
-											"if(response != '') {" +
-												"name = response.split('|')[0];" +
-												"favorites = response.split('|')[1].split(':');" +
-												"localStorage.setItem('" + UserServlet.COOKIENAMETITLE + "', name);" +
-												"showLogout();" +
-												"overlayLogin();" +
-											"} else {" +
-												"$('#login_failure').html(\" <div class ='login_failure'>Fehlerhafte Eingabe! </div>\");" +
-											"}" +
-										"}" +
-									"});" +
-									"return false;" +
-								"});" +
-							"}" +
-						"} else {" +
-							"document.getElementsByTagName('body')[0].removeChild(document.getElementById('overlay'));" +
-							"$('#lightBox2').hide();" +
-						"}" +
-					"};");
-			
+				
 			// show the favorites
 			builder.append(
+					"var favorites = new Array(" + favorites + ");" +
 					"function overlayFavorites(mode) {" +
 						"if (mode == 'display') {" +
 							"var fav = '<div class=\"favs\"><table width=\"75%\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" bordercolor=\"#0A8104\">';" +
@@ -228,40 +264,6 @@ public class Header implements SiteElement {
 						"}" +
 					"};");
 			
-		  	// showLogin
-			builder.append(
-					"function showLogin() {" +
-						"$('#menu').html('<button onclick=\\'overlayLogin(\"display\");\\'>Anmelden</button><button>Registrieren</button><br/>');" +
-						"var commentButton = document.getElementById('onLogin');" +
-						"if(commentButton) {" +
-							"commentButton.disabled = true;" +
-						"}" +
-					"};");
-			
-		  	// logout
-			builder.append(
-					"function logout() {" +
-						"$.ajax({" +
-							"type:'POST'," +
-						    "cache:false," +
-							"url:'User'," +
-							"data: {" + UserServlet.PARAM_USER_MODE + ": '" + UserServlet.PARAM_MODE_LOGOUT + "', " + UserServlet.PARAM_USER_NAME + ": name}," +
-							"success:function(response){" +
-								"showLogin();" +
-							"}" +
-						"});" +
-					"};");
-			
-		  	// showLogout
-			builder.append(
-					"function showLogout() {" +
-							"$('#menu').html(name+' <button onclick=\\'logout();\\'>Abmelden</button><button onclick=\\'overlayFavorites(\"display\");\\'>Favoriten</button><br/>');" +
-							"var commentButton = document.getElementById('onLogin');" +
-							"if(commentButton) {" +
-								"commentButton.disabled = false;" +
-							"}" +
-					"};");
-			
 			// Cookie
 			builder.append(
 					"function getCookie(c_name) {" +
@@ -282,10 +284,8 @@ public class Header implements SiteElement {
 						"}" +
 						"return c_value;" +
 					"};");
-			
-		  	return builder.toString();
 		}
-		return "";
+		return builder.toString();
 	}
 	
 	private String getLogoSkript() {

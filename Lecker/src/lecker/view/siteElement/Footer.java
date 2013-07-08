@@ -2,6 +2,9 @@ package lecker.view.siteElement;
 
 
 
+import lecker.model.data.User;
+import lecker.presenter.Handler;
+import lecker.presenter.servlet.UserServlet;
 import lecker.view.SiteElement;
 
 
@@ -19,14 +22,32 @@ public class Footer implements SiteElement {
 		}else if(isMobile) {
 			StringBuilder builder = new StringBuilder();
 			
-			//Menubar
-			builder.append("<div class='menu'>" +
-					"<table style='width:99%'>" +
-					"<tr>" +
-					"<td><div class='menu_button_checked' onclick=\"window.location.href='?.'\"> <b>Start</b></div></td>" +
-					"<td><div class='menu_button_checked' onclick='anmelden'><b>Anmelden</b></div></td>" +
-					"</tr>" +
-					"</table>" +
+			// Login
+			builder.append(
+					"<div id='lightBox2'>" +
+						"<div id='overlay_login'>" +
+							"<div class='login_title'>" +
+								"Anmeldung" + 
+							"</div>" +
+							"<div class='overlay_close'>" +
+								"<button onclick='overlayLogin()'>X</button>" +
+							"</div>" +
+							"<form id='login' action='.' type='POST'>" +
+								"<div class='login_name'>" +
+									"Benutzername: <input class='login_name' id='" + UserServlet.PARAM_USER_NAME + "'>" +
+								"</div>" +
+								"<div class='login_password'>" +
+									"Passwort: <input type='password' class='login_password' id='" + UserServlet.PARAM_USER_PW + "'>" +
+								"</div>" +
+								"<div class='login_submit'>" +
+									"<input type='submit' id='submit' value='Anmelden'>" +
+								"</div>" +
+							"</form>" + 
+							"<div id='login_failure'>" +
+							"</div>" +
+						"</div>" +
+					"</div>" +
+					"<div id='menu'>" +
 					"</div>");
 			
 			return builder.toString();
@@ -38,5 +59,4 @@ public class Footer implements SiteElement {
 	public String getSkript(String remoteAddr, boolean isMobile) {
 		return "";
 	}
-
 }
