@@ -88,6 +88,21 @@ public class Header implements SiteElement {
 							"</div>" +
 						"</div>" +
 					"</div>" +
+						
+					"<div id='lightBox3'>" +
+						"<div id='overlay_fav'>" +
+							"<div class='fav_title'>" +
+								"Favoriten" + 
+							"</div>" +
+							"<div class='overlay_close'>" +
+								"<button onclick='overlayFavorites()'>X</button>" +
+							"</div>" +
+							"<div id='replace_fav'>" +
+							"</div>" +
+						"</div>" +
+					"</div>" +
+					
+					
 					"<div id='header'>" +
 						"<div id='banner'>" +
 							"<a href='.'><canvas id='logo' width='400' height='70'><span id='title'>" +
@@ -186,8 +201,36 @@ public class Header implements SiteElement {
 					"};");
 			
 			// show the favorites
-			builder.append("function showFavorites() {" +
-						"alert('Sie haben ' + favorites.length + ' Favoriten');" +
+			builder.append(
+					"function overlayFavorites(mode) {" +
+						"if (mode == 'display') {" +
+							"var fav = '<div class=\"favs\"><table width=\"75%\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" bordercolor=\"#0A8104\">';" +
+							"var stringReplace = '';" +
+							"var tableColor = '';" +
+							"for (i=0; i < favorites.length ; i++ ) {" +
+							"if (i%2 == 0) {" +
+								"tableColor = '#D3D3D3 ';" +
+							"} else {" +
+								"tableColor = '#C0C0C0';" +
+							"}" +
+								"stringReplace = favorites[i].replace(' ', '+');" +
+								"fav += '<tr><td bgcolor=\"' + tableColor + '\"><a href=\"?Meal='+ stringReplace +'\">' + favorites[i] + '</a></td></tr>';" +
+							"}" +
+							"fav += '</table></div>';" +
+							
+							"document.getElementById('replace_fav').innerHTML = fav;" +
+							
+							"if (document.getElementById('overlay') === null) {" +
+								"div = document.createElement('div');" +
+								"div.setAttribute('id', 'overlay');" +
+								"div.setAttribute('onclick', 'overlayFavorites();');" +
+								"document.getElementsByTagName('body')[0].appendChild(div);" +
+								"$('#lightBox3').show();" +
+							"}" +
+						"} else {" +
+							"document.getElementsByTagName('body')[0].removeChild(document.getElementById('overlay'));" +
+							"$('#lightBox3').hide();" +
+						"}" +
 					"};");
 			
 		  	// showLogin
@@ -217,7 +260,7 @@ public class Header implements SiteElement {
 		  	// showLogout
 			builder.append(
 					"function showLogout() {" +
-							"$('#menu').html(name+' <button onclick=\\'logout();\\'>Abmelden</button><button onclick=\\'showFavorites();\\'>Favoriten</button><br/>');" +
+							"$('#menu').html(name+' <button onclick=\\'logout();\\'>Abmelden</button><button onclick=\\'overlayFavorites(\"display\");\\'>Favoriten</button><br/>');" +
 							"var commentButton = document.getElementById('onLogin');" +
 							"if(commentButton) {" +
 								"commentButton.disabled = false;" +
