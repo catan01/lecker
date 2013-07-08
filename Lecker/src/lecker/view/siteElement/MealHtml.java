@@ -228,20 +228,29 @@ public class MealHtml implements MainSiteElement {
 						"</div>" +
 					"</div>" +
 				"</div>");
-		} else if(!isMobile){
+		} else if(isMobile){
 			builder.append(
 					"<div class='box'>" +
 						"<div class='meal_comment_content'>" +
 							"<div class='meal_comment_content_header'>" +
-								"<div class='meal_comment_content_header_user'>" +
+								"<div class='meal_comment_content_header_user'><b>" +
 									comment.getUserName() +
-								"</div>" +
-								"<div class='meal_comment_content_header_rating'>" +
-								
-								"</div>" +
+								"</b></div>" +
 							"</div>" +
 							"<div class='meal_comment_content_body'>" +
-								comment.getComment() +
+								"<div class='meal_comment_content_body_message'>" +
+									comment.getComment() +
+								"</div>" +
+								"<div class='meal_comment_content_body_rating'>");
+			for (int i = 1; i <= 5; ++i) {
+				if (i <= comment.getRating()) {
+					builder.append("<img src='images/star_green_small.png'>");
+				} else {
+					builder.append("<img src='images/star_gray_small.png'>");
+				}
+			}
+			builder.append(
+								"</div>" +
 							"</div>" +
 						"</div>" +
 					"</div>");
@@ -291,7 +300,7 @@ public class MealHtml implements MainSiteElement {
 	//TODO Kommentare anzeigen
 	//TODO Bewertungen anzeigen 
 	
-"<div class='comment_write'>" +
+"<div class='box'>" +
 	"<form id='comment' action='.' type='POST'>" +
 	"<textarea  class='comment_comment' id='" + CommentServlet.PARAM_COMMENT + "'></textarea></br>" +
 		"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='1'>" +
@@ -301,11 +310,12 @@ public class MealHtml implements MainSiteElement {
 		"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='5'>" +
 		"<input type='submit' id='onLogin' value='Senden'/>" +
 	"<div id='comment_response'></div>" +
-"</form>");
+"</form></div>");
 for (Comment comment: comments) {
 	builder.append(showComment(comment, true));
 }
-
+builder.append("</div>" +
+		"</br></br>");
 				
 				
 				
