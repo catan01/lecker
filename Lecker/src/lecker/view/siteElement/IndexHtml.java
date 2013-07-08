@@ -56,7 +56,7 @@ public class IndexHtml implements MainSiteElement {
 			if(CHOSEN_OUTLAY.equals("")) {
 				return showChooseOutlay();
 			} else {
-				return showMobile(CHOSEN_OUTLAY);   //FIXME wird noch nicht aufgerufen
+				return showMobile(CHOSEN_OUTLAY); 
 			}
 		}
 		return "";
@@ -147,7 +147,7 @@ public class IndexHtml implements MainSiteElement {
 		}
 		
 		// Normal
-		String[] categoryNames = new String[] {"Hauptgericht", "Pasta", "Alternativ", "Beilage"}; // TODO
+		String[] categoryNames = new String[] {"Hauptgericht", "Pasta", "Alternativ", "Beilage"};
 		
 		for (Outlay outlay: Handler.getInstance().getMealManager().getOutlays()) {
 			builder.append("<div class='mealcontainer'>");
@@ -257,7 +257,7 @@ public class IndexHtml implements MainSiteElement {
 						"</span>" +
 				"</div>");
 		
-		String[] categoryNames = new String[] {"Hauptgericht", "Pasta", "Alternativ", "Beilage"}; // TODO
+		String[] categoryNames = new String[] {"Hauptgericht", "Pasta", "Alternativ", "Beilage"};
 
 		for (Outlay outlay: Handler.getInstance().getMealManager().getOutlays()) {
 		if (outlay.getName().equals(chosenOutlay)) {
