@@ -211,7 +211,7 @@ public class Header implements SiteElement {
 	  	// showLogout
 		builder.append(
 				"function showLogout() {" +
-						"$('#menu').html(" + (isMobile? "" : "name") + "' <button onclick=\\'logout();\\'>Abmelden</button>" + (isMobile? "<a href=\".\"><button>Start</button></a>" : "<button onclick=\\'overlayFavorites(\"display\");\\'>Favoriten</button>") + "<br/>');" +
+						"$('#menu').html(" + (isMobile? "" : "name + ") + "' <button onclick=\\'logout();\\'>Abmelden</button>" + (isMobile? "<a href=\".\"><button>Start</button></a>" : "<button onclick=\\'overlayFavorites(\"display\");\\'>Favoriten</button>") + "<br/>');" +
 						"var commentButton = document.getElementById('onLogin');" +
 						"if(commentButton) {" +
 							"commentButton.disabled = false;" +
