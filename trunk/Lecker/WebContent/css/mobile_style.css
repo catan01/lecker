@@ -217,7 +217,19 @@ div.comment_write{
 }
 
 #onLogin {
+	font-family: Verdana, sans-serif, Helvetica;
+	margin-left: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
 	font-size: 24pt;
+	color: #ffffff;
+	border: 1px solid #327e04;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	background: #4da20b;
+	cursor: pointer; cursor: hand;
 }
 
 /*canteen page*/
