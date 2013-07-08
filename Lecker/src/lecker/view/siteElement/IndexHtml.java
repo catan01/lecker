@@ -313,13 +313,9 @@ StringBuilder builder = new StringBuilder();
 						builder.append(
 								"<div class='meal' onclick=\"window.location.href='?Meal=" + mealName + "'\"" +
 										(meal.getName().length() > MAX_NAME_LENGTH ? " title='" + meal.getName() + "'>" : ">") +
-										"<div class='mealheader'>" +
-										"<div class='meal'>" +
 											"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
 											"<br>" +
 											(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
-											"</div>" +
-											"</div>" +
 											"<div class='mealrating'>" +
 											loadRating(meal) +
 											"</div>" +
