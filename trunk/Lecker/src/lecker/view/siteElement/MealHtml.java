@@ -251,9 +251,9 @@ public class MealHtml implements MainSiteElement {
 								"<div class='meal_comment_content_body_rating'>");
 			for (int i = 1; i <= 5; ++i) {
 				if (i <= comment.getRating()) {
-					builder.append("<img src='images/star_green_small.png'>");
+					builder.append("<img src='images/star_green_medium.png'>");
 				} else {
-					builder.append("<img src='images/star_gray_small.png'>");
+					builder.append("<img src='images/star_gray_medium.png'>");
 				}
 			}
 			builder.append(
@@ -294,7 +294,7 @@ public class MealHtml implements MainSiteElement {
 		"<b> Preis: " + 
 		(MEAL.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
 		//Bewertung
-		IndexHtml.loadRating(MEAL) +
+		IndexHtml.loadRating(MEAL, true) +
 		"</b>" +
 		"<div id='meal_favorite'>" +
 			"<button type='button' id='favorite' onclick='addFavorite();'>Favorit hinzufügen</button>" +

@@ -57,7 +57,7 @@ public class SearchHtml implements MainSiteElement {
 								(meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" +
 							"</div>" +
 							"<div class='mealrating'>" +
-								IndexHtml.loadRating(meal) +
+								IndexHtml.loadRating(meal, false) +
 							"</div>" +
 							"<div class='mealcomments'>" +
 								"" + meal.getComments().get().length +

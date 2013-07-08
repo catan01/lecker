@@ -213,7 +213,7 @@ StringBuilder builder = new StringBuilder();
 										price +
 									"</div>" +
 									"<div class='mealrating'>" +
-										loadRating(meal) +
+										loadRating(meal, false) +
 									"</div>" +
 									"<div class='mealcomments'>" +
 										"" + meal.getComments().get().length +
@@ -234,7 +234,7 @@ StringBuilder builder = new StringBuilder();
 
 
 
-	public static String loadRating(Meal meal) {
+	public static String loadRating(Meal meal, boolean isMobile) {
 		StringBuilder builder = new StringBuilder();
 
 		if (meal.getComments().get().length > 0) {
@@ -247,9 +247,9 @@ StringBuilder builder = new StringBuilder();
 			}
 			for (int i = 0; i < Comment.MAX_RATING; ++i) {
 				if (i < (1.0 * rate / count)) {
-					builder.append("<img src='images/star_green_small.png'>");
+					builder.append("<img src='images/star_green_" + (isMobile ? "medium" : "small") + ".png'>");
 				} else {
-					builder.append("<img src='images/star_gray_small.png'>");
+					builder.append("<img src='images/star_gray_"+ (isMobile ? "medium" : "small") + ".png'>");
 				}
 			}
 			builder.append("<b> Ø " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</b>");
@@ -284,12 +284,12 @@ StringBuilder builder = new StringBuilder();
 		builder.append(
 				"<div id='date'>" +
 						"<span id='date_left'>" +
-							"<img src='images/arrow_left.png'>" +
+							"<img class='arrow' src='images/arrow_left.png'>" +
 						"</span>" +
 						"<span id='date_middle'>" +
 							"<b>Angebot vom " + DATE.get(Calendar.DAY_OF_MONTH) + "." + (DATE.get(Calendar.MONTH) + 1) + "." + DATE.get(Calendar.YEAR) + "</b></span>" +
 						"<span id='date_right'>" +
-							"<img src='images/arrow_right.png'>" +
+							"<img class='arrow' src='images/arrow_right.png'>" +
 						"</span>" +
 				"</div>");
 		
@@ -317,7 +317,7 @@ StringBuilder builder = new StringBuilder();
 											"<br>" +
 											(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
 											"<div class='mealrating'>" +
-											loadRating(meal) +
+											loadRating(meal, true) +
 											"</div>" +
 								"</div>" );
 					}
