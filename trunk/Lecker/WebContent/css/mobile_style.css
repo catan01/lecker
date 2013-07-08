@@ -123,6 +123,15 @@ div.comment_rating{
 	text-align: right;
 }
 
+div.comment_write{
+	padding: 3px;
+	width: 100%;
+}
+
+.comment_comment{
+width:98%;
+	padding: 3px;
+}
 
 /*canteen page*/
 

@@ -67,7 +67,7 @@ public class MealHtml implements MainSiteElement {
 				"</form>" +
 			"</div>");
 		for (Comment comment: comments) {
-			builder.append(showComment(comment));
+			builder.append(showComment(comment, isMobile));
 		}
 		builder.append("<div/>");
 		
@@ -198,9 +198,9 @@ public class MealHtml implements MainSiteElement {
 		return builder.toString();
 	}
 	
-	private String showComment(Comment comment) {
+	private String showComment(Comment comment, boolean isMobile) {
 		StringBuilder builder = new StringBuilder();
-		
+		if(!isMobile){
 		builder.append(
 				"<div class='meal_comment'>" +
 					"<div class='meal_comment_image'>" +
@@ -219,7 +219,24 @@ public class MealHtml implements MainSiteElement {
 						"</div>" +
 					"</div>" +
 				"</div>");
-
+		} else if(!isMobile){
+			builder.append(
+					"<div class='box'>" +
+						"<div class='meal_comment_content'>" +
+							"<div class='meal_comment_content_header'>" +
+								"<div class='meal_comment_content_header_user'>" +
+									comment.getUserName() +
+								"</div>" +
+								"<div class='meal_comment_content_header_rating'>" +
+								
+								"</div>" +
+							"</div>" +
+							"<div class='meal_comment_content_body'>" +
+								comment.getComment() +
+							"</div>" +
+						"</div>" +
+					"</div>");
+		}
 		return builder.toString();
 	}
 	
@@ -250,7 +267,8 @@ public class MealHtml implements MainSiteElement {
 	//price and favorite
 	"<div class='meal'>" +
 		"<b> Preis: " + 
-		(MEAL.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" +
+		(MEAL.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+		IndexHtml.loadRating(MEAL) +
 		"</b>" +
 		"<div id='meal_favorite'>" +
 			"<button type='button' id='favorite' onclick='addFavorite();'>Favorit hinzufügen</button>" +
@@ -259,11 +277,36 @@ public class MealHtml implements MainSiteElement {
 	//Kommentare	
 	"<div class='header'>" +
 		"<b> Kommentare </b>" +
-	"</div>" 
+	"</div>" +
 		
 	//TODO Kommentare anzeigen
 	//TODO Bewertungen anzeigen 
-		);
+	
+"<div class='comment_write'>" +
+	"<form id='comment' action='.' type='POST'>" +
+	"<textarea  class='comment_comment' id='" + CommentServlet.PARAM_COMMENT + "'></textarea></br>" +
+		"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='1'>" +
+		"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='2'>" +
+		"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='3'>" +
+		"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='4'>" +
+		"<input type='radio' name='" + CommentServlet.PARAM_RATING + "' value='5'>" +
+		"<input type='submit' id='onLogin' value='Senden'/>" +
+	"<div id='comment_response'></div>" +
+"</form>");
+for (Comment comment: comments) {
+	builder.append(showComment(comment, true));
+}
+
+				
+				
+				
+				
+				
+				
+				
+				
+		
+
 		return builder.toString();
 	}
 	
