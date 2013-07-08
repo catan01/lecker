@@ -30,13 +30,13 @@ button {
 div.menu_button_checked{
 	background: #0A8104;
 	color:white;
-	border: 3px solid black;
+	border: 5px solid black;
 	text-align: center;
 }
 
 div.menu_button_unchecked{
 	background: #BDBDBD;
-	border: 3px solid #0A8104;
+	border: 5px solid #0A8104;
 	text-align: center;
 }
 
@@ -47,8 +47,8 @@ div.pointer{
 #date{
 	position: relative;
 	background: white;
-	height:32px;
-	border: 3px solid #0A8104;
+	height:64px;
+	border: 5px solid #0A8104;
 	text-align: center;
 	margin-bottom: 10px;
 	padding: 3px;
@@ -71,22 +71,27 @@ div.pointer{
 div.meal_category {
 	background: #BDBDBD;
 	padding: 3px;
-	border: 3px solid #0A8104;
+	border: 5px solid #0A8104;
 	text-align: center;
 	margin-bottom: 10px;
 }
 
 div.meal {
 	background: white;
-	border: 3px solid #0A8104;
+	border: 5px solid #0A8104;
 	padding: 3px;
 	text-align: center;
 	margin-bottom: 10px;
 }
 
+img.arrow {
+	width: 64px;
+	height: 64px;
+}
+
 div.header{
 	background: #0A8104;
-	border: 3px solid #0A8104;
+	border: 5px solid #0A8104;
 	font-size: 28pt;
 	color: white;
 	text-align: center;
@@ -97,7 +102,7 @@ div.header{
 
 div.box{
 	background: white;
-	border: 3px solid #0A8104;
+	border: 5px solid #0A8104;
 	padding: 3px;
 	margin-bottom: 1px;
 }
@@ -237,7 +242,7 @@ div.comment_write{
 div.canteen {
 	background: #BDBDBD;
 	padding: 3px;
-	border: 3px solid #0A8104;
+	border: 5px solid #0A8104;
 	text-align: center;
 	margin-bottom: 10px;
 }
