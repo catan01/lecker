@@ -137,17 +137,21 @@ public class IndexHtml implements MainSiteElement {
 		}
 		
 		// No Plan
-		if (!Handler.getInstance().getMealManager().hasPlan(DATE)) {
-			return builder.toString() + "<div class='noPlan'>Leider gibt es für diesen Tag noch keinen Plan.</br>Wahrscheinlich liegt er zu weit in der Zukunft oder der Vergangenheit.</div></br></br></br>";
+		{
+			Calendar border = Calendar.getInstance();
+			border.add(Calendar.WEEK_OF_YEAR, 2);
+			if (DATE.after(border)) {
+				return builder.toString() + "<div class='noPlan'>Die Gerichte der Mensa stehen nur für die nächsten zwei Wochen fest</div></br></br></br>";
+			}
 		}
 		
 		// Normal
-		String[] outlayNames = new String[] {"Hauptgericht", "Pasta", "Alternativ", "Beilage"}; // TODO
+		String[] categoryNames = new String[] {"Hauptgericht", "Pasta", "Alternativ", "Beilage"}; // TODO
 		
 		for (Outlay outlay: Handler.getInstance().getMealManager().getOutlays()) {
 			builder.append("<div class='mealcontainer'>");
 			builder.append("<div class='ausgabe'>" + outlay.getName() + "</div>");
-			for (String outlayName: outlayNames) {
+			for (String outlayName: categoryNames) {
 				String[] names = Handler.getInstance().getMealManager().getPlan(outlay, DATE).getMeals(Handler.getInstance().getMealManager().getKategorie(outlayName));
 				Arrays.sort(names);
 				if (names.length > 0) {
@@ -179,7 +183,7 @@ public class IndexHtml implements MainSiteElement {
 									"</div>" +
 								"</div>" );
 					}
-					if (!outlayName.equals(outlayNames[outlayNames.length - 1])) {
+					if (!outlayName.equals(categoryNames[categoryNames.length - 1])) {
 						builder.append("<hr/>");
 					} 
 				}

@@ -104,7 +104,9 @@ public class MealManager {
 	
 	public Outlay[] getOutlays() {
 		synchronized (this.PLANS) {
-			return this.PLANS.keySet().toArray(new Outlay[0]);
+			Outlay[] outlays = this.PLANS.keySet().toArray(new Outlay[0]);
+			Arrays.sort(outlays);
+			return outlays;
 		}
 	}
 	
@@ -134,15 +136,6 @@ public class MealManager {
 			this.PLANS.get(outlay).put(date, plan);
 			return plan;
 		}
-	}
-	
-	public boolean hasPlan(Calendar date) {
-		for (Outlay outlay: this.PLANS.keySet()) {
-			if (this.PLANS.get(outlay).containsKey(date)) {
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	

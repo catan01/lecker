@@ -28,7 +28,7 @@ final public class Loader {
 					thread = null;
 				}
 				Handler.getInstance().init();
-				Parser.init();
+				//Parser.init();
 			}
 			++initCounter;
 		}
