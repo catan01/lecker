@@ -157,7 +157,7 @@ public class MealHtml implements MainSiteElement {
 		if ((MEAL.getPrice() / 100) > 0 || priceDec > 0) {
 			price = (MEAL.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364";
 		} else {
-			price = "?";
+			price = "<span title='Kein Preis bekannt'>? &#8364</span>";
 		}
 		
 		builder.append(
@@ -291,8 +291,13 @@ public class MealHtml implements MainSiteElement {
 			"</div>" + 
 	//price and favorite
 	"<div class='meal'>" +
-		"<b> Preis: " + 
-		(MEAL.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+		"<b> Preis: ");
+		if ((MEAL.getPrice() / 100) > 0 || priceDec > 0) {
+			builder.append((MEAL.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364");
+		} else {
+			builder.append("<span title='Kein Preis bekannt'>? &#8364</span>");
+		}
+		builder.append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
 		//Bewertung
 		IndexHtml.loadRating(MEAL, true) +
 		"</b>" +

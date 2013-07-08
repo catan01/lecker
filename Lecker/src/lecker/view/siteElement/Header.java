@@ -78,10 +78,6 @@ public class Header implements SiteElement {
 							  "data-scope='https://www.googleapis.com/auth/plus.login'>" +
 							"</span>" +
 							"</span>" +
-							  
-							"<div class='login_lostpassword'>" +
-								"<a>Passwort vergessen?</a>" +
-							"</div>" +
 						"</div>" +
 					"</div>" +
 						
@@ -112,7 +108,7 @@ public class Header implements SiteElement {
 					"<div id='search'>" +
 						"<form id='searchForm' action='.' method='GET'>" +
 							"<input type='text' id='searchMeal' maxlength='32' name='" + AbstractServlet.PARAM_SEARCH +"' placeholder='Gericht suchen' />" +
-							"<input type='submit' hidden='true' />" +
+							"<input type='submit' value='Suchen' hidden='true' />" +
 						"</form>" +
 					"</div>");
 			

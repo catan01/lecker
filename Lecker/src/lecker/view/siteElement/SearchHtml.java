@@ -53,9 +53,13 @@ public class SearchHtml implements MainSiteElement {
 							"</div>" +
 							"<div class='mealtitle'>" +
 								"<b>" + IndexHtml.shortenMealName(meal.getName()) + "</b> " + IndexHtml.loadLabel(meal) + 
-								"<br>" +
-								(meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" +
-							"</div>" +
+								"<br>");
+								if ((meal.getPrice() / 100) > 0 || priceDec > 0) {
+									builder.append((meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364");
+								} else {
+									builder.append("<span title='Kein Preis bekannt'>? &#8364</span>");
+								}
+							builder.append("</div>" +
 							"<div class='mealrating'>" +
 								IndexHtml.loadRating(meal, false) +
 							"</div>" +
