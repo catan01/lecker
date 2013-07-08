@@ -193,7 +193,7 @@ StringBuilder builder = new StringBuilder();
 						if ((meal.getPrice() / 100) > 0 || priceDec > 0) {
 							price = (meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364";
 						} else {
-							price = "?";
+							price = "<span title='Kein Preis bekannt'>? &#8364</span>";
 						}
 						
 						try {
@@ -305,6 +305,7 @@ StringBuilder builder = new StringBuilder();
 					builder.append("<div class='meal_category'><b>" + categoryName + "</b></div>");
 					for (String mealName: names) {
 						Meal meal = Handler.getInstance().getMealManager().getMeal(mealName);
+						Integer priceDec = meal.getPrice() % 100;
 						try {
 							mealName = URLEncoder.encode(mealName, "UTF8");
 						} catch (UnsupportedEncodingException e) {
@@ -314,9 +315,13 @@ StringBuilder builder = new StringBuilder();
 								"<div class='meal' onclick=\"window.location.href='?Meal=" + mealName + "'\"" +
 										(meal.getName().length() > MAX_NAME_LENGTH ? " title='" + meal.getName() + "'>" : ">") +
 											"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
-											"<br>" +
-											(meal.getPrice() / 100) + "." + (meal.getPrice() % 100) + " &#8364" +
-											"<div class='mealrating'>" +
+											"<br>");
+											if ((meal.getPrice() / 100) > 0 || priceDec > 0) {
+												builder.append((meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364");
+											} else {
+												builder.append("<span title='Kein Preis bekannt'>? &#8364</span>");
+											}
+											builder.append("<div class='mealrating'>" +
 											loadRating(meal, true) +
 											"</div>" +
 								"</div>" );
