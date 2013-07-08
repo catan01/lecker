@@ -356,7 +356,7 @@ StringBuilder builder = new StringBuilder();
 				"</div>" +
 				"<div class='canteen' onclick=\"window.location.href='?"+ AbstractServlet.PARAM_OUTLAY + "=Ofener Straße'\">" +
 					"<b>Mensa Ofener Straße</b>" +
-				"</div><br/><br/>"
+				"</div><br/><br/><br/>"
 			);
 			
 			return builder.toString();
