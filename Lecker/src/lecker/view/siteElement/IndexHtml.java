@@ -254,7 +254,7 @@ StringBuilder builder = new StringBuilder();
 			}
 			builder.append("<b> Ø " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</b>");
 		} else {
-			builder.append("Keine Bewertungen vorhanden");
+			builder.append("Keine Bewertung");
 		}
 
 		return builder.toString();
