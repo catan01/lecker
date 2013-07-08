@@ -152,6 +152,14 @@ public class MealHtml implements MainSiteElement {
 	private String showDescription(String remoteAddr) {
 		StringBuilder builder = new StringBuilder();
 		Integer priceDec = MEAL.getPrice() % 100;
+		String price = "";
+		
+		if ((MEAL.getPrice() / 100) > 0 || priceDec > 0) {
+			price = (MEAL.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364";
+		} else {
+			price = "?";
+		}
+		
 		builder.append(
 				"<div class='meal_name'>" +
 					MEAL.getName() +
@@ -161,10 +169,9 @@ public class MealHtml implements MainSiteElement {
 			builder.append("<img title='" + label.getName() + "' src='images/mealinfo/" + label.getName() + "_small.png'>  ");
 		}
 		builder.append(
-				
 				"</div>" +
 				"<div class='meal_price'>" + 
-				(MEAL.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" +
+					price +
 				"</div>" +
 				"<div id='meal_favorite'>" +
 					"<button type='button' id='favorite' onclick='addFavorite();'>Favorit hinzufügen</button>" +
