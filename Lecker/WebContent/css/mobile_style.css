@@ -1,5 +1,6 @@
 body {
 	font-family: 'Verdana';
+	font-size: 24pt;
 }
 
 button {
@@ -48,7 +49,6 @@ div.pointer{
 	background: white;
 	height:32px;
 	border: 3px solid #0A8104;
-	font-size: 14px;
 	text-align: center;
 	margin-bottom: 1px;
 	
@@ -71,7 +71,6 @@ div.meal_category {
 	background: #BDBDBD;
 	padding: 3px;
 	border: 3px solid #0A8104;
-	font-size: 12px;
 	text-align: center;
 	margin-bottom: 1px;
 }
@@ -80,7 +79,6 @@ div.meal {
 	background: white;
 	border: 3px solid #0A8104;
 	padding: 3px;
-	font-size: 12px;
 	text-align: center;
 	margin-bottom: 1px;
 }
@@ -88,7 +86,7 @@ div.meal {
 div.header{
 	background: #0A8104;
 	border: 3px solid #0A8104;
-	font-size: 14px;
+	font-size: 28pt;
 	color: white;
 	text-align: center;
 	margin-bottom: 1px;
@@ -99,7 +97,6 @@ div.box{
 	background: white;
 	border: 3px solid #0A8104;
 	padding: 3px;
-	font-size: 12px;
 	margin-bottom: 1px;
 }
 
@@ -118,7 +115,6 @@ div.box{
 }
 
 #overlay_login {
-	font-size: 10pt;
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -203,7 +199,6 @@ button {
 
 div.comment{
 	text-align: right;
-	font-size: 12px;
 }
 
 div.comment_rating{
@@ -226,7 +221,6 @@ div.canteen {
 	background: #BDBDBD;
 	padding: 3px;
 	border: 3px solid #0A8104;
-	font-size: 12px;
 	text-align: center;
 	margin-bottom: 1px;
 }
