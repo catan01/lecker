@@ -25,6 +25,8 @@ public class UserServlet extends AbstractServlet {
 	public final static String PARAM_USER_MODE = "Mode";
 	public final static String PARAM_MODE_NORMAL = "Normal";
 	public final static String PARAM_MODE_LOGOUT = "Logout";
+	
+	public final static String COOKIENAMETITLE = "LeckerName";
 
 	
 	

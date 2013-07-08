@@ -112,7 +112,7 @@ public class MealHtml implements MainSiteElement {
 	  	// add a Favourite
 		builder.append(
 	  			"function addFavorite() {" +
-  					"$.ajax({" +
+	  				"$.ajax({" +
 						"type:'POST'," +
 					    "cache:false," +
 						"url:'Favorite'," +
@@ -210,12 +210,21 @@ public class MealHtml implements MainSiteElement {
 							"<div class='meal_comment_content_header_user'>" +
 								comment.getUserName() +
 							"</div>" +
-							"<div class='meal_comment_content_header_rating'>" +
-							
-							"</div>" +
 						"</div>" +
 						"<div class='meal_comment_content_body'>" +
-							comment.getComment() +
+							"<div class='meal_comment_content_body_message'>" +
+								comment.getComment() +
+							"</div>" +
+							"<div class='meal_comment_content_body_rating'>");
+		for (int i = 1; i <= 5; ++i) {
+			if (i <= comment.getRating()) {
+				builder.append("<img src='images/star_green_small.png'>");
+			} else {
+				builder.append("<img src='images/star_gray_small.png'>");
+			}
+		}
+		builder.append(
+							"</div>" +
 						"</div>" +
 					"</div>" +
 				"</div>");
@@ -259,7 +268,7 @@ public class MealHtml implements MainSiteElement {
 		//header
 		builder.append(				
 			"<div class='header'>" +
-					"<b>" + IndexHtml.shortenMealName(MEAL.getName()) + "</b> " + IndexHtml.loadLabel(MEAL) + 
+				"<b>" + IndexHtml.shortenMealName(MEAL.getName()) + "</b> " + IndexHtml.loadLabel(MEAL) + 
 			"</div>" +	
 			"<div class='meal'>" +
 				this.showImage(images.toArray(new Image[0])) + "<br/>" +
