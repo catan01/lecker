@@ -212,6 +212,14 @@ hr {
 	background: #f5f3e5 url(south-street/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png) 50% top repeat-x;
 }
 
+.meal_comment_content_body_message {
+	height: 55px;
+}
+
+.meal_comment_content_body_rating {
+	text-align: right;
+}
+
 div.searchResult {
 	margin-right: 10px !important;
 	float: left;
