@@ -11,10 +11,6 @@ import lecker.view.SiteElement;
 
 
 public class Header implements SiteElement {
-	private final static String COOKIENAMETITLE = "LeckerName";
-	
-	
-	
 	@Override
 	public String getCode(String remoteAddr, boolean isMobile) {
 		if (!isMobile) {
@@ -156,7 +152,7 @@ public class Header implements SiteElement {
 							"showLogin();" +
 						"}" +
 			  			"var textF = document.getElementById('" + UserServlet.PARAM_USER_NAME + "');" +
-			  			"textF.value = localStorage.getItem('" + COOKIENAMETITLE + "');" +
+			  			"textF.value = localStorage.getItem('" + UserServlet.COOKIENAMETITLE + "');" +
 					"});");
 			
 		  	// login
@@ -183,7 +179,7 @@ public class Header implements SiteElement {
 											"if(response != '') {" +
 												"name = response.split('|')[0];" +
 												"favorites = response.split('|')[1].split(':');" +
-												"localStorage.setItem('" + COOKIENAMETITLE + "', name);" +
+												"localStorage.setItem('" + UserServlet.COOKIENAMETITLE + "', name);" +
 												"showLogout();" +
 												"overlayLogin();" +
 											"} else {" +

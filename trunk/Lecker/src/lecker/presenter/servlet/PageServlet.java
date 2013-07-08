@@ -27,7 +27,7 @@ public class PageServlet extends AbstractServlet {
 	@Override
 	public synchronized void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userAgent = request.getHeader("User-Agent");
-		Boolean isMobile = userAgent.contains("iPhone") || userAgent.contains("iPad") || userAgent.contains("Opera Mini") || userAgent.contains("Opera Mobi") || userAgent.contains("BlackBerry") || userAgent.contains("Android");
+		Boolean isMobile = true;
 		try {
 			response.setContentType("text/html");
 			Object attr;

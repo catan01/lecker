@@ -14,7 +14,7 @@ import lecker.view.siteElement.Header;
  *
  */
 public class Constructor {
-	private final static String title = " - Lecker";
+	private final static String title = " - Lecker!";
 	
 	private final Header HEADER;
 	private final Footer FOOTER;
