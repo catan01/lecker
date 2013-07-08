@@ -321,7 +321,7 @@ for (Comment comment: comments) {
 	builder.append(showComment(comment, true));
 }
 builder.append("</div>" +
-		"<br/><br/>");
+		"<br/><br/><br/>");
 				
 				
 				
