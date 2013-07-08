@@ -1,5 +1,5 @@
 body {
-	font-family: 'Verdana';
+	font-family: Verdana, sans-serif, Helvetica;
 	font-size: 24pt;
 }
 
@@ -10,7 +10,7 @@ button {
 	padding-bottom: 5px;
 	padding-left: 10px;
 	padding-right: 10px;
-	font-size: 8pt;
+	font-size: 24pt;
 	color: #ffffff;
 	border: 1px solid #327e04;
 	border-radius: 5px;
@@ -50,7 +50,8 @@ div.pointer{
 	height:32px;
 	border: 3px solid #0A8104;
 	text-align: center;
-	margin-bottom: 1px;
+	margin-bottom: 10px;
+	padding: 3px;
 	
 }
 #date_left{
@@ -72,7 +73,7 @@ div.meal_category {
 	padding: 3px;
 	border: 3px solid #0A8104;
 	text-align: center;
-	margin-bottom: 1px;
+	margin-bottom: 10px;
 }
 
 div.meal {
@@ -80,7 +81,7 @@ div.meal {
 	border: 3px solid #0A8104;
 	padding: 3px;
 	text-align: center;
-	margin-bottom: 1px;
+	margin-bottom: 10px;
 }
 
 div.header{
@@ -89,7 +90,8 @@ div.header{
 	font-size: 28pt;
 	color: white;
 	text-align: center;
-	margin-bottom: 1px;
+	padding:3px;
+	margin-bottom: 10px;
 }
 
 
@@ -177,10 +179,6 @@ div.login_name{
 	text-align: center;
 }
 
-button {
-	font-family: 'Verdana';
-}
-
 #lightBox {
 	display: none;
 	position: fixed;
@@ -211,8 +209,13 @@ div.comment_write{
 }
 
 .comment_comment{
-width:98%;
+	width:98%;
 	padding: 3px;
+	font-size: 24pt;
+}
+
+#onLogin {
+	font-size: 24pt;
 }
 
 /*canteen page*/
@@ -222,5 +225,5 @@ div.canteen {
 	padding: 3px;
 	border: 3px solid #0A8104;
 	text-align: center;
-	margin-bottom: 1px;
+	margin-bottom: 10px;
 }
