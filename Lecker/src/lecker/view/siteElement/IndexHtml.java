@@ -160,6 +160,14 @@ public class IndexHtml implements MainSiteElement {
 					for (String mealName: names) {
 						Meal meal = Handler.getInstance().getMealManager().getMeal(mealName);
 						Integer priceDec = meal.getPrice() % 100;
+						String price = "";
+
+						if ((meal.getPrice() / 100) > 0 || priceDec > 0) {
+							price = (meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364";
+						} else {
+							price = "?";
+						}
+						
 						try {
 							mealName = URLEncoder.encode(mealName, "UTF8");
 						} catch (UnsupportedEncodingException e) {
@@ -174,7 +182,7 @@ public class IndexHtml implements MainSiteElement {
 									"<div class='mealtitle'>" +
 										"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
 										"<br>" +
-										(meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364" +
+										price +
 									"</div>" +
 									"<div class='mealrating'>" +
 										loadRating(meal) +
