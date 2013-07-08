@@ -30,7 +30,6 @@ public class Constructor {
 	
 	public String getSite(String remoteAddr, MainSiteElement site, boolean isMobile) {
 		StringBuffer buffer = new StringBuffer();
-		if (!isMobile) {
 		buffer.append(
 				"<!DOCTYPE html>" +
 				"<html>" +
@@ -38,26 +37,13 @@ public class Constructor {
 						"<title>" + site.getTitle() + title + "</title>" +
 						"<link rel='icon' href='images/favicon.png' type='image/png'>" +
 						"<link href='css/south-street/jquery-ui-1.10.2.custom.min.css' rel='stylesheet'>" +
-						"<link href='css/style.css' rel='stylesheet'>" +
+						"<link href='css/"+ (isMobile?"mobile_":"")+ "style.css' rel='stylesheet'>" +
 						"<script src='js/jquery-1.9.1.js'></script>" +
 						"<script src='js/jquery-ui-1.10.2.custom.js'></script>" +
 						"<script>" + HEADER.getSkript(remoteAddr, isMobile) + site.getSkript(remoteAddr, isMobile) + FOOTER.getSkript(remoteAddr, isMobile) + "</script>" +
 					"</head>" +
 					"<body>" + HEADER.getCode(remoteAddr, isMobile) + site.getCode(remoteAddr, isMobile) + FOOTER.getCode(remoteAddr, isMobile) + "</body>" +
 				"</html>");
-		} else if (isMobile) {
-			buffer.append(
-					"<!DOCTYPE html>" +
-					"<html>" +
-						"<head>" +
-							"<title>" + site.getTitle() + title + "</title>" +
-							"<link rel='icon' href='images/favicon.png' type='image/png'>" +
-							"<link href='css/mobile_style.css' rel='stylesheet'>" +
-							"<script>" + HEADER.getSkript(remoteAddr, isMobile) + site.getSkript(remoteAddr, isMobile) + FOOTER.getSkript(remoteAddr, isMobile) + "</script>" +
-						"</head>" +
-						"<body>" + HEADER.getCode(remoteAddr, isMobile) + site.getCode(remoteAddr, isMobile) + FOOTER.getCode(remoteAddr, isMobile) + "</body>" +
-					"</html>");
-		}
 		return buffer.toString();
 	}
 }

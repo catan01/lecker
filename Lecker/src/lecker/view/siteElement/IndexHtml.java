@@ -216,7 +216,7 @@ public class IndexHtml implements MainSiteElement {
 					builder.append("<img src='images/star_gray_small.png'>");
 				}
 			}
-			builder.append("<b>Ø " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</b>");
+			builder.append("<b> Ø " + new DecimalFormat("0.00").format(1.0 * rate / count) + "</b>");
 		} else {
 			builder.append("Keine Bewertungen vorhanden");
 		}
