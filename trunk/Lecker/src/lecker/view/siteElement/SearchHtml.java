@@ -52,7 +52,7 @@ public class SearchHtml implements MainSiteElement {
 								"<img src='images/meals/" + (meal.hasPicture() ? meal.getName() + "/1_small.jpg'>" : "template_small.png'>") +
 							"</div>" +
 							"<div class='mealtitle'>" +
-								"<b>" + IndexHtml.shortenMealName(meal.getName()) + "</b> " + IndexHtml.loadLabel(meal) + 
+								"<b>" + IndexHtml.shortenMealName(meal.getName()) + "</b> " + IndexHtml.loadLabel(meal,false) + 
 								"<br>");
 								if ((meal.getPrice() / 100) > 0 || priceDec > 0) {
 									builder.append((meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364");

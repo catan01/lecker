@@ -284,7 +284,7 @@ public class MealHtml implements MainSiteElement {
 		//header
 		builder.append(				
 			"<div class='header'>" +
-				"<b>" + IndexHtml.shortenMealName(MEAL.getName()) + "</b> " + IndexHtml.loadLabel(MEAL) + 
+				"<b>" + IndexHtml.shortenMealName(MEAL.getName()) + "</b> " + IndexHtml.loadLabel(MEAL,true) + 
 			"</div>" +	
 			"<div class='meal'>" +
 				this.showImage(images.toArray(new Image[0])) + "<br/>" +
