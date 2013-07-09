@@ -47,13 +47,13 @@ public class MealHtml implements MainSiteElement {
 			}
 		}
 		if (!isMobile) {
-		builder.append("<br/><br/>");
+			builder.append("<br/><br/>");
 		
-		builder.append("<div class='meal_left'>" +
-			this.showImage(images.toArray(new Image[0])) + "<br/>" +
-			this.showDescription(remoteAddr) + "<br/>" +
-			this.showRating(ratings) + "<br/>" +
-			"</div><div class='meal_right'>" +
+			builder.append("<div class='meal_left'>" +
+					this.showImage(images.toArray(new Image[0]),false) + "<br/>" +
+					this.showDescription(remoteAddr) + "<br/>" +
+					this.showRating(ratings) + "<br/>" +
+					"</div><div class='meal_right'>" +
 			"<div class='comment' id='insertAnker'>" +
 				"<form id='comment' action='.' type='POST'>" +
 					"<textarea rows='4' cols='100'  class='comment_comment' id='" + CommentServlet.PARAM_COMMENT + "'></textarea></br>" +
@@ -141,11 +141,14 @@ public class MealHtml implements MainSiteElement {
 	
 	
 	
-	private String showImage(Image[] images) {
+	private String showImage(Image[] images, boolean isMobile) {
 		StringBuilder builder = new StringBuilder();
-		
-		builder.append("<div class='meal_image'><img src='images/meals/" + (MEAL.hasPicture() ? MEAL.getName() + "/1.jpg'>" : "template.png'>") + "</div>");
-
+		if(!isMobile){
+			builder.append("<div class='meal_image'><img src='images/meals/" + (MEAL.hasPicture() ? MEAL.getName() + "/1.jpg'>" : "template.png'>") + "</div>");
+		}else{
+			builder.append("<div class='meal_image'><img src='images/meals/" + (MEAL.hasPicture() ? MEAL.getName() + "/1_big.jpg'>" : "template.png'>") + "</div>");
+			
+		}
 		return builder.toString();
 	}
 	
@@ -287,7 +290,7 @@ public class MealHtml implements MainSiteElement {
 				"<b>" + IndexHtml.shortenMealName(MEAL.getName()) + "</b> " + IndexHtml.loadLabel(MEAL,true) + 
 			"</div>" +	
 			"<div class='meal'>" +
-				this.showImage(images.toArray(new Image[0])) + "<br/>" +
+				this.showImage(images.toArray(new Image[0]), true) +
 			"</div>" + 
 	//price and favorite
 	"<div class='meal'>" +
