@@ -208,7 +208,7 @@ StringBuilder builder = new StringBuilder();
 										"<img src='images/meals/" + (meal.hasPicture() ? meal.getName() + "/1_small.jpg'>" : "template_small.png'>") +
 									"</div>" +
 									"<div class='mealtitle'>" +
-										"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
+										"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal, false) + 
 										"<br>" +
 										price +
 									"</div>" +
@@ -260,13 +260,17 @@ StringBuilder builder = new StringBuilder();
 		return builder.toString();
 	}
 
-	public static String loadLabel(Meal meal) {
+	public static String loadLabel(Meal meal, boolean isMobile) {
 		StringBuilder builder = new StringBuilder();
-
-		for (Label label: meal.getLabels()) {
-			builder.append("<img title='" + label.getName() + "' src='images/mealinfo/" + label.getName() + "_small.png'>  ");
+		if(!isMobile){
+			for (Label label: meal.getLabels()) {
+				builder.append("<img title='" + label.getName() + "' src='images/mealinfo/" + label.getName() + "_small.png'>  ");
+			}
+		}else if (isMobile){
+				for (Label label: meal.getLabels()) {
+					builder.append("<img title='" + label.getName() + "' src='images/mealinfo/" + label.getName() + "_medium.png'>  ");
+				}
 		}
-
 		return builder.toString();
 	}
 	
@@ -314,7 +318,7 @@ StringBuilder builder = new StringBuilder();
 						builder.append(
 								"<div class='meal' onclick=\"window.location.href='?Meal=" + mealName + "'\"" +
 										(meal.getName().length() > MAX_NAME_LENGTH ? " title='" + meal.getName() + "'>" : ">") +
-											"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal) + 
+											"<b>" + shortenMealName(meal.getName()) + "</b> " + loadLabel(meal,true) + 
 											"<br>");
 											if ((meal.getPrice() / 100) > 0 || priceDec > 0) {
 												builder.append((meal.getPrice() / 100) + "." + ((priceDec < 10) ? "0" + priceDec : priceDec) + " &#8364");
