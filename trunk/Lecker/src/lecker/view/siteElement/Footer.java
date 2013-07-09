@@ -1,9 +1,6 @@
 package lecker.view.siteElement;
 
 
-
-import lecker.model.data.User;
-import lecker.presenter.Handler;
 import lecker.presenter.servlet.UserServlet;
 import lecker.view.SiteElement;
 
@@ -34,10 +31,12 @@ public class Footer implements SiteElement {
 							"</div>" +
 							"<form id='login' action='.' type='POST'>" +
 								"<div class='login_name'>" +
-									"Benutzername: <input class='login_name' id='" + UserServlet.PARAM_USER_NAME + "'>" +
+									"Benutzername:<br/>" +
+									"<input class='login_name' id='" + UserServlet.PARAM_USER_NAME + "'>" +
 								"</div>" +
 								"<div class='login_password'>" +
-									"Passwort: <input type='password' class='login_password' id='" + UserServlet.PARAM_USER_PW + "'>" +
+									"Passwort:<br/>"+
+									"<input type='password' class='login_password' id='" + UserServlet.PARAM_USER_PW + "'>" +
 								"</div>" +
 								"<div class='login_submit'>" +
 									"<input type='submit' id='submit' value='Anmelden'>" +
