@@ -10,7 +10,7 @@ button {
 	padding-bottom: 5px;
 	padding-left: 10px;
 	padding-right: 10px;
-	font-size: 24pt;
+	font-size: 36pt;
 	color: #ffffff;
 	border: 1px solid #327e04;
 	border-radius: 5px;
@@ -22,7 +22,7 @@ button {
 #menu {
 	position: fixed;
 	background: white;
-	bottom: 0;
+	bottom: 0px;
 	width:100%;
 	text-align: center;
 }
@@ -213,7 +213,7 @@ div.comment_write{
 	padding-bottom: 5px;
 	padding-left: 10px;
 	padding-right: 10px;
-	font-size: 24pt;
+	font-size: 36pt;
 	color: #ffffff;
 	border: 1px solid #327e04;
 	border-radius: 5px;
